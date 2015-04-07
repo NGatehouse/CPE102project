@@ -18,8 +18,11 @@ SCREEN_HEIGHT = 480
 TILE_WIDTH = 32
 TILE_HEIGHT = 32
 
+def __init__(self):
+    return entities.Background(image_store.DEFAULT_IMAGE_NAME, self)
 
-def create_default_background(img):
+
+def create_default_background(img):  #delete
    return entities.Background(image_store.DEFAULT_IMAGE_NAME, img)
 
 
@@ -33,8 +36,7 @@ def main():
    num_cols = SCREEN_WIDTH // TILE_WIDTH * WORLD_WIDTH_SCALE
    num_rows = SCREEN_HEIGHT // TILE_HEIGHT * WORLD_HEIGHT_SCALE
 
-   default_background = create_default_background(
-      image_store.get_images(i_store, image_store.DEFAULT_IMAGE_NAME))
+   default_background = create_default_background(image_store.get_images(i_store, image_store.DEFAULT_IMAGE_NAME))
 
    world = worldmodel.WorldModel(num_rows, num_cols, default_background)
    view = worldview.WorldView(SCREEN_WIDTH // TILE_WIDTH,

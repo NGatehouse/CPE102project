@@ -19,11 +19,65 @@ class WorldView:
       self.num_rows = world.num_rows
       self.num_cols = world.num_cols
       self.mouse_img = mouse_img
+      
+   def draw_viewport(self):
+      self.draw_background()
+      self.draw_entities()
 
+   def draw_background(self):
+      for y in range(0, self.viewport.height):
+          for x in range(0, self.viewport.width):
+             w_pt = viewport_to_world(self.viewport, point.Point(x, y))
+             img = worldmodel.get_background_image(self.world, w_pt)
+             self.screen.blit(img, (x * self.tile_width, y * self.tile_height))
+             
+   def draw_entities(self):
+      for entity in self.world.entities:
+          if self.viewport.collidepoint(entity.position.x, entity.position.y):
+             v_pt = world_to_viewport(self.viewport, entity.position)
+             self.screen.blit(entities.get_image(entity),(v_pt.x * self.tile_width, v_pt.y * self.tile_height))
 
+   def update_view(self, view_delta=(0,0), mouse_img=None): 
+      self.viewport = create_shifted_viewport(self.viewport, view_delta, self.num_rows, self.num_cols)
+      self.mouse_img = mouse_img
+      self.draw_viewport()
+      pygame.display.update()
+      mouse_move(self, self.mouse_pt) #Why pass view.mouse_pt if already being passed within object view?
+   
+   def update_view_tiles(self, tiles):
+      rects = []
+       for tile in tiles:
+          if self.viewport.collidepoint(tile.x, tile.y):
+             v_pt = world_to_viewport(self.viewport, tile)
+             img = get_tile_image(self, v_pt)
+             rects.append(update_tile(self, v_pt, img))
+             if self.mouse_pt.x == v_pt.x and self.mouse_pt.y == v_pt.y:
+                rects.append(self.update_mouse_cursor())
+
+       pygame.display.update(rects)
+      
+   def update_tile(view_tile_pt, surface):
+      abs_x = view_tile_pt.x * self.tile_width
+      abs_y = view_tile_pt.y * self.tile_height
+
+      self.screen.blit(surface, (abs_x, abs_y))
+
+      return pygame.Rect(abs_x, abs_y, self.tile_width, self.tile_height)
+      
+   def get_tile_image(view_tile_pt):
+      pt = viewport_to_world(self.viewport, view_tile_pt)
+      bgnd = worldmodel.get_background_image(self.world, pt)
+      occupant = worldmodel.get_tile_occupant(self.world, pt)
+      if occupant:
+         img = pygame.Surface((self.tile_width, self.tile_height))
+         img.blit(bgnd, (0, 0))
+         img.blit(entities.get_image(occupant), (0,0))
+         return img
+      else:
+         return bgnd
+    
 def viewport_to_world(viewport, pt):
    return point.Point(pt.x + viewport.left, pt.y + viewport.top)
-
 
 def world_to_viewport(viewport, pt):
    return point.Point(pt.x - viewport.left, pt.y - viewport.top)
@@ -40,27 +94,30 @@ def create_shifted_viewport(viewport, delta, num_rows, num_cols):
    return pygame.Rect(new_x, new_y, viewport.width, viewport.height)
 
 
-def draw_background(view):
+"""def draw_background(view): #put into WorldView
    for y in range(0, view.viewport.height):
       for x in range(0, view.viewport.width):
          w_pt = viewport_to_world(view.viewport, point.Point(x, y))
          img = worldmodel.get_background_image(view.world, w_pt)
          view.screen.blit(img, (x * view.tile_width, y * view.tile_height))
+         """
 
-
-def draw_entities(view):
+"""
+def draw_entities(view):  #put into WorldView
    for entity in view.world.entities:
       if view.viewport.collidepoint(entity.position.x, entity.position.y):
          v_pt = world_to_viewport(view.viewport, entity.position)
          view.screen.blit(entities.get_image(entity),
             (v_pt.x * view.tile_width, v_pt.y * view.tile_height))
+"""
 
 
-def draw_viewport(view):
+"""def draw_viewport(view): #put into WorldView
    draw_background(view)
    draw_entities(view)
+"""
 
-
+"""
 def update_view(view, view_delta=(0,0), mouse_img=None):
    view.viewport = create_shifted_viewport(view.viewport, view_delta,
       view.num_rows, view.num_cols)
@@ -68,8 +125,9 @@ def update_view(view, view_delta=(0,0), mouse_img=None):
    draw_viewport(view)
    pygame.display.update()
    mouse_move(view, view.mouse_pt)
+"""
 
-
+"""
 def update_view_tiles(view, tiles):
    rects = []
    for tile in tiles:
@@ -81,8 +139,8 @@ def update_view_tiles(view, tiles):
             rects.append(update_mouse_cursor(view))
 
    pygame.display.update(rects)
-
-
+"""
+"""
 def update_tile(view, view_tile_pt, surface):
    abs_x = view_tile_pt.x * view.tile_width
    abs_y = view_tile_pt.y * view.tile_height
@@ -90,8 +148,8 @@ def update_tile(view, view_tile_pt, surface):
    view.screen.blit(surface, (abs_x, abs_y))
 
    return pygame.Rect(abs_x, abs_y, view.tile_width, view.tile_height)
-
-
+"""
+"""
 def get_tile_image(view, view_tile_pt):
    pt = viewport_to_world(view.viewport, view_tile_pt)
    bgnd = worldmodel.get_background_image(view.world, pt)
@@ -103,7 +161,7 @@ def get_tile_image(view, view_tile_pt):
       return img
    else:
       return bgnd
-
+"""
 
 def create_mouse_surface(view, occupied):
    surface = pygame.Surface((view.tile_width, view.tile_height))

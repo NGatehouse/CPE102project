@@ -32,12 +32,12 @@ def sign(x):
       return 0
 
 
-def adjacent(pt1, pt2):
+def adjacent(pt1, pt2): # justify in documentation
    return ((pt1.x == pt2.x and abs(pt1.y - pt2.y) == 1) or
       (pt1.y == pt2.y and abs(pt1.x - pt2.x) == 1))
 
 
-def next_position(world, entity_pt, dest_pt):
+"""def next_position(world, entity_pt, dest_pt):
    horiz = sign(dest_pt.x - entity_pt.x)
    new_pt = point.Point(entity_pt.x + horiz, entity_pt.y)
 
@@ -117,10 +117,10 @@ def create_miner_not_full_action(world, entity, i_store):
          create_miner_action(world, new_entity, i_store),
          current_ticks + entities.get_rate(new_entity))
       return tiles
-   return action
+   return action"""
 
 
-def create_miner_full_action(world, entity, i_store):
+"""def create_miner_full_action(world, entity, i_store):
    def action(current_ticks):
       entities.remove_pending_action(entity, action)
 
@@ -156,26 +156,24 @@ def blob_to_vein(world, entity, vein):
       return (worldmodel.move_entity(world, entity, new_pt), False)
 
 
-def create_ore_blob_action(world, entity, i_store):
+def create_ore_blob_action(self,world, i_store):
    def action(current_ticks):
-      entities.remove_pending_action(entity, action)
+      self.remove_pending_action( action)
 
-      entity_pt = entities.get_position(entity)
-      vein = worldmodel.find_nearest(world, entity_pt, entities.Vein)
-      (tiles, found) = blob_to_vein(world, entity, vein)
+      entity_pt = self.get_position()
+      vein = world.find_nearest(entity_pt, entities.Vein)
+      (tiles, found) = self.blob_to_vein(world,vein)
 
-      next_time = current_ticks + entities.get_rate(entity)
+      next_time = current_ticks + self.get_rate(self)
       if found:
-         quake = create_quake(world, tiles[0], current_ticks, i_store)
-         worldmodel.add_entity(world, quake)
-         next_time = current_ticks + entities.get_rate(entity) * 2
+         quake = world.create_quake( tiles[0], current_ticks, i_store)# implement
+         world.add_entity(quake)
+         next_time = current_ticks + self.get_rate(self) * 2
 
-      schedule_action(world, entity,
-         create_ore_blob_action(world, entity, i_store),
-         next_time)
+      self.schedule_action(world,self.create_ore_blob_action(world, i_store),next_time)
 
       return tiles
-   return action
+   return action"""
 
 
 def find_open_around(world, pt, distance):
@@ -231,7 +229,7 @@ def try_transform_miner_not_full(world, entity):
          entities.get_images(entity), entities.get_animation_rate(entity))
       return new_entity
 
-
+create_animation_action
 def try_transform_miner(world, entity, transform):
    new_entity = transform(world, entity)
    if entity != new_entity:

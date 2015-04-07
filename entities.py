@@ -1,5 +1,5 @@
 import point
-
+import actions
 class Background: 
    def __init__(self, name, imgs):
       self.name = name
@@ -28,14 +28,49 @@ class MinerNotFull:
       self.resource_count = 0
       self.animation_rate = animation_rate
       self.pending_actions = []
+    
+   def create_animation_action(self,world,repeat_count):
+      def action(current_ticks):
+         self.remove_pending_action(action)
+         self.next_image()
+         if repeat_count != 1:
+            self.schedule_action(world,self.create_animation_action(world,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate())
+
+         return [self.get_position()]
+      return action
+      
+   """def schedule_entity(self,world,i_store): #done 
+      self.schedule_miner(world,i_store)"""
+   def schedule_miner(self,world, ticks, i_store): # not done
+      self.schedule_action(world, self.create_miner_action(world,i_store),ticks + self.get_rate())
+      self.schedule_animation(world, miner)
+      
+   def schedule_action(self,world, action, time): # not done 
+      self.add_pending_action(action)
+      world.schedule_action(action, time)
+
+
+   def schedule_animation(self,world,repeat_count=0): # not done
+      self.schedule_action(world,create_animation_action(world, entity, repeat_count),entities.get_animation_rate(entity))
+      
+   def create_miner_not_full_action(self,world, i_store): # this method is done just implement other methods
+      def action(current_ticks):
+         self.remove_pending_action(action) 
+   
+         entity_pt = self.get_position()
+         ore = world.find_nearest(entity_pt, self.Ore)
+         (tiles, found) = miner_to_ore(world, entity, ore) # implement
+
+         new_entity = self
+         if found:
+            new_entity = try_transform_miner(world, self,try_transform_miner_not_full) # implement
+            world.schedule_action( new_entity,world.create_miner_action(new_entity, i_store),current_ticks + self.get_rate()) # implement
+         return tiles
+      return action
       
    def entity_string(self):
-      if isinstance(self, MinerNotFull):
-         return ' '.join(['miner', self.name, str(self.position.x),
-            str(self.position.y), str(self.resource_limit),
-            str(self.rate), str(self.animation_rate)])
-      else:
-         return 'unknown'
+      return ' '.join(['miner', self.name, str(self.position.x),str(self.position.y), str(self.resource_limit),str(self.rate), str(self.animation_rate)])
+      
             
    def set_position(self, point):
       self.position = point
@@ -91,6 +126,48 @@ class MinerFull:
       self.resource_count = resource_limit
       self.animation_rate = animation_rate
       self.pending_actions = []
+      
+   def create_miner_full_action(world, entity, i_store):
+      def action(current_ticks):
+         entities.remove_pending_action(entity, action)
+
+         entity_pt = entities.get_position(entity)
+         smith = worldmodel.find_nearest(world, entity_pt, entities.Blacksmith)
+         (tiles, found) = miner_to_smith(world, entity, smith)
+
+         new_entity = entity
+         if found:
+            new_entity = try_transform_miner(world, entity,try_transform_miner_full)
+
+         schedule_action(world, new_entity,create_miner_action(world, new_entity, i_store),current_ticks + entities.get_rate(new_entity))
+      return tiles
+   return action
+      
+   def miner_to_smith(self, world, smith): # done (:
+      entity_pt = self.get_position()
+      if not smith:
+         return ([entity_pt], False)
+      smith_pt = smith.get_position()
+      if actions.adjacent(entity_pt, smith_pt): # leave adjacent as a function
+         smith.set_resource_count(smith.get_resource_count() + self.get_resource_count()) 
+         self.set_resource_count(0)
+         return ([], True)
+      else:
+         new_pt = world.next_position(entity_pt, smith_pt)
+         return (world.move_entity(self, new_pt), False)
+   def miner_to_ore(self,world, ore): # done
+      entity_pt = self.get_position()
+      if not ore:
+         return ([entity_pt], False)
+      ore_pt = ore.get_position()
+      if actions.adjacent(entity_pt, ore_pt):
+         self.set_resource_count(1 + self.get_resource_count())
+         world.remove_entity(ore) 
+         return ([ore_pt], True)
+      else:
+         new_pt = world.next_position(entity_pt, ore_pt)
+         return (world.move_entity(entity, new_pt), False)
+         
    def set_position(self, point):
       self.position = point
    def get_position(self):
@@ -144,12 +221,8 @@ class Vein:
       self.pending_actions = []
       
    def entity_string(self):
-      if isinstance(self, Vein):
-         return ' '.join(['vein', self.name, str(self.position.x),
-            str(self.position.y), str(self.rate),
-            str(self.resource_distance)])
-      else:
-         return 'unkown'
+      return ' '.join(['vein', self.name, str(self.position.x),str(self.position.y), str(self.rate),str(self.resource_distance)])
+      
             
    def set_position(self, point):
       self.position = point
@@ -197,11 +270,8 @@ class Ore:
       self.pending_actions = []
       
    def entity_string(self):   
-      if isinstance(self, Ore):
-         return ' '.join(['ore', self.name, str(self.position.x),
-            str(self.position.y), str(self.rate)])
-      else:
-         return 'unknown'
+      return ' '.join(['ore', self.name, str(self.position.x), str(self.position.y), str(self.rate)])
+  
       
    def set_position(self, point):
       self.position = point
@@ -250,12 +320,9 @@ class Blacksmith:
       self.pending_actions = []
       
    def entity_string(self):
-      if isinstance(self, Blacksmith):
-         return ' '.join(['blacksmith', self.name, str(self.position.x),
-            str(self.position.y), str(self.resource_limit),
-            str(self.rate), str(self.resource_distance)])
-      else:
-         return 'unkown'
+      return ' '.join(['blacksmith', self.name, str(self.position.x),str(self.position.y), str(self.resource_limit),str(self.rate), str(self.resource_distance)])
+      
+      
       
    def set_position(self, point):
       self.position = point
@@ -307,12 +374,9 @@ class Obstacle:
       self.imgs = imgs
       self.current_img = 0
     
-   def entity_string(self):
-      if isinstance(self, Obstacle):
-         return ' '.join(['obstacle', self.name, str(self.position.x),
-            str(self.position.y)])
-      else:
-         return 'unknown'
+   def entity_string(self): # dont need is instance just return...
+      return ' '.join(['obstacle', self.name, str(self.position.x), str(self.position.y)])
+           
       
    def set_position(self, point):
       self.position = point
@@ -338,6 +402,39 @@ class OreBlob:
       self.animation_rate = animation_rate
       self.pending_actions = []
       
+   def blob_to_vein(self,world,vein):
+      entity_pt = self.get_position()
+      if not vein:
+         return ([entity_pt], False)
+      vein_pt = vein.get_position()
+      if adjacent(entity_pt, vein_pt):
+         world.remove_entity(vein)
+         return ([vein_pt], True)
+      else:
+         new_pt = world.blob_next_position(entity_pt, vein_pt) 
+         old_entity = world.get_tile_occupant(new_pt)
+         if isinstance(old_entity, entities.Ore): # do i need to change isinstance?
+            world.remove_entity(old_entity)
+         return (world.move_entity(entity, new_pt), False)
+   def create_ore_blob_action(self,world, i_store):
+      def action(current_ticks):
+         self.remove_pending_action( action)
+   
+         entity_pt = self.get_position()
+         vein = world.find_nearest(entity_pt, entities.Vein)
+         (tiles, found) = self.blob_to_vein(world,vein)
+
+         next_time = current_ticks + self.get_rate()
+         if found:
+            quake = world.create_quake( tiles[0], current_ticks, i_store)
+            world.add_entity( quake)
+            next_time = current_ticks + self.get_rate() * 2
+
+         self.schedule_action(world,self.create_ore_blob_action(world,i_store),next_time)
+            
+
+         return tiles
+      return action
    def set_position(self, point):
       self.position = point
    def get_position(self):

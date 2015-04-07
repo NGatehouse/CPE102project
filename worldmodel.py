@@ -106,5 +106,5 @@ def nearest_entity(entity_dists):
             pair = other
       nearest = pair[0]
    else:
-      nearest = None #None+
+      nearest = None 
    return nearest

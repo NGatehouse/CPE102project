@@ -68,7 +68,7 @@ class WorldModel:
    def move_entity(self, entity, pt):
       tiles = []
       if within_bounds(self, pt):
-         old_pt = pt.get_position()
+         old_pt = pt.get_position() # not sure if this is right
          self.occupancy.set_cell( old_pt, None) 
          tiles.append(old_pt)
          self.occupancy.set_cell(pt, entity)

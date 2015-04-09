@@ -28,6 +28,36 @@ class MinerNotFull:
       self.resource_count = 0
       self.animation_rate = animation_rate
       self.pending_actions = []
+   
+   def clear_pending_actions(self,world):
+      for action in self.get_pending_actions():
+         world.unschedule_action(action)
+      self.clear_pending_actions()
+   
+      
+   def create_miner_action(world, entity, image_store): # done
+      return self.create_miner_not_full_action(world, image_store)
+  
+      
+   def try_transform_miner(self,world,transform):
+      new_entity = self.transform(world)
+      if self != new_entity:
+         self.clear_pending_actions(world)
+         world.remove_entity_at(world, self.get_position(self))
+         world.add_entity(world, new_entity)
+         world.schedule_animation(new_entity)
+
+      return new_entity
+      
+   def try_transform_miner_not_full(self,world): # done 
+      if self.resource_count < self.resource_limit:
+         return entity
+      else:
+         new_entity = entities.MinerFull(
+         self.get_name(), self.get_resource_limit(),
+         self.get_position(), self.get_rate(),
+         self.get_images(), self.get_animation_rate())
+      return new_entity
       
    def miner_to_ore(self,world, ore): # done
       entity_pt = self.get_position()
@@ -42,29 +72,32 @@ class MinerNotFull:
          new_pt = world.next_position(entity_pt, ore_pt)
          return (world.move_entity(entity, new_pt), False)
     
-   def create_animation_action(self,world,repeat_count):
+   def create_animation_action(self,world,repeat_count): # do i have to put this into every class?
       def action(current_ticks):
          self.remove_pending_action(action)
          self.next_image()
          if repeat_count != 1:
-            self.schedule_action(world,self.create_animation_action(world,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate())
-
+            self.schedule_action(world,world.create_animation_action(self,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
          return [self.get_position()]
+      return action   
+   def create_entity_death_action(self,world): # do i have to put this into every class?
+      def action(current_ticks):
+         self.remove_pending_action(action)
+         pt = self.get_position()
+         world.remove_entity(self)
+         return [pt]
       return action
-      
-   """def schedule_entity(self,world,i_store): #done 
-      self.schedule_miner(world,i_store)"""
-   def schedule_miner(self,world, ticks, i_store): # not done
-      self.schedule_action(world, self.create_miner_action(world,i_store),ticks + self.get_rate())
-      self.schedule_animation(world, miner)
-      
-   def schedule_action(self,world, action, time): # not done 
+   def schedule_action(self,world,action, time):
       self.add_pending_action(action)
       world.schedule_action(action, time)
-
-
-   def schedule_animation(self,world,repeat_count=0): # not done
-      self.schedule_action(world,create_animation_action(world, entity, repeat_count),entities.get_animation_rate(entity))
+   def schedule_animation(self,world,repeat_count=0):
+      self.schedule_action(world,self.create_animation_action(world,repeat_count),self.get_animation_rate())      
+   
+   """def schedule_miner(self,world, ticks, i_store): # not done
+      self.schedule_action(world, self.create_miner_action(world,i_store),ticks + self.get_rate())
+      self.schedule_animation(world)"""
+      
+ 
       
    def create_miner_not_full_action(self,world, i_store): # this method is done just implement other methods
       def action(current_ticks):
@@ -76,8 +109,8 @@ class MinerNotFull:
 
          new_entity = self
          if found:
-            new_entity = world.try_transform_miner( new_entity,world.try_transform_miner_not_full) # implement
-            world.schedule_action( new_entity,world.create_miner_action(new_entity, i_store),current_ticks + new_entity.get_rate()) # implement
+            new_entity = new_entity.try_transform_miner( world,new_entity.try_transform_miner_not_full) # implement
+            new_entity.schedule_action( world,new_entity.create_miner_action(world, i_store),current_ticks + new_entity.get_rate()) # implement
          return tiles
       return action
       
@@ -140,6 +173,48 @@ class MinerFull:
       self.animation_rate = animation_rate
       self.pending_actions = []
       
+   def create_animation_action(self,world,repeat_count): # do i have to put this into every class?
+      def action(current_ticks):
+         self.remove_pending_action(action)
+         self.next_image()
+         if repeat_count != 1:
+            self.schedule_action(world,world.create_animation_action(self,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
+         return [self.get_position()]
+      return action   
+   def create_entity_death_action(self,world): # do i have to put this into every class?
+      def action(current_ticks):
+         self.remove_pending_action(action)
+         pt = self.get_position()
+         world.remove_entity(self)
+         return [pt]
+      return action
+   def schedule_action(self,world,action, time):
+      self.add_pending_action(action)
+      world.schedule_action(action, time)
+   def schedule_animation(self,world,repeat_count=0):
+      self.schedule_action(world,self.create_animation_action(world,repeat_count),self.get_animation_rate())
+      
+   def create_miner_action(self,world,image_store):
+      return self.create_miner_full_action(world,image_store)
+      
+   def try_transform_miner(self,world,transform):
+      new_entity = self.transform(world)
+      if self != new_entity:
+         self.clear_pending_actions(world)
+         world.remove_entity_at(world, self.get_position(self))
+         world.add_entity(world, new_entity)
+         world.schedule_animation(new_entity)
+
+      return new_entity
+    
+   def try_transform_miner_full(self,world):
+      new_entity = entities.MinerNotFull(
+      self.get_name(), self.get_resource_limit(),
+      self.get_position(), self.get_rate(),
+      self.get_images(), self.get_animation_rate())
+
+      return new_entity
+      
    def create_miner_full_action(self,world,i_store): # done just implement other funcs to methods
       def action(current_ticks):
          self.remove_pending_action( action)
@@ -150,9 +225,9 @@ class MinerFull:
 
          new_entity = self
          if found:
-            new_entity = world.try_transform_miner(entity,world.try_transform_miner_full)
+            new_entity = self.try_transform_miner(world,self.try_transform_miner_full)
 
-         world.schedule_action( new_entity,world.create_miner_action(new_entity, i_store),current_ticks + new_entity.get_rate()) # might be self/new_entity.schedule action not sure
+         new_entity.schedule_action(world,new_entity.create_miner_action(world, i_store),current_ticks + new_entity.get_rate()) # might be self/new_entity.schedule action not sure
       return tiles
    return action
       
@@ -168,18 +243,7 @@ class MinerFull:
       else:
          new_pt = world.next_position(entity_pt, smith_pt)
          return (world.move_entity(self, new_pt), False)
-   def miner_to_ore(self,world, ore): # done might not need this in thhis class since it wont go to an ore if its full
-      entity_pt = self.get_position()
-      if not ore:
-         return ([entity_pt], False)
-      ore_pt = ore.get_position()
-      if actions.adjacent(entity_pt, ore_pt):
-         self.set_resource_count(1 + self.get_resource_count())
-         world.remove_entity(ore) 
-         return ([ore_pt], True)
-      else:
-         new_pt = world.next_position(entity_pt, ore_pt)
-         return (world.move_entity(entity, new_pt), False)
+   
          
    def set_position(self, point):
       self.position = point
@@ -233,6 +297,37 @@ class Vein:
       self.resource_distance = resource_distance
       self.pending_actions = []
       
+  
+   def create_entity_death_action(self,world): # do i have to put this into every class?
+      def action(current_ticks):
+         self.remove_pending_action(action)
+         pt = self.get_position()
+         world.remove_entity(self)
+         return [pt]
+      return action
+   def schedule_action(self,world,action, time):
+      self.add_pending_action(action)
+      world.schedule_action(action, time)
+   
+      
+   def create_vein_action(self,world,i_store):
+      def action(current_ticks):
+         self.remove_pending_action(action)
+
+         open_pt = world.find_open_around(self.get_position(),self.get_resource_distance())
+         if open_pt:
+            ore = create_ore(world,"ore - " + self.get_name() + " - " + str(current_ticks),open_pt, current_ticks, i_store)
+            world.add_entity(ore)# save_load /loadworld properties/ create_ore
+            tiles = [open_pt]
+         else:
+            tiles = []
+
+         schedule_action(world, 
+            self.create_vein_action(world, i_store),
+            current_ticks + self.get_rate()) # world. or self.
+         return tiles
+      return action
+      
    def entity_string(self):
       return ' '.join(['vein', self.name, str(self.position.x),str(self.position.y), str(self.rate),str(self.resource_distance)])
       
@@ -281,6 +376,33 @@ class Ore:
       self.current_img = 0
       self.rate = rate
       self.pending_actions = []
+   
+     
+   def create_entity_death_action(self,world): # do i have to put this into every class?
+      def action(current_ticks):
+         self.remove_pending_action(action)
+         pt = self.get_position()
+         world.remove_entity(self)
+         return [pt]
+      return action
+   def schedule_action(self,world,action, time):
+      self.add_pending_action(action)
+      world.schedule_action(action, time)
+   
+   
+   def create_ore_transform_action(self,world,i_store):
+      def action(current_ticks):
+         self.remove_pending_action(action)
+         blob = world.create_blob(self.get_name() + " -- blob",
+         self.get_position(),
+         self.get_rate() // BLOB_RATE_SCALE,
+         current_ticks, i_store) # world.createblob??
+
+         world.remove_entity(self)
+         world.add_entity(blob)
+
+         return [blob.get_position()]
+      return action
       
    def entity_string(self):   
       return ' '.join(['ore', self.name, str(self.position.x), str(self.position.y), str(self.rate)])
@@ -331,6 +453,13 @@ class Blacksmith:
       self.rate = rate
       self.resource_distance = resource_distance
       self.pending_actions = []
+      
+     
+
+   def schedule_action(self,world,action, time):
+      self.add_pending_action(action)
+      world.schedule_action(action, time)
+  
       
    def entity_string(self):
       return ' '.join(['blacksmith', self.name, str(self.position.x),str(self.position.y), str(self.resource_limit),str(self.rate), str(self.resource_distance)])
@@ -415,6 +544,27 @@ class OreBlob:
       self.animation_rate = animation_rate
       self.pending_actions = []
       
+   def create_animation_action(self,world,repeat_count): # do i have to put this into every class?
+      def action(current_ticks):
+         self.remove_pending_action(action)
+         self.next_image()
+         if repeat_count != 1:
+            self.schedule_action(world,world.create_animation_action(self,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
+         return [self.get_position()]
+      return action   
+   def create_entity_death_action(self,world): # do i have to put this into every class?
+      def action(current_ticks):
+         self.remove_pending_action(action)
+         pt = self.get_position()
+         world.remove_entity(self)
+         return [pt]
+      return action
+   def schedule_action(self,world,action, time):
+      self.add_pending_action(action)
+      world.schedule_action(action, time)
+   def schedule_animation(self,world,repeat_count=0):
+      self.schedule_action(world,self.create_animation_action(world,repeat_count),self.get_animation_rate())
+      
    def blob_to_vein(self,world,vein):
       entity_pt = self.get_position()
       if not vein:
@@ -490,6 +640,27 @@ class Quake:
       self.current_img = 0
       self.animation_rate = animation_rate
       self.pending_actions = []
+      
+   def create_animation_action(self,world,repeat_count): # do i have to put this into every class?
+      def action(current_ticks):
+         self.remove_pending_action(action)
+         self.next_image()
+         if repeat_count != 1:
+            self.schedule_action(world,world.create_animation_action(self,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
+         return [self.get_position()]
+      return action   
+   def create_entity_death_action(self,world): # do i have to put this into every class?
+      def action(current_ticks):
+         self.remove_pending_action(action)
+         pt = self.get_position()
+         world.remove_entity(self)
+         return [pt]
+      return action
+   def schedule_action(self,world,action, time):
+      self.add_pending_action(action)
+      world.schedule_action(action, time)
+   def schedule_animation(self,world,repeat_count=0):
+      self.schedule_action(world,self.create_animation_action(world,repeat_count),self.get_animation_rate())
    
    def set_position(self, point):
       self.position = point

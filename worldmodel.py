@@ -12,7 +12,27 @@ class WorldModel:
       self.num_cols = num_cols
       self.occupancy = occ_grid.Grid(num_cols, num_rows, None)
       self.entities = []
-      self.action_queue = ordered_list.OrderedList()
+      self.action_queue = ordered_list.OrderedList()     
+      
+   
+   def remove_entity(self, entity):
+      for action in entity.get_pending_actions():
+         self.unschedule_action(action)
+      entity.clear_pending_actions()
+      self.remove_entity(entity)
+      
+   
+      
+   def find_open_around(self, pt, distance): #done
+      for dy in range(-distance, distance + 1):
+         for dx in range(-distance, distance + 1):
+            new_pt = point.Point(pt.x + dx, pt.y + dy)
+
+            if (self.within_bounds(new_pt) and
+               (not self.is_occupied(new_pt))):
+               return new_pt
+
+   return None
    
    def blob_next_position(self, entity_pt, dest_pt):
       horiz = sign(dest_pt.x - entity_pt.x)
@@ -135,5 +155,5 @@ def nearest_entity(entity_dists):
             pair = other
       nearest = pair[0]
    else:
-      nearest = None #None+
+      nearest = None 
    return nearest

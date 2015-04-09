@@ -35,7 +35,7 @@ class MinerNotFull:
       self.clear_pending_actions()
    
       
-   def create_miner_action(world, entity, image_store): # done
+   def create_miner_action(self,world,image_store): # done
       return self.create_miner_not_full_action(world, image_store)
   
       
@@ -228,8 +228,8 @@ class MinerFull:
             new_entity = self.try_transform_miner(world,self.try_transform_miner_full)
 
          new_entity.schedule_action(world,new_entity.create_miner_action(world, i_store),current_ticks + new_entity.get_rate()) # might be self/new_entity.schedule action not sure
-      return tiles
-   return action
+         return tiles
+      return action
       
    def miner_to_smith(self, world, smith): # done (:
       entity_pt = self.get_position()

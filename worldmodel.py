@@ -32,7 +32,7 @@ class WorldModel:
                (not self.is_occupied(new_pt))):
                return new_pt
 
-   return None
+      return None
    
    def blob_next_position(self, entity_pt, dest_pt):
       horiz = sign(dest_pt.x - entity_pt.x)
@@ -78,7 +78,7 @@ class WorldModel:
 
    def add_entity(self, entity):
       pt = entity.get_position()
-      if within_bounds(self, pt):
+      if self.within_bounds(pt):
          old_entity = self.occupancy.get_cell(pt)
          if old_entity != None:
             old_entity.clear_pending_actions()
@@ -87,7 +87,7 @@ class WorldModel:
 
    def move_entity(self, entity, pt):
       tiles = []
-      if within_bounds(self, pt):
+      if self.within_bounds(pt):
          old_pt = pt.get_position() # not sure if this is right
          self.occupancy.set_cell( old_pt, None) 
          tiles.append(old_pt)
@@ -101,7 +101,7 @@ class WorldModel:
       self.remove_entity_at(entity.get_position())
 
    def remove_entity_at(self, pt):
-      if (within_bounds(self, pt) and
+      if (self.within_bounds(pt) and
          self.occupancy.get_cell(pt) != None):
          entity = self.occupancy.get_cell( pt)
          entity.set_position( point.Point(-1, -1))
@@ -126,19 +126,19 @@ class WorldModel:
       return tiles
 
    def get_background_image(self, pt):
-      if within_bounds(self, pt):
+      if self.within_bounds( pt):
          return (self.background.get_cell(pt)).get_image() # pt.get_image?
 
    def get_background(self, pt):
-      if within_bounds(self, pt):
+      if self.within_bounds(pt):
          return self.background.get_cell(pt)
 
    def set_background(self, pt, bgnd):
-      if within_bounds(self, pt):
+      if self.within_bounds(pt):
          self.background.set_cell(pt, bgnd)
 
    def get_tile_occupant(self, pt):
-      if within_bounds(self, pt):
+      if self.within_bounds(pt):
          return self.occupancy.get_cell(pt)
 
    def get_entities(self):

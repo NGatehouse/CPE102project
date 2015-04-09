@@ -19,7 +19,7 @@ def on_keydown(event):
    return (x_delta, y_delta)
 
 
-def mouse_to_tile(pos, tile_width, tile_height):
+def mouse_to_tile(pos, tile_width, tile_height):  #Just 
    return point.Point(pos[0] // tile_width, pos[1] // tile_height)
 
 

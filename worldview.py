@@ -66,7 +66,7 @@ class WorldView:
       
    def get_tile_image(self, view_tile_pt):
       pt = viewport_to_world(self.viewport, view_tile_pt)
-      bgnd = world.get_background_image(self.world, pt)
+      bgnd = self.world.get_background_image(pt)
       occupant = world.get_tile_occupant(self.world, pt)
       if occupant:
          img = pygame.Surface((self.tile_width, self.tile_height))

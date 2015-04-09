@@ -1,0 +1,9 @@
+Create a plain text document named DESIGN. This document must give an overview of your class/method design. Specifically, for each class, list the name and methods (without parameters) now associated with the class as shown below (do not list the data attributes).
+
+In addition, list each of the functions that was not turned into a method and give a brief justification for why this function remains as a function. For instance, activity_loop in controller.py might remain a function because there is no logical class with which it is associated and because it is used as part of the pygame setup.
+
+class: Class Name
+methods:
+   method1
+   method2
+   ...

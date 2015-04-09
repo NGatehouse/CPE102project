@@ -28,7 +28,7 @@ class WorldView:
       for y in range(0, self.viewport.height):
           for x in range(0, self.viewport.width):
              w_pt = viewport_to_world(self.viewport, point.Point(x, y))
-             img = world.get_background_image(self.world, w_pt)
+             img = self.world.get_background_image(w_pt)
              self.screen.blit(img, (x * self.tile_width, y * self.tile_height))
              
    def draw_entities(self):

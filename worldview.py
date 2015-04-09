@@ -28,7 +28,7 @@ class WorldView:
       for y in range(0, self.viewport.height):
           for x in range(0, self.viewport.width):
              w_pt = viewport_to_world(self.viewport, point.Point(x, y))
-             img = worldmodel.get_background_image(self.world, w_pt)
+             img = world.get_background_image(self.world, w_pt)
              self.screen.blit(img, (x * self.tile_width, y * self.tile_height))
              
    def draw_entities(self):
@@ -66,8 +66,8 @@ class WorldView:
       
    def get_tile_image(self, view_tile_pt):
       pt = viewport_to_world(self.viewport, view_tile_pt)
-      bgnd = worldmodel.get_background_image(self.world, pt)
-      occupant = worldmodel.get_tile_occupant(self.world, pt)
+      bgnd = world.get_background_image(self.world, pt)
+      occupant = world.get_tile_occupant(self.world, pt)
       if occupant:
          img = pygame.Surface((self.tile_width, self.tile_height))
          img.blit(bgnd, (0, 0))
@@ -91,7 +91,7 @@ class WorldView:
 
    def update_mouse_cursor(self):
       return self.update_tile(self.mouse_pt,
-         self.create_mouse_surface(worldmodel.is_occupied(self.world, viewport_to_world(self.viewport, self.mouse_pt))))
+         self.create_mouse_surface(world.is_occupied(self.world, viewport_to_world(self.viewport, self.mouse_pt))))
 
 
    def mouse_move(self, new_mouse_pt): 

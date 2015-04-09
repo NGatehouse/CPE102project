@@ -35,7 +35,7 @@ class WorldView:
       for entity in self.world.entities:
           if self.viewport.collidepoint(entity.position.x, entity.position.y):
              v_pt = world_to_viewport(self.viewport, entity.position)
-             self.screen.blit(entities.get_image(entity),(v_pt.x * self.tile_width, v_pt.y * self.tile_height))
+             self.screen.blit(entity.get_image(),(v_pt.x * self.tile_width, v_pt.y * self.tile_height))
 
    def update_view(self, view_delta=(0,0), mouse_img=None): 
       self.viewport = create_shifted_viewport(self.viewport, view_delta, self.num_rows, self.num_cols)
@@ -71,7 +71,7 @@ class WorldView:
       if occupant:
          img = pygame.Surface((self.tile_width, self.tile_height))
          img.blit(bgnd, (0, 0))
-         img.blit(entities.get_image(occupant), (0,0))
+         img.blit(occupant.get_image(), (0,0))
          return img
       else:
          return bgnd

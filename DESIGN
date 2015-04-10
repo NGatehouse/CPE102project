@@ -1,7 +1,3 @@
-Create a plain text document named DESIGN. This document must give an overview of your class/method design. Specifically, for each class, list the name and methods (without parameters) now associated with the class as shown below (do not list the data attributes).
-
-In addition, list each of the functions that was not turned into a method and give a brief justification for why this function remains as a function. For instance, activity_loop in controller.py might remain a function because there is no logical class with which it is associated and because it is used as part of the pygame setup.
-
 file: worldview.py
 class: WorldView
 methods:
@@ -16,40 +12,40 @@ methods:
    update_mouse_cursor
    mouse_move
 funcs:
-   viewport_to_world #
-   world_to_viewport #
-   clamp #Used only inside a function not suited to become a method inside a class
-   create_shifted_viewpoer #Acting on pygame rectangle class, which is inaccessible to programmer
+   viewport_to_world #Uses pygame rectangle which we can't access
+   world_to_viewport #Uses pygame rectangle which we can't access
+   clamp #Used only inside a function not suited to become a method inside a class. Just a min function
+   create_shifted_viewport #Acting on pygame rectangle class, which is inaccessible to programmer
 
 file: save_load.py
 funcs:
-   save_world
-   save_entities
-   save_background
-   load_world
-   add_background
-   add_entity
-   create_from_properties
-   create_miner
-   create_veins
-   create_ore
-   create_blacksmith
-   create_obsticle
-   schedule_entity
+   save_world #Two different functions call save_world and no clear class to place into
+   save_entities #Called from the function save_world which is not in a class
+   save_background #Called from the function save_world which is not in a class
+   load_world #Handles file I/O and uses data-type properties
+   add_background #Uses data-type properties which is only in this file 
+   add_entity #Function that uses method call from world which is also add_entity, so reduces coupling
+   create_from_properties #Uses keys from key.py
+   create_miner #Uses properties data-type which has no logical class and reduces coupling by not putting into world
+   create_veins #Uses properties data-type which has no logical class and reduces coupling by not putting into world
+   create_ore #Uses properties data-type which has no logical class and reduces coupling by not putting into world
+   create_blacksmith #Uses properties data-type which has no logical class and reduces coupling by not putting into world
+   create_obsticle #Uses properties data-type which has no logical class and reduces coupling by not putting into world
+   schedule_entity #Only schedules 3 entities. This function manages three entities
    
 file: controller.py
 funcs:
-   on_keydown
+   on_keydown #
    mouse_to_tile
    handle_timer_event #In order to reduce coupling, we determined that handle_timer_event would best be suited to not be converted into a method, but instead remain a function in controller.py
    handle_mouse_motion #In order to reduce coupling, we determined that handle_mouse_motion would best be suited to not be converted into a method, but instead remain a function in controller.py
    handle_keydown #In order to reduce coupling, we determined that handle_keydown would best be suited to not be converted into a method, but instead remain a function in controller.py
-   activity_loop #In order to reduce coupling, we determined that activity_loop would best be suited to not be converted into a method, but instead remain a function in controller.py
+   activity_loop #There is no specific class to include activity_loop in. The best class for it would mean that we would have to edit pygame, which is beyond the scope of the assignment. 
    
 file: builder.py
 funcs:
    __init__
-   main
+   main #Builds the environment 
    
 file: ordered_list.py
 class: OrderedList
@@ -69,10 +65,33 @@ class: none
 
 file: mouse_buttons.py
 class: none
+   
+file: builder_controller.py
+funcs:
+   mouse_to_tile #Handles mouse movement; no logical class
+   save_world #File I/O. No class.
+   load_world #File I/O. No class.
+   on_keydown #Tells if scrolling around screen
+   handle_mouse_motion #Moves mouse
+   handle_keydown #Handles when user presses keys to control screen movement
+   create_new_entity #entity_select is only in controller.py file so if we were to make changes to this function, it would not affect anything else. Reduces coupling
+   is_background_title #entity_select is only in controller.py file.
+   handle_mouse_button #Handles mouse buttons, which appear to have loss functionality 
+   activity_loop #Uses pygame classes, so couldn't transform into methods
 
 file: actions.py
-
-file: builder_controller.pygame
+funcs:
+   sign #Used in worldmodel.py. Just a computation. May need to reuse    
+   adjacent #A computation that we may need to reuse
+   create_blob #To reduce coupling, we kept as a function.
+   schedule_blob #To reduce coupling, we kept as a function.
+   schedule_miner #To reduce coupling, we kept as a function.
+   create_ore #To reduce coupling, we kept as a function.
+   schedule_ore #To reduce coupling, we kept as a function.
+   create_quake #To reduce coupling, we kept as a function.
+   schedule_quake #To reduce coupling, we kept as a function.
+   create_vein #To reduce coupling, we kept as a function.
+   schedule_vein #To reduce coupling, we kept as a function.
 
 file: entities.py
 class: Background
@@ -85,7 +104,6 @@ methods:
 class: MinorNotFull
 methods:
    __init__
-   clear_pending_actions
    create_minor_action
    try_transform_miner
    try_transform_miner_notfull
@@ -93,6 +111,7 @@ methods:
    create_animatation_action
    create_entity_death_action
    schedule_action
+   schedule_animation
    create_minor_not_full_action
    entity_string
    set_position
@@ -102,6 +121,7 @@ methods:
    next_image
    get_rate
    set_resource_count
+   get_resource_count
    get_resource_limit
    get_name
    get_animation_rate
@@ -115,8 +135,8 @@ methods:
    create_animatation_action
    create_entity_death_action
    schedule_action
+   schedule_animation
    create_miner_action
-   try_transform_miner
    try_transform_miner
    try_transform_miner_full
    create_miner_full_action
@@ -216,12 +236,14 @@ methods:
    get_position
    get_images
    get_image
+   next_image
    get_rate
    get_name
    get_animation_rate
    remove_pending_action
    add_pending_action
    get_pending_actions
+   clear_pending_actions
 class: Quake
 methods:
    __init__
@@ -243,23 +265,23 @@ methods:
 
 file: image_store.py
 funcs:
-   create_default_image
-   load_image
-   process_image_line
-   get_images_internal
-   get_images
+   create_default_image #Uses data from main.py and pygame class Surface. No class corresponding to type
+   load_image #Uses file I/O. No classes used to deal with files.
+   process_image_line #Deals with files and uses pygame methods
+   get_images_internal #Data does not match any known class data
+   get_images #Getter that access data from main.py file, but no class data
    
 file: main.py
 funcs:
-   create_default_background
-   load_world
-   main
+   create_default_background #Initializes background for world, therefore no logical class to place into
+   load_world #Manages files; therefore no logical class 
+   main #This is what starts a game. Wouldn't trust it to a class
 
 file: occ_grid.py
 class: Grid
 methods:
    __init__
-   set_cell
+   set_cell 
    get_cell
 
 file: point.py
@@ -268,4 +290,29 @@ method:
    __init__
 
 file: worldmodel.py
-
+class: WorldModel
+methods:
+   __init__
+   clear_pending_actions
+   remove_entity
+   find_open_around
+   blob_next_position
+   next_position
+   within_bounds
+   is_occupied
+   find_nearest
+   add_entity
+   move_entity
+   remove_entity
+   remove_entity_at
+   schedule_action
+   unschedule_action
+   update_on_time
+   get_background_image
+   get_background
+   set_background
+   get_tile_occupant
+   get_entities
+funcs:
+   distance_sq #Does a simple computation, but does use data from Point class, but decided to leave as func. This allows it to be reusable
+   nearest_entity #Doesn't use any data from other classes and only place that entity_dists is used

@@ -410,7 +410,7 @@ class Ore:
          blob = actions.create_blob(world,self.get_name() + " -- blob",
          self.get_position(),
          self.get_rate() // BLOB_RATE_SCALE,
-         current_ticks, i_store) # world.createblob??
+         current_ticks, i_store) 
 
          world.remove_entity(self)
          world.add_entity(blob)

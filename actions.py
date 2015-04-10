@@ -227,21 +227,21 @@ def try_transform_miner_not_full(world, entity):
          entities.get_name(entity), entities.get_resource_limit(entity),
          entities.get_position(entity), entities.get_rate(entity),
          entities.get_images(entity), entities.get_animation_rate(entity))
-      return new_entity
+      return new_entity"""
 
 
 def try_transform_miner(world, entity, transform):
-   new_entity = transform(world, entity)
+   new_entity = transform(world)
    if entity != new_entity:
-      clear_pending_actions(world, entity)
-      worldmodel.remove_entity_at(world, entities.get_position(entity))
-      worldmodel.add_entity(world, new_entity)
-      schedule_animation(world, new_entity)
+      entity.clear_pending_actions()
+      world.remove_entity_at(entity.get_position())
+      world.add_entity(new_entity)
+      new_entity.schedule_animation(world )
 
    return new_entity
 
 
-def create_miner_action(world, entity, image_store):
+"""def create_miner_action(world, entity, image_store):
    if isinstance(entity, entities.MinerNotFull):
       return create_miner_not_full_action(world, entity, image_store)
    else:
@@ -337,7 +337,7 @@ def create_quake(world, pt, ticks, i_store):
 
 def schedule_quake(world, quake, ticks):
    quake.schedule_animation(world, QUAKE_STEPS) 
-   schedule_action(world, quake, quake.create_entity_death_action(world),
+   quake.schedule_action(world, quake.create_entity_death_action(world),
       ticks + QUAKE_DURATION)
 
 

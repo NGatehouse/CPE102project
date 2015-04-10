@@ -55,8 +55,10 @@ class MinerNotFull:
       
    def try_transform_miner(self,world,transform):
       new_entity = transform(world)
+      
       if self != new_entity:
-         self.clear_pending_actions()
+ 
+         world.clear_pending_actions(self)
          world.remove_entity_at(self.get_position( ))
          world.add_entity( new_entity)
          new_entity.schedule_animation(world)
@@ -212,9 +214,9 @@ class MinerFull:
       return self.create_miner_full_action(world,image_store)
       
    def try_transform_miner(self,world,transform):
-      new_entity = self.transform(world)
+      new_entity = transform(world)
       if self != new_entity:
-         self.clear_pending_actions(world)
+         world.clear_pending_actions(self)
          world.remove_entity_at( self.get_position())
          world.add_entity( new_entity)          
          new_entity.schedule_animation(world)
@@ -584,7 +586,7 @@ class OreBlob:
       if not vein:
          return ([entity_pt], False)
       vein_pt = vein.get_position()
-      if adjacent(entity_pt, vein_pt):
+      if actions.adjacent(entity_pt, vein_pt):
          world.remove_entity(vein)
          return ([vein_pt], True)
       else:
@@ -592,7 +594,7 @@ class OreBlob:
          old_entity = world.get_tile_occupant(new_pt)
          if isinstance(old_entity, Ore): # do i need to change isinstance?
             world.remove_entity(old_entity)
-         return (world.move_entity(entity, new_pt), False)
+         return (world.move_entity(self, new_pt), False)
    def create_ore_blob_action(self,world, i_store):
       def action(current_ticks):
          self.remove_pending_action( action)

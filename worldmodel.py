@@ -39,13 +39,13 @@ class WorldModel:
       new_pt = point.Point(entity_pt.x + horiz, entity_pt.y)
 
       if horiz == 0 or (self.is_occupied(new_pt) and
-         not isinstance(self.get_tile_occupant(self, new_pt),
+         not isinstance(self.get_tile_occupant( new_pt),
          entities.Ore)):
          vert = actions.sign(dest_pt.y - entity_pt.y)
          new_pt = point.Point(entity_pt.x, entity_pt.y + vert)
 
          if vert == 0 or (self.is_occupied(new_pt) and
-            not isinstance(self.get_tile_occupant(self, new_pt),
+            not isinstance(self.get_tile_occupant( new_pt),
             entities.Ore)):
             new_pt = point.Point(entity_pt.x, entity_pt.y)
 

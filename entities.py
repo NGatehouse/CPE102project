@@ -107,11 +107,7 @@ class MinerNotFull:
       self.add_pending_action(action)
       world.schedule_action(action, time)
    def schedule_animation(self,world,repeat_count=0):
-      self.schedule_action(world,self.create_animation_action(world,repeat_count),self.get_animation_rate())      
-   
-   """def schedule_miner(self,world, ticks, i_store): # not done
-      self.schedule_action(world, self.create_miner_action(world,i_store),ticks + self.get_rate())
-      self.schedule_animation(world)"""
+      self.schedule_action(world,self.create_animation_action(world,repeat_count),self.get_animation_rate())    
       
  
       

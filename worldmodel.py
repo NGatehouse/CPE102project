@@ -63,6 +63,7 @@ class WorldModel:
             new_pt = point.Point(entity_pt.x, entity_pt.y)
 
       return new_pt
+
    def within_bounds(self, pt):
       return (pt.x >= 0 and pt.x < self.num_cols and
          pt.y >= 0 and pt.y < self.num_rows)

@@ -23,7 +23,7 @@ VEIN_RATE_MIN = 8000
 VEIN_RATE_MAX = 17000
 
 
-def sign(x):
+def sign(x): 
    if x < 0:
       return -1
    elif x > 0:
@@ -227,7 +227,7 @@ def try_transform_miner_not_full(world, entity):
          entities.get_name(entity), entities.get_resource_limit(entity),
          entities.get_position(entity), entities.get_rate(entity),
          entities.get_images(entity), entities.get_animation_rate(entity))
-      return new_entity"""
+      return new_entity
 
 
 def try_transform_miner(world, entity, transform):
@@ -241,7 +241,7 @@ def try_transform_miner(world, entity, transform):
    return new_entity
 
 
-"""def create_miner_action(world, entity, image_store):
+def create_miner_action(world, entity, image_store):
    if isinstance(entity, entities.MinerNotFull):
       return create_miner_not_full_action(world, entity, image_store)
    else:

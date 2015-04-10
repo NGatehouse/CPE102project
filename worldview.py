@@ -38,7 +38,7 @@ class WorldView:
              self.screen.blit(entity.get_image(),(v_pt.x * self.tile_width, v_pt.y * self.tile_height))
 
    def update_view(self, view_delta=(0,0), mouse_img=None): 
-      self.viewport = self.create_shifted_viewport(self.viewport, view_delta, self.num_rows, self.num_cols)
+      self.viewport = create_shifted_viewport(self.viewport, view_delta, self.num_rows, self.num_cols)
       self.mouse_img = mouse_img
       self.draw_viewport()
       pygame.display.update()

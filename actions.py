@@ -318,13 +318,13 @@ def schedule_miner(world, miner, ticks, i_store):
 def create_ore(world, name, pt, ticks, i_store):
    ore = entities.Ore(name, pt, image_store.get_images(i_store, 'ore'),
    random.randint(ORE_CORRUPT_MIN, ORE_CORRUPT_MAX))
-   ore.schedule_ore(world, ticks, i_store)
+   schedule_ore(world,ore, ticks, i_store)
 
    return ore
 
 
 def schedule_ore(world, ore, ticks, i_store):
-   world.schedule_action( ore,ore.create_ore_transform_action(world, i_store),
+   world.schedule_action(ore.create_ore_transform_action(world, i_store),
    ticks + ore.get_rate())
 
 

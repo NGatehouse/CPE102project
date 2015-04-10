@@ -77,7 +77,7 @@ class MinerNotFull:
          self.remove_pending_action(action)
          self.next_image()
          if repeat_count != 1:
-            self.schedule_action(world,world.create_animation_action(self,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
+            self.schedule_action(world,self.create_animation_action(world,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
          return [self.get_position()]
       return action   
    def create_entity_death_action(self,world): # do i have to put this into every class?
@@ -104,7 +104,7 @@ class MinerNotFull:
          self.remove_pending_action(action) 
    
          entity_pt = self.get_position()
-         ore = world.find_nearest(entity_pt, self.Ore)
+         ore = world.find_nearest(entity_pt, Ore)
          (tiles, found) = self.miner_to_ore(world, ore) # implement
 
          new_entity = self
@@ -178,7 +178,7 @@ class MinerFull:
          self.remove_pending_action(action)
          self.next_image()
          if repeat_count != 1:
-            self.schedule_action(world,world.create_animation_action(self,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
+            self.schedule_action(world,self.create_animation_action(self,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
          return [self.get_position()]
       return action   
    def create_entity_death_action(self,world): # do i have to put this into every class?
@@ -316,13 +316,13 @@ class Vein:
 
          open_pt = world.find_open_around(self.get_position(),self.get_resource_distance())
          if open_pt:
-            ore = create_ore(world,"ore - " + self.get_name() + " - " + str(current_ticks),open_pt, current_ticks, i_store)
-            world.add_entity(ore)# save_load /loadworld properties/ create_ore
+            ore = actions.create_ore(world,"ore - " + self.get_name() + " - " + str(current_ticks),open_pt, current_ticks, i_store)
+            world.add_entity(ore)
             tiles = [open_pt]
          else:
             tiles = []
 
-         schedule_action(world, 
+         world.schedule_action( 
             self.create_vein_action(world, i_store),
             current_ticks + self.get_rate()) # world. or self.
          return tiles
@@ -549,7 +549,7 @@ class OreBlob:
          self.remove_pending_action(action)
          self.next_image()
          if repeat_count != 1:
-            self.schedule_action(world,world.create_animation_action(self,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
+            self.schedule_action(world,self.create_animation_action(self,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
          return [self.get_position()]
       return action   
    def create_entity_death_action(self,world): # do i have to put this into every class?

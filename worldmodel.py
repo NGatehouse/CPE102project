@@ -12,7 +12,9 @@ class WorldModel:
       self.num_cols = num_cols
       self.occupancy = occ_grid.Grid(num_cols, num_rows, None)
       self.entities = []
-      self.action_queue = ordered_list.OrderedList()     
+      self.action_queue = ordered_list.OrderedList()
+
+         
       
    
    def remove_entity(self, entity):

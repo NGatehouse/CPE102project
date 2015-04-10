@@ -84,7 +84,7 @@ class MinerNotFull:
          return ([ore_pt], True)
       else:
          new_pt = world.next_position(entity_pt, ore_pt)
-         return (world.move_entity(entity, new_pt), False)
+         return (world.move_entity(self, new_pt), False)
     
    def create_animation_action(self,world,repeat_count): # do i have to put this into every class?
       def action(current_ticks):
@@ -124,7 +124,7 @@ class MinerNotFull:
          new_entity = self
          if found:
             new_entity = new_entity.try_transform_miner( world,new_entity.try_transform_miner_not_full) # implement
-            new_entity.schedule_action( world,new_entity.create_miner_action(world, i_store),current_ticks + new_entity.get_rate()) # implement
+         new_entity.schedule_action( world,new_entity.create_miner_action(world, i_store),current_ticks + new_entity.get_rate()) # implement
          return tiles
       return action
       
@@ -563,7 +563,7 @@ class OreBlob:
          self.remove_pending_action(action)
          self.next_image()
          if repeat_count != 1:
-            self.schedule_action(world,self.create_animation_action(self,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
+            self.schedule_action(world,self.create_animation_action(world,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
          return [self.get_position()]
       return action   
    def create_entity_death_action(self,world): # do i have to put this into every class?

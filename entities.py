@@ -54,20 +54,20 @@ class MinerNotFull:
   
       
    def try_transform_miner(self,world,transform):
-      new_entity = self.transform(world)
+      new_entity = transform(world)
       if self != new_entity:
-         self.clear_pending_actions(world)
-         world.remove_entity_at(world, self.get_position(self))
-         world.add_entity(world, new_entity)
-         world.schedule_animation(new_entity)
+         self.clear_pending_actions()
+         world.remove_entity_at(self.get_position( ))
+         world.add_entity( new_entity)
+         new_entity.schedule_animation(world)
 
       return new_entity
       
    def try_transform_miner_not_full(self,world): # done 
       if self.resource_count < self.resource_limit:
-         return entity
+         return self
       else:
-         new_entity = entities.MinerFull(
+         new_entity = MinerFull(
          self.get_name(), self.get_resource_limit(),
          self.get_position(), self.get_rate(),
          self.get_images(), self.get_animation_rate())
@@ -192,7 +192,7 @@ class MinerFull:
          self.remove_pending_action(action)
          self.next_image()
          if repeat_count != 1:
-            self.schedule_action(world,self.create_animation_action(self,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
+            self.schedule_action(world,self.create_animation_action(world,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
          return [self.get_position()]
       return action   
    def create_entity_death_action(self,world): # do i have to put this into every class?
@@ -215,14 +215,14 @@ class MinerFull:
       new_entity = self.transform(world)
       if self != new_entity:
          self.clear_pending_actions(world)
-         world.remove_entity_at(world, self.get_position(self))
-         world.add_entity(world, new_entity)
-         world.schedule_animation(new_entity)
+         world.remove_entity_at( self.get_position())
+         world.add_entity( new_entity)          
+         new_entity.schedule_animation(world)
 
       return new_entity
     
    def try_transform_miner_full(self,world):
-      new_entity = entities.MinerNotFull(
+      new_entity = MinerNotFull(
       self.get_name(), self.get_resource_limit(),
       self.get_position(), self.get_rate(),
       self.get_images(), self.get_animation_rate())
@@ -234,7 +234,7 @@ class MinerFull:
          self.remove_pending_action( action)
 
          entity_pt = self.get_position()
-         smith = world.find_nearest(entity_pt, entities.Blacksmith)
+         smith = world.find_nearest(entity_pt, Blacksmith)
          (tiles, found) = self.miner_to_smith(world,smith)
 
          new_entity = self
@@ -590,7 +590,7 @@ class OreBlob:
       else:
          new_pt = world.blob_next_position(entity_pt, vein_pt) 
          old_entity = world.get_tile_occupant(new_pt)
-         if isinstance(old_entity, entities.Ore): # do i need to change isinstance?
+         if isinstance(old_entity, Ore): # do i need to change isinstance?
             world.remove_entity(old_entity)
          return (world.move_entity(entity, new_pt), False)
    def create_ore_blob_action(self,world, i_store):
@@ -598,7 +598,7 @@ class OreBlob:
          self.remove_pending_action( action)
    
          entity_pt = self.get_position()
-         vein = world.find_nearest(entity_pt, entities.Vein)
+         vein = world.find_nearest(entity_pt, Vein)
          (tiles, found) = self.blob_to_vein(world,vein)
 
          next_time = current_ticks + self.get_rate()
@@ -660,7 +660,7 @@ class Quake:
          self.remove_pending_action(action)
          self.next_image()
          if repeat_count != 1:
-            self.schedule_action(world,world.create_animation_action(self,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
+            self.schedule_action(world,self.create_animation_action(world,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
          return [self.get_position()]
       return action   
    def create_entity_death_action(self,world): # do i have to put this into every class?

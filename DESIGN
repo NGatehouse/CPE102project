@@ -2,8 +2,270 @@ Create a plain text document named DESIGN. This document must give an overview o
 
 In addition, list each of the functions that was not turned into a method and give a brief justification for why this function remains as a function. For instance, activity_loop in controller.py might remain a function because there is no logical class with which it is associated and because it is used as part of the pygame setup.
 
-class: Class Name
+file: worldview.py
+class: WorldView
 methods:
-   method1
-   method2
-   ...
+   draw_viewport
+   draw_background
+   draw_entities
+   update_view
+   update_view_titles
+   update_tile
+   get_tile_image
+   create_mouse_surface
+   update_mouse_cursor
+   mouse_move
+funcs:
+   viewport_to_world #
+   world_to_viewport #
+   clamp #Used only inside a function not suited to become a method inside a class
+   create_shifted_viewpoer #Acting on pygame rectangle class, which is inaccessible to programmer
+
+file: save_load.py
+funcs:
+   save_world
+   save_entities
+   save_background
+   load_world
+   add_background
+   add_entity
+   create_from_properties
+   create_miner
+   create_veins
+   create_ore
+   create_blacksmith
+   create_obsticle
+   schedule_entity
+   
+file: controller.py
+funcs:
+   on_keydown
+   mouse_to_tile
+   handle_timer_event #In order to reduce coupling, we determined that handle_timer_event would best be suited to not be converted into a method, but instead remain a function in controller.py
+   handle_mouse_motion #In order to reduce coupling, we determined that handle_mouse_motion would best be suited to not be converted into a method, but instead remain a function in controller.py
+   handle_keydown #In order to reduce coupling, we determined that handle_keydown would best be suited to not be converted into a method, but instead remain a function in controller.py
+   activity_loop #In order to reduce coupling, we determined that activity_loop would best be suited to not be converted into a method, but instead remain a function in controller.py
+   
+file: builder.py
+funcs:
+   __init__
+   main
+   
+file: ordered_list.py
+class: OrderedList
+methods:
+   __init__
+   insert
+   remove
+   head
+   pop
+class: ListItem
+methods:
+   __init__
+   __eq__
+   
+file: keys.py
+class: none
+
+file: mouse_buttons.py
+class: none
+
+file: actions.py
+
+file: builder_controller.pygame
+
+file: entities.py
+class: Background
+methods:
+   __init__
+   get_images
+   get_image
+   next_image
+   get_name
+class: MinorNotFull
+methods:
+   __init__
+   clear_pending_actions
+   create_minor_action
+   try_transform_miner
+   try_transform_miner_notfull
+   miner_to_ore
+   create_animatation_action
+   create_entity_death_action
+   schedule_action
+   create_minor_not_full_action
+   entity_string
+   set_position
+   get_position
+   get_images
+   get_image
+   next_image
+   get_rate
+   set_resource_count
+   get_resource_limit
+   get_name
+   get_animation_rate
+   remove_pending_action
+   add_pending_action
+   get_pending_actions
+   clear_pending_actions
+class: MinerFull   
+methods:
+   __init__
+   create_animatation_action
+   create_entity_death_action
+   schedule_action
+   create_miner_action
+   try_transform_miner
+   try_transform_miner
+   try_transform_miner_full
+   create_miner_full_action
+   miner_to_smith
+   set_position
+   get_position
+   get_images
+   get_image
+   next_image
+   get_rate
+   set_resource_count
+   get_resource_count
+   get_resource_limit
+   get_name
+   get_animation_rate
+   remove_pending_action
+   add_pending_action
+   get_pending_actions
+   clear_pending_actions
+class: Vein
+methods:
+   __init__
+   create_entity_death_action
+   schedule_action
+   create_vein_action
+   entity_string
+   set_position
+   get_position
+   get_images
+   get_image
+   next_image
+   get_rate
+   get_resource_distance
+   get_name
+   remove_pending_action
+   add_pending_action
+   get_pending_actions
+   clear_pending_actions
+class: Ore
+methods:
+   __init__
+   create_entity_death_action
+   schedule_action
+   create_ore_transform_action
+   entity_string
+   set_position
+   get_position
+   get_images
+   get_image
+   next_image
+   get_rate
+   get_name
+   remove_pending_action
+   add_pending_action
+   get_pending_actions
+   clear_pending_actions
+class: Blacksmith
+methods:
+   __init__
+   schedule_action
+   entity_string
+   set_position
+   get_position
+   get_images
+   get_image
+   next_image
+   get_rate
+   set_resource_count
+   get_resource_count
+   get_resource_limit
+   get_resource_distance
+   get_name
+   remove_pending_action
+   add_pending_action
+   get_pending_actions
+   clear_pending_actions
+class: Obstacle
+methods:
+   __init__
+   entity_string
+   set_position
+   get_position
+   get_images
+   get_image
+   next_image
+   get_name
+class: OreBlob
+methods:
+   __init__
+   create_animatation_action
+   create_entity_death_action
+   schedule_action
+   schedule_animation
+   blob_to_vein
+   create_ore_blob_action
+   set_position
+   get_position
+   get_images
+   get_image
+   get_rate
+   get_name
+   get_animation_rate
+   remove_pending_action
+   add_pending_action
+   get_pending_actions
+class: Quake
+methods:
+   __init__
+   create_animatation_action
+   create_entity_death_action
+   schedule_action
+   schedule_animation
+   set_position
+   get_position
+   get_images
+   get_image
+   next_image
+   get_name
+   get_animation_rate
+   remove_pending_action
+   add_pending_action
+   get_pending_actions
+   clear_pending_actions
+
+file: image_store.py
+funcs:
+   create_default_image
+   load_image
+   process_image_line
+   get_images_internal
+   get_images
+   
+file: main.py
+funcs:
+   create_default_background
+   load_world
+   main
+
+file: occ_grid.py
+class: Grid
+methods:
+   __init__
+   set_cell
+   get_cell
+
+file: point.py
+class: Point
+method:
+   __init__
+
+file: worldmodel.py
+

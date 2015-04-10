@@ -19,26 +19,26 @@ def on_keydown(event):
    return (x_delta, y_delta)
 
 
-def mouse_to_tile(pos, tile_width, tile_height):  #Just 
+def mouse_to_tile(pos, tile_width, tile_height):  #There is no class that this would go into
    return point.Point(pos[0] // tile_width, pos[1] // tile_height)
 
 
-def handle_timer_event(world, view):
+def handle_timer_event(world, view):  #In order to reduce coupling, we determined that handle_timer_event would best be suited to not be converted into a method, but instead remain a function in controller.py
    rects = world.update_on_time(pygame.time.get_ticks())
    view.update_view_tiles(rects)
 
 
-def handle_mouse_motion(view, event):
+def handle_mouse_motion(view, event):  #In order to reduce coupling, we determined that handle_mouse_motion would best be suited to not be converted into a method, but instead remain a function in controller.py
    mouse_pt = mouse_to_tile(event.pos, view.tile_width, view.tile_height)
    view.mouse_move(mouse_pt)
 
 
-def handle_keydown(view, event):
+def handle_keydown(view, event):  #In order to reduce coupling, we determined that handle_keydown would best be suited to not be converted into a method, but instead remain a function in controller.py
    view_delta = on_keydown(event)
    view.update_view(view_delta)
 
 
-def activity_loop(view, world):
+def activity_loop(view, world):  #In order to reduce coupling, we determined that activity_loop would best be suited to not be converted into a method, but instead remain a function in controller.py
    pygame.key.set_repeat(KEY_DELAY, KEY_INTERVAL)
    pygame.time.set_timer(pygame.USEREVENT, TIMER_FREQUENCY)
 

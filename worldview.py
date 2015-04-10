@@ -38,7 +38,7 @@ class WorldView:
              self.screen.blit(entity.get_image(),(v_pt.x * self.tile_width, v_pt.y * self.tile_height))
 
    def update_view(self, view_delta=(0,0), mouse_img=None): 
-      self.viewport = create_shifted_viewport(self.viewport, view_delta, self.num_rows, self.num_cols)
+      self.viewport = self.create_shifted_viewport(self.viewport, view_delta, self.num_rows, self.num_cols)
       self.mouse_img = mouse_img
       self.draw_viewport()
       pygame.display.update()
@@ -109,18 +109,17 @@ class WorldView:
       pygame.display.update(rects)
 
     
-def viewport_to_world(viewport, pt):  #Acting on pygame rectangle class, which is inaccessible to us.
+def viewport_to_world(viewport, pt):  #A function that performs a computation 
    return point.Point(pt.x + viewport.left, pt.y + viewport.top)
 
-def world_to_viewport(viewport, pt):  #Acting on pygame rectangle class, which is inaccessible to us.
+def world_to_viewport(viewport, pt):  #A function that performs a computation 
    return point.Point(pt.x - viewport.left, pt.y - viewport.top)
 
 
-def clamp(v, low, high): #Acting on pygame rectangle class, which is inaccessible to us.
+def clamp(v, low, high): #A function that makes 
    return min(high, max(v, low))
 
-
-def create_shifted_viewport(viewport, delta, num_rows, num_cols):  #Acting on pygame rectangle class, which is inaccessible to us.
+def create_shifted_viewport(viewport, delta, num_rows, num_cols):
    new_x = clamp(viewport.left + delta[0], 0, num_cols - viewport.width)
    new_y = clamp(viewport.top + delta[1], 0, num_rows - viewport.height)
 

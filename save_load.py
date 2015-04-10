@@ -52,16 +52,16 @@ VEIN_ROW = 3
 VEIN_REACH = 5
 
 
-def save_world(world, file):
+def save_world(world, file):  #Two different functions call save_world and no clear class to place into
    save_entities(world, file)
    save_background(world, file)
 
-def save_entities(world, file):
+def save_entities(world, file):  #Called from the function save_world which is not in a class
    for entity in world.get_entities():
       file.write(entities.entity_string(entity) + '\n')
 
 
-def save_background(world, file):
+def save_background(world, file): #Called from the function save_world which is not in a class
    for row in range(0, world.num_rows):
       for col in range(0, world.num_cols):
          file.write('background ' +
@@ -110,7 +110,6 @@ def create_from_properties(properties, i_store):
       elif key == OBSTACLE_KEY:
          return create_obstacle(properties, i_store)
    return None
-
 
 def create_miner(properties, i_store):
    if len(properties) == MINER_NUM_PROPERTIES:

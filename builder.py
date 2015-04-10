@@ -21,10 +21,10 @@ TILE_HEIGHT = 32
 def __init__(self):
     return entities.Background(image_store.DEFAULT_IMAGE_NAME, self)
 
-
-def create_default_background(img):  #delete
+"""
+def create_default_background(img):  #put into main.py
    return entities.Background(image_store.DEFAULT_IMAGE_NAME, img)
-
+"""
 
 def main():
    random.seed()

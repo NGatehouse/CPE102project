@@ -1,5 +1,22 @@
 import point
 import actions
+
+BLOB_RATE_SCALE = 4  #4
+BLOB_ANIMATION_RATE_SCALE = 50 #50
+BLOB_ANIMATION_MIN = 1 # 1
+BLOB_ANIMATION_MAX = 3
+
+ORE_CORRUPT_MIN = 20000
+ORE_CORRUPT_MAX = 30000
+
+QUAKE_STEPS = 10
+QUAKE_DURATION = 1100
+QUAKE_ANIMATION_RATE = 100
+
+VEIN_SPAWN_DELAY = 500
+VEIN_RATE_MIN = 8000
+VEIN_RATE_MAX = 17000
+
 class Background: 
    def __init__(self, name, imgs):
       self.name = name
@@ -29,10 +46,7 @@ class MinerNotFull:
       self.animation_rate = animation_rate
       self.pending_actions = []
    
-   def clear_pending_actions(self,world):
-      for action in self.get_pending_actions():
-         world.unschedule_action(action)
-      self.clear_pending_actions()
+   
    
       
    def create_miner_action(self,world,image_store): # done
@@ -322,7 +336,7 @@ class Vein:
          else:
             tiles = []
 
-         world.schedule_action( 
+         self.schedule_action( world,
             self.create_vein_action(world, i_store),
             current_ticks + self.get_rate()) # world. or self.
          return tiles
@@ -353,8 +367,8 @@ class Vein:
    def get_name(self):
       return self.name
       
-   def remove_pending_action(self, action):
-      if hasattr(self, "pending_actions"):
+   def remove_pending_action(self, action):      
+      if hasattr(self, "pending_actions"):                  
          self.pending_actions.remove(action)
    def add_pending_action(self, action):
       if hasattr(self, "pending_actions"):
@@ -393,7 +407,7 @@ class Ore:
    def create_ore_transform_action(self,world,i_store):
       def action(current_ticks):
          self.remove_pending_action(action)
-         blob = world.create_blob(self.get_name() + " -- blob",
+         blob = actions.create_blob(world,self.get_name() + " -- blob",
          self.get_position(),
          self.get_rate() // BLOB_RATE_SCALE,
          current_ticks, i_store) # world.createblob??
@@ -437,7 +451,7 @@ class Ore:
          return self.pending_actions
       else:
          return []
-   def clear_pending_actions(self):
+   def clear_pending_actions(self): 
       if hasattr(self, "pending_actions"):
          self.pending_actions = []
          
@@ -589,7 +603,7 @@ class OreBlob:
 
          next_time = current_ticks + self.get_rate()
          if found:
-            quake = world.create_quake( tiles[0], current_ticks, i_store)
+            quake = actions.create_quake(world, tiles[0], current_ticks, i_store)
             world.add_entity( quake)
             next_time = current_ticks + self.get_rate() * 2
 

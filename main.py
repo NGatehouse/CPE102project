@@ -22,16 +22,16 @@ TILE_WIDTH = 32
 TILE_HEIGHT = 32
 
 
-def create_default_background(img):
+def create_default_background(img): # no identifiable class with matching data to transform into a method
    return entities.Background(image_store.DEFAULT_IMAGE_NAME, img)
 
 
-def load_world(world, i_store, filename):
+def load_world(world, i_store, filename): # deals with files and we don't have a class that deals with files 
    with open(filename, 'r') as file:
       save_load.load_world(world, i_store, file, RUN_AFTER_LOAD)
 
 
-def main():
+def main(): # this is what starts the game, wouldn't leave that up to a class.
    random.seed()
    pygame.init()
    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))

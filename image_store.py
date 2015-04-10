@@ -3,14 +3,13 @@ import pygame
 DEFAULT_IMAGE_NAME = 'background_default'
 DEFAULT_IMAGE_COLOR = (128, 128, 128, 0)
 
-
-def create_default_image(tile_width, tile_height):
+def create_default_image(tile_width, tile_height): # uses data from the main.py file and uses the pygame function surface
    surf = pygame.Surface((tile_width, tile_height))
    surf.fill(DEFAULT_IMAGE_COLOR)
    return surf
 
 
-def load_images(filename, tile_width, tile_height):
+def load_images(filename, tile_width, tile_height): # uses files and we don't have any classes that are made to deal with files
    images = {}
    with open(filename) as fstr:
       for line in fstr:
@@ -23,7 +22,7 @@ def load_images(filename, tile_width, tile_height):
    return images
 
 
-def process_image_line(images, line):
+def process_image_line(images, line): # also deals with files and uses pygame methods
    attrs = line.split()
    if len(attrs) >= 2:
       key = attrs[0]
@@ -42,14 +41,14 @@ def process_image_line(images, line):
             img.set_colorkey(pygame.Color(r, g, b, a))
 
 
-def get_images_internal(images, key):
+def get_images_internal(images, key): # data within this function doesn't match  any known class data.
    if key in images:
       return images[key]
    else:
       return []
 
 
-def get_images(images, key):
+def get_images(images, key): # getter that accesses data from the main.py file but no class data 
    if key in images:
       return images[key]
    else:

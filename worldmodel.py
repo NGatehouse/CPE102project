@@ -12,10 +12,12 @@ class WorldModel:
       self.num_cols = num_cols
       self.occupancy = occ_grid.Grid(num_cols, num_rows, None)
       self.entities = []
-      self.action_queue = ordered_list.OrderedList()
+      self.action_queue = ordered_list.OrderedList() 
 
-         
-      
+   def clear_pending_actions(self,entity):
+      for action in entity.get_pending_actions():
+         self.unschedule_action(action)
+      entity.clear_pending_actions()      
    
    def remove_entity(self, entity):
       for action in entity.get_pending_actions():
@@ -23,17 +25,13 @@ class WorldModel:
       entity.clear_pending_actions()
       self.remove_entity(entity)
       
-   
-      
    def find_open_around(self, pt, distance): #done
       for dy in range(-distance, distance + 1):
          for dx in range(-distance, distance + 1):
             new_pt = point.Point(pt.x + dx, pt.y + dy)
-
             if (self.within_bounds(new_pt) and
                (not self.is_occupied(new_pt))):
                return new_pt
-
       return None
    
    def blob_next_position(self, entity_pt, dest_pt):
@@ -84,13 +82,13 @@ class WorldModel:
          old_entity = self.occupancy.get_cell(pt)
          if old_entity != None:
             old_entity.clear_pending_actions()
-         self.occupancy.set_cell(pt, entity) # what to do with occ_grid? ... self.occupancy 
+         self.occupancy.set_cell(pt, entity) 
          self.entities.append(entity)
 
    def move_entity(self, entity, pt):
       tiles = []
       if self.within_bounds(pt):
-         old_pt = pt.get_position() # not sure if this is right
+         old_pt = pt.get_position() 
          self.occupancy.set_cell( old_pt, None) 
          tiles.append(old_pt)
          self.occupancy.set_cell(pt, entity)
@@ -146,10 +144,10 @@ class WorldModel:
    def get_entities(self):
       return self.entities
    
-def distance_sq(p1, p2):
+def distance_sq(p1, p2): # we are leaving this as a function because it just does a computation, however it does use data from the Point class
    return (p1.x - p2.x)**2 + (p1.y - p2.y)**2
    
-def nearest_entity(entity_dists):
+def nearest_entity(entity_dists): # doesn't use any data from any of the classes and this is the only place entity_dists is used
    if len(entity_dists) > 0:
       pair = entity_dists[0]
       for other in entity_dists:

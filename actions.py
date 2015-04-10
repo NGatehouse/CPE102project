@@ -304,7 +304,7 @@ def create_blob(world, name, pt, rate, ticks, i_store):
 
 
 def schedule_blob(world, blob, ticks, i_store):
-   world.schedule_action( blob, blob.create_ore_blob_action(world, i_store),
+   blob.schedule_action(world, blob.create_ore_blob_action(world, i_store),
       ticks + blob.get_rate())
    blob.schedule_animation(world)
 
@@ -324,7 +324,7 @@ def create_ore(world, name, pt, ticks, i_store):
 
 
 def schedule_ore(world, ore, ticks, i_store):
-   world.schedule_action(ore.create_ore_transform_action(world, i_store),
+   ore.schedule_action(world,ore.create_ore_transform_action(world, i_store),
    ticks + ore.get_rate())
 
 

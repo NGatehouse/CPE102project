@@ -1,0 +1,16 @@
+Entities.py
+   
+   Objects
+      Background
+      Obstacle
+      Blacksmith
+      Time_management #scheduling class
+      Actors #possibly next_possition and blob_next_possition from worldmodel.py
+         Miner
+            MinerNotFull
+            MinerFull
+         Ore
+            OreBlob
+         Vein
+         Quake
+         

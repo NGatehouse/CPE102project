@@ -1,6 +1,4 @@
-Entities.py
-   
-   
+Entities.py   
    Entity #get_images get_image next_image get_name 
       Background(Entity)       
       On_Grid(Entity) # set_position , get_position
@@ -18,17 +16,14 @@ Entities.py
                      MinerNotFull(Miner) #try_transform_miner_not_full miner_to_ore create_miner_not_full_action
                      MinerFull(Miner) #try_transform_miner_full miner_to_smith
    Action_manager #scheduling class, schedule_action, 
-      Animation_manager(Action_manager) # schedule_animation create_animation_action   get_animation_rate
-            
-                
+      Animation_manager(Action_manager) # schedule_animation create_animation_action   get_animation_rate                
 # Question 1... maybe self_to_other method for motion actor instead of having separate methods.. i.e. (blob_to_vein,miner_to_ore,miner_to_smith)       
 # Question 2... add entity_string to 4 different classes.. Obstacle, Ore, Vein, Miner[full & notfull same thing?? since they are a "miner"] 
 # Question 3... for Quake should we override get_rate? (pass)
-# Question 4... instead of create_ore_blob_action and create_miner_action... should it be create_actor_action (in motion_actor)
+# Question 4... instead of create_ore_blob_action and create_miner_action... should it be create_actor_action (in motion_actor) 
 
 
 
-# uml drawing obj oriented designs.. software engineer classes talk about... gets heavy weight, use just to draw. unified modeling language
-#next position in method for actor
+
 
          

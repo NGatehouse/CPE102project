@@ -17,6 +17,7 @@ VEIN_SPAWN_DELAY = 500
 VEIN_RATE_MIN = 8000
 VEIN_RATE_MAX = 17000
 
+
 class Background: 
    def __init__(self, name, imgs):
       self.name = name
@@ -661,7 +662,7 @@ class Quake:
             self.schedule_action(world,self.create_animation_action(world,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
          return [self.get_position()]
       return action   
-   def create_entity_death_action(self,world): # do i have to put this into every class?
+   def (self,world): # do i have to put this into every class?
       def action(current_ticks):
          self.remove_pending_action(action)
          pt = self.get_position()

@@ -32,41 +32,115 @@ class Background:
       self.current_img = (self.current_img + 1) % len(self.imgs)      
    def get_name(self):
       return self.name
-
-
-class MinerNotFull:
-   def __init__(self, name, resource_limit, position, rate, imgs,
-      animation_rate):
+      
+class Actor:
+   def __init__(self, name, position, rate, imgs):      
       self.name = name
       self.position = position
       self.rate = rate
       self.imgs = imgs
-      self.current_img = 0
+      self.current_img = 0       
+      self.pending_actions = [] 
+      
+   def set_position(self, point):
+      self.position = point
+   def get_position(self):
+      return self.position
+      
+   def get_images(self):
+      return self.imgs
+   def get_image(self):
+      return self.imgs[self.current_img]
+   def next_image(self):
+      self.current_img = (self.current_img + 1) % len(self.imgs)      
+   def get_rate(self):
+      return self.rate   
+    
+   def get_name(self):
+      return self.name      
+   
+   def remove_pending_action(self, action):
+      if hasattr(self, "pending_actions"):
+         self.pending_actions.remove(action)
+   def add_pending_action(self, action):
+      if hasattr(self, "pending_actions"):
+         self.pending_actions.append(action)
+   def get_pending_actions(self):
+      if hasattr(self, "pending_actions"):
+         return self.pending_actions
+      else:
+         return []
+   def clear_pending_actions(self):
+      if hasattr(self, "pending_actions"):
+         self.pending_actions = []  
+         
+
+      
+class Mining(Actor):
+   def __init__(self, name,resource_limit, position, rate, imgs):
+      Actor.__init__(self,name, position, rate, imgs)      
       self.resource_limit = resource_limit
-      self.resource_count = 0
-      self.animation_rate = animation_rate
+      self.resource_count=0
+      self.current_img = 0
+      self.pending_actions = []    
+      
+   def set_resource_count(self, n):
+      self.resource_count = n
+   def get_resource_count(self):   
+      return self.resource_count      
+   def get_resource_limit(self):
+      return self.resource_limit
+
+class Miner(Mining):
+   def __init__(self, name,resource_limit, position, rate, imgs,animation_rate):
+      Mining.__init__(self,name,resource_limit, position, rate, imgs)
+      self.animation_rate = animation_rate      
+      self.resource_count=0
+      self.current_img = 0
       self.pending_actions = []
    
-   
-   
-      
-   def create_miner_action(self,world,image_store): # done
-      return self.create_miner_not_full_action(world, image_store)
-  
-      
+   def get_animation_rate(self):
+      return self.animation_rate   
+   def create_miner_action(self,world,image_store): 
+      return self.create_miner_movement(world, image_store)      
    def try_transform_miner(self,world,transform):
-      new_entity = transform(world)
-      
-      if self != new_entity:
- 
+      new_entity = transform(world)      
+      if self != new_entity: 
          world.clear_pending_actions(self)
          world.remove_entity_at(self.get_position( ))
          world.add_entity( new_entity)
          new_entity.schedule_animation(world)
+      return new_entity   
+   def create_animation_action(self,world,repeat_count): # do i have to put this into every class?
+      def action(current_ticks):
+         self.remove_pending_action(action)
+         self.next_image()
+         if repeat_count != 1:
+            self.schedule_action(world,self.create_animation_action(world,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
+         return [self.get_position()]
+      return action   
+   def create_entity_death_action(self,world): # do i have to put this into every class?
+      def action(current_ticks):
+         self.remove_pending_action(action)
+         pt = self.get_position()
+         world.remove_entity(self)
+         return [pt]
+      return action
+   def schedule_action(self,world,action, time):
+      self.add_pending_action(action)
+      world.schedule_action(action, time)
+   def schedule_animation(self,world,repeat_count=0):
+      self.schedule_action(world,self.create_animation_action(world,repeat_count),self.get_animation_rate())   
+   def entity_string(self): # originally only in minernotfull but both are "miners"
+      return ' '.join(['miner', self.name, str(self.position.x),str(self.position.y), str(self.resource_limit),str(self.rate), str(self.animation_rate)])                  
 
-      return new_entity
-      
-   def try_transform_miner_not_full(self,world): # done 
+class MinerNotFull(Miner):
+   def __init__(self, name, resource_limit, position, rate, imgs,
+      animation_rate):
+      Miner.__init__(self,name, resource_limit, position, rate, imgs, animation_rate) 
+      self.pending_actions = []
+      self.current_img = 0     
+   def try_transform(self,world): # not full into full
       if self.resource_count < self.resource_limit:
          return self
       else:
@@ -74,9 +148,8 @@ class MinerNotFull:
          self.get_name(), self.get_resource_limit(),
          self.get_position(), self.get_rate(),
          self.get_images(), self.get_animation_rate())
-      return new_entity
-      
-   def miner_to_ore(self,world, ore): # done
+      return new_entity      
+   def _to_other(self,world, ore): # to ore
       entity_pt = self.get_position()
       if not ore:
          return ([entity_pt], False)
@@ -87,218 +160,73 @@ class MinerNotFull:
          return ([ore_pt], True)
       else:
          new_pt = world.next_position(entity_pt, ore_pt)
-         return (world.move_entity(self, new_pt), False)
-    
-   def create_animation_action(self,world,repeat_count): # do i have to put this into every class?
+         return (world.move_entity(self, new_pt), False)     
+   def create_miner_movement(self,world, i_store): #  not full action
       def action(current_ticks):
-         self.remove_pending_action(action)
-         self.next_image()
-         if repeat_count != 1:
-            self.schedule_action(world,self.create_animation_action(world,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
-         return [self.get_position()]
-      return action   
-   def create_entity_death_action(self,world): # do i have to put this into every class?
-      def action(current_ticks):
-         self.remove_pending_action(action)
-         pt = self.get_position()
-         world.remove_entity(self)
-         return [pt]
-      return action
-   def schedule_action(self,world,action, time):
-      self.add_pending_action(action)
-      world.schedule_action(action, time)
-   def schedule_animation(self,world,repeat_count=0):
-      self.schedule_action(world,self.create_animation_action(world,repeat_count),self.get_animation_rate())    
-      
- 
-      
-   def create_miner_not_full_action(self,world, i_store): # this method is done just implement other methods
-      def action(current_ticks):
-         self.remove_pending_action(action) 
-   
+         self.remove_pending_action(action)    
          entity_pt = self.get_position()
          ore = world.find_nearest(entity_pt, Ore)
-         (tiles, found) = self.miner_to_ore(world, ore) # implement
-
+         (tiles, found) = self._to_other(world, ore) # implement
          new_entity = self
          if found:
-            new_entity = new_entity.try_transform_miner( world,new_entity.try_transform_miner_not_full) # implement
+            new_entity = new_entity.try_transform_miner( world,new_entity.try_transform) # implement
          new_entity.schedule_action( world,new_entity.create_miner_action(world, i_store),current_ticks + new_entity.get_rate()) # implement
          return tiles
-      return action
-      
-   def entity_string(self):
-      return ' '.join(['miner', self.name, str(self.position.x),str(self.position.y), str(self.resource_limit),str(self.rate), str(self.animation_rate)])
-      
-            
-   def set_position(self, point):
-      self.position = point
-   def get_position(self):
-      return self.position
-      
-   def get_images(self):
-      return self.imgs
-   def get_image(self):
-      return self.imgs[self.current_img]
-   def next_image(self):
-      self.current_img = (self.current_img + 1) % len(self.imgs)
-      
-   def get_rate(self):
-      return self.rate
+      return action   
    
-   def set_resource_count(self, n):
-      self.resource_count = n
-   def get_resource_count(self):
-      return self.resource_count
-   def get_resource_limit(self):
-      return self.resource_limit
-   
-   def get_name(self):
-      return self.name
-      
-   def get_animation_rate(self):
-      return self.animation_rate
-   def remove_pending_action(self, action):
-      if hasattr(self, "pending_actions"):
-         self.pending_actions.remove(action)
-   def add_pending_action(self, action):
-      if hasattr(self, "pending_actions"):
-         self.pending_actions.append(action)
-   def get_pending_actions(self):
-      if hasattr(self, "pending_actions"):
-         return self.pending_actions
-      else:
-         return []
-   def clear_pending_actions(self):
-      if hasattr(self, "pending_actions"):
-         self.pending_actions = []
-   
-class MinerFull:
+class MinerFull(Miner):
    def __init__(self, name, resource_limit, position, rate, imgs,
       animation_rate):
-      self.name = name
-      self.position = position
-      self.rate = rate
-      self.imgs = imgs
-      self.current_img = 0
-      self.resource_limit = resource_limit
-      self.resource_count = resource_limit
-      self.animation_rate = animation_rate
+      Miner.__init__(self,name, resource_limit, position, rate, imgs,
+      animation_rate) 
       self.pending_actions = []
-      
-   def create_animation_action(self,world,repeat_count): # do i have to put this into every class?
-      def action(current_ticks):
-         self.remove_pending_action(action)
-         self.next_image()
-         if repeat_count != 1:
-            self.schedule_action(world,self.create_animation_action(world,max(repeat_count - 1, 0)),current_ticks + self.get_animation_rate()) # world.create or self.create
-         return [self.get_position()]
-      return action   
-   def create_entity_death_action(self,world): # do i have to put this into every class?
-      def action(current_ticks):
-         self.remove_pending_action(action)
-         pt = self.get_position()
-         world.remove_entity(self)
-         return [pt]
-      return action
-   def schedule_action(self,world,action, time):
-      self.add_pending_action(action)
-      world.schedule_action(action, time)
-   def schedule_animation(self,world,repeat_count=0):
-      self.schedule_action(world,self.create_animation_action(world,repeat_count),self.get_animation_rate())
-      
-   def create_miner_action(self,world,image_store):
-      return self.create_miner_full_action(world,image_store)
-      
-   def try_transform_miner(self,world,transform):
-      new_entity = transform(world)
-      if self != new_entity:
-         world.clear_pending_actions(self)
-         world.remove_entity_at( self.get_position())
-         world.add_entity( new_entity)          
-         new_entity.schedule_animation(world)
-
-      return new_entity
-    
-   def try_transform_miner_full(self,world):
+      self.current_img = 0      
+   def try_transform(self,world): #full to not full
       new_entity = MinerNotFull(
       self.get_name(), self.get_resource_limit(),
       self.get_position(), self.get_rate(),
       self.get_images(), self.get_animation_rate())
-
-      return new_entity
-      
-   def create_miner_full_action(self,world,i_store): # done just implement other funcs to methods
+      return new_entity      
+   def create_miner_movement(self,world,i_store):
       def action(current_ticks):
          self.remove_pending_action( action)
-
          entity_pt = self.get_position()
          smith = world.find_nearest(entity_pt, Blacksmith)
-         (tiles, found) = self.miner_to_smith(world,smith)
-
+         (tiles, found) = self._to_other(world,smith)
          new_entity = self
          if found:
-            new_entity = self.try_transform_miner(world,self.try_transform_miner_full)
-
-         new_entity.schedule_action(world,new_entity.create_miner_action(world, i_store),current_ticks + new_entity.get_rate()) # might be self/new_entity.schedule action not sure
+            new_entity = self.try_transform_miner(world,self.try_transform)
+         new_entity.schedule_action(world,new_entity.create_miner_action(world, i_store),current_ticks + new_entity.get_rate()) #
          return tiles
-      return action
-      
-   def miner_to_smith(self, world, smith): # done (:
+      return action      
+   def _to_other(self, world, smith): # to smith
       entity_pt = self.get_position()
       if not smith:
          return ([entity_pt], False)
       smith_pt = smith.get_position()
-      if actions.adjacent(entity_pt, smith_pt): # leave adjacent as a function
+      if actions.adjacent(entity_pt, smith_pt): 
          smith.set_resource_count(smith.get_resource_count() + self.get_resource_count()) 
          self.set_resource_count(0)
          return ([], True)
       else:
          new_pt = world.next_position(entity_pt, smith_pt)
          return (world.move_entity(self, new_pt), False)
-   
          
-   def set_position(self, point):
-      self.position = point
-   def get_position(self):
-      return self.position
-      
-   def get_images(self):
-      return self.imgs
-   def get_image(self):
-      return self.imgs[self.current_img]
-   def next_image(self):
-      self.current_img = (self.current_img + 1) % len(self.imgs)
-      
-   def get_rate(self):
-      return self.rate
-   
-   def set_resource_count(self, n):
-      self.resource_count = n
-   def get_resource_count(self):
-     return self.resource_count
-   def get_resource_limit(self):
-      return self.resource_limit
-    
-   def get_name(self):
-      return self.name
-      
-   def get_animation_rate(self):
-      return self.animation_rate
-   def remove_pending_action(self, action):
-      if hasattr(self, "pending_actions"):
-         self.pending_actions.remove(action)
-   def add_pending_action(self, action):
-      if hasattr(self, "pending_actions"):
-         self.pending_actions.append(action)
-   def get_pending_actions(self):
-      if hasattr(self, "pending_actions"):
-         return self.pending_actions
-      else:
-         return []
-   def clear_pending_actions(self):
-      if hasattr(self, "pending_actions"):
-         self.pending_actions = []
+class Blacksmith(Mining):
+   def __init__(self, name, position, imgs,resource_limit, rate,
+      resource_distance=1):
+      Mining.__init__(self,name,position,imgs,resource_limit,rate)     
+      self.current_img = 0      
+      self.resource_count=0
+      self.resource_distance = resource_distance
+      self.pending_actions = []       
+   def get_resource_distance(self):
+      return self.resource_distance
+   def schedule_action(self,world,action, time):
+      self.add_pending_action(action)
+      world.schedule_action(action, time)      
+   def entity_string(self):
+      return ' '.join(['blacksmith', self.name, str(self.position.x),str(self.position.y), str(self.resource_limit),str(self.rate), str(self.resource_distance)])     
    
 class Vein:
    def __init__(self, name, rate, position, imgs, resource_distance=1):
@@ -454,73 +382,7 @@ class Ore:
       if hasattr(self, "pending_actions"):
          self.pending_actions = []
          
-class Blacksmith:
-   def __init__(self, name, position, imgs, resource_limit, rate,
-      resource_distance=1):
-      self.name = name
-      self.position = position
-      self.imgs = imgs
-      self.current_img = 0
-      self.resource_limit = resource_limit
-      self.resource_count = 0
-      self.rate = rate
-      self.resource_distance = resource_distance
-      self.pending_actions = []
-      
-     
 
-   def schedule_action(self,world,action, time):
-      self.add_pending_action(action)
-      world.schedule_action(action, time)
-  
-      
-   def entity_string(self):
-      return ' '.join(['blacksmith', self.name, str(self.position.x),str(self.position.y), str(self.resource_limit),str(self.rate), str(self.resource_distance)])
-      
-      
-      
-   def set_position(self, point):
-      self.position = point
-   def get_position(self):
-      return self.position
-      
-   def get_images(self):
-      return self.imgs
-   def get_image(self):
-      return self.imgs[self.current_img]
-   def next_image(self):
-      self.current_img = (self.current_img + 1) % len(self.imgs)
-      
-   def get_rate(self):
-      return self.rate
-      
-   def set_resource_count(self, n):
-      self.resource_count = n
-   def get_resource_count(self):   
-      return self.resource_count      
-   def get_resource_limit(self):
-      return self.resource_limit
-   def get_resource_distance(self):
-      return self.resource_distance
-   
-   def get_name(self):
-     return self.name
-     
-   
-   def remove_pending_action(self, action):
-      if hasattr(self, "pending_actions"):
-         self.pending_actions.remove(action)
-   def add_pending_action(self, action):
-      if hasattr(self, "pending_actions"):
-         self.pending_actions.append(action)
-   def get_pending_actions(self):
-      if hasattr(self, "pending_actions"):
-         return self.pending_actions
-      else:
-         return []
-   def clear_pending_actions(self):
-      if hasattr(self, "pending_actions"):
-         self.pending_actions = []
       
 class Obstacle:
    def __init__(self, name, position, imgs):

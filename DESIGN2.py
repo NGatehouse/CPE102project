@@ -17,12 +17,18 @@ Entities.py
                      MinerFull(Miner) #try_transform_miner_full miner_to_smith
    Action_manager #scheduling class, schedule_action, 
       Animation_manager(Action_manager) # schedule_animation create_animation_action   get_animation_rate                
-# Question 1... maybe self_to_other method for motion actor instead of having separate methods.. i.e. (blob_to_vein,miner_to_ore,miner_to_smith)       
+# Question 1... maybe self_to_other method for motion actor instead of having separate methods.. i.e. (blob_to_vein,miner_to_ore,miner_to_smith)     
+Yes  
 # Question 2... add entity_string to 4 different classes.. Obstacle, Ore, Vein, Miner[full & notfull same thing?? since they are a "miner"] 
-# Question 3... for Quake should we override get_rate? (pass)
+Elevate to actor class method handles calls from entities can't handle.
+# Question 3... for Quake should we override get_rate? (pass)  
+Not actor. Animates. Redesign. Don't do pass
 # Question 4... instead of create_ore_blob_action and create_miner_action... should it be create_actor_action (in motion_actor) 
+create_action  Yes. Inherit and specialize.
 
+Elevate animation_manager out of action_manger ... fixes quake redesign prob
 
+Allowed to redefine methods for specialization
 
 
 

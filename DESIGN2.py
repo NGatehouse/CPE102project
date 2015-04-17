@@ -20,7 +20,8 @@ Entities.py
 # Question 1... maybe self_to_other method for motion actor instead of having separate methods.. i.e. (blob_to_vein,miner_to_ore,miner_to_smith)       
 # Question 2... add entity_string to 4 different classes.. Obstacle, Ore, Vein, Miner[full & notfull same thing?? since they are a "miner"] 
 # Question 3... for Quake should we override get_rate? (pass)
-# Question 4... instead of create_ore_blob_action and create_miner_action... should it be create_actor_action (in motion_actor) 
+# Question 4... instead of create_ore_blob_action and create_miner_action... should it be create_actor_action (in motion_actor)
+# for testing purposes work from miners up
 
 
 

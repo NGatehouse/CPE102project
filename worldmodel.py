@@ -72,7 +72,7 @@ class WorldModel:
       return nearest_entity(oftype)
 
    def add_entity(self, entity):
-      pt = entity.get_position()
+      pt = entity.get_position()      
       if self.within_bounds(pt):
          old_entity = self.occupancy.get_cell(pt)
          if old_entity != None:

@@ -72,17 +72,15 @@ class Actor:
          return []
    def clear_pending_actions(self):
       if hasattr(self, "pending_actions"):
-         self.pending_actions = []  
-         
+         self.pending_actions = []           
 
       
 class Mining(Actor):
    def __init__(self, name,resource_limit, position, rate, imgs):
       Actor.__init__(self,name, position, rate, imgs)      
       self.resource_limit = resource_limit
-      self.resource_count=0
-      self.current_img = 0
-      self.pending_actions = []    
+      self.resource_count=0   
+      
       
    def set_resource_count(self, n):
       self.resource_count = n
@@ -94,10 +92,7 @@ class Mining(Actor):
 class Miner(Mining):
    def __init__(self, name,resource_limit, position, rate, imgs,animation_rate):
       Mining.__init__(self,name,resource_limit, position, rate, imgs)
-      self.animation_rate = animation_rate      
-      self.resource_count=0
-      self.current_img = 0
-      self.pending_actions = []
+      self.animation_rate = animation_rate       
    
    def get_animation_rate(self):
       return self.animation_rate   
@@ -215,11 +210,10 @@ class MinerFull(Miner):
 class Blacksmith(Mining):
    def __init__(self, name, position, imgs,resource_limit, rate,
       resource_distance=1):
-      Mining.__init__(self,name,position,imgs,resource_limit,rate)     
-      self.current_img = 0      
-      self.resource_count=0
+      Mining.__init__(self,name,resource_limit, position, rate, imgs)    
+      
       self.resource_distance = resource_distance
-      self.pending_actions = []       
+            
    def get_resource_distance(self):
       return self.resource_distance
    def schedule_action(self,world,action, time):
@@ -228,16 +222,10 @@ class Blacksmith(Mining):
    def entity_string(self):
       return ' '.join(['blacksmith', self.name, str(self.position.x),str(self.position.y), str(self.resource_limit),str(self.rate), str(self.resource_distance)])     
    
-class Vein:
-   def __init__(self, name, rate, position, imgs, resource_distance=1):
-      self.name = name
-      self.position = position
-      self.rate = rate
-      self.imgs = imgs
-      self.current_img = 0
-      self.resource_distance = resource_distance
-      self.pending_actions = []
-      
+class Vein(Actor):
+   def __init__(self, name, rate, position,imgs,resource_distance=1):
+      Actor.__init__(self, name, position, rate, imgs)
+      self.resource_distance = resource_distance        
   
    def create_entity_death_action(self,world): # do i have to put this into every class?
       def action(current_ticks):
@@ -248,9 +236,7 @@ class Vein:
       return action
    def schedule_action(self,world,action, time):
       self.add_pending_action(action)
-      world.schedule_action(action, time)
-   
-      
+      world.schedule_action(action, time)      
    def create_vein_action(self,world,i_store):
       def action(current_ticks):
          self.remove_pending_action(action)
@@ -267,56 +253,18 @@ class Vein:
             self.create_vein_action(world, i_store),
             current_ticks + self.get_rate()) # world. or self.
          return tiles
-      return action
-      
+      return action      
    def entity_string(self):
       return ' '.join(['vein', self.name, str(self.position.x),str(self.position.y), str(self.rate),str(self.resource_distance)])
-      
-            
-   def set_position(self, point):
-      self.position = point
-   def get_position(self):
-      return self.position
-   
-   def get_images(self):
-      return self.imgs
-   def get_image(self):
-      return self.imgs[self.current_img]
-   def next_image(self):
-      self.current_img = (self.current_img + 1) % len(self.imgs)
-   
-   def get_rate(self):
-      return self.rate
-   
    def get_resource_distance(self):
       return self.resource_distance
       
-   def get_name(self):
-      return self.name
-      
-   def remove_pending_action(self, action):      
-      if hasattr(self, "pending_actions"):                  
-         self.pending_actions.remove(action)
-   def add_pending_action(self, action):
-      if hasattr(self, "pending_actions"):
-         self.pending_actions.append(action)
-   def get_pending_actions(self):
-      if hasattr(self, "pending_actions"):
-         return self.pending_actions
-      else:
-         return []
-   def clear_pending_actions(self):
-      if hasattr(self, "pending_actions"):
-         self.pending_actions = []
+   
          
-class Ore:
-   def __init__(self, name, position, imgs, rate=5000):
-      self.name = name
-      self.position = position
-      self.imgs = imgs
-      self.current_img = 0
-      self.rate = rate
-      self.pending_actions = []
+class Ore(Actor):
+   def __init__(self, name,position,imgs,rate = 5000):
+      Actor.__init__(self, name, position, rate, imgs)
+       
    
      
    def create_entity_death_action(self,world): # do i have to put this into every class?
@@ -346,41 +294,9 @@ class Ore:
       return action
       
    def entity_string(self):   
-      return ' '.join(['ore', self.name, str(self.position.x), str(self.position.y), str(self.rate)])
-  
-      
-   def set_position(self, point):
-      self.position = point
-   def get_position(self):
-      return self.position
-      
-   def get_images(self):
-      return self.imgs
-   def get_image(self):
-      return self.imgs[self.current_img]
-   def next_image(self):
-      self.current_img = (self.current_img + 1) % len(self.imgs)
-      
-   def get_rate(self):
-      return self.rate
-      
-   def get_name(self):
-      return self.name      
+      return ' '.join(['ore', self.name, str(self.position.x), str(self.position.y), str(self.rate)])    
    
-   def remove_pending_action(self, action):
-      if hasattr(self, "pending_actions"):
-         self.pending_actions.remove(action)
-   def add_pending_action(self, action):
-      if hasattr(self, "pending_actions"):
-         self.pending_actions.append(action)
-   def get_pending_actions(self):
-      if hasattr(self, "pending_actions"):
-         return self.pending_actions
-      else:
-         return []
-   def clear_pending_actions(self): 
-      if hasattr(self, "pending_actions"):
-         self.pending_actions = []
+      
          
 
       

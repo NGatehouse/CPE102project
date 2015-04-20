@@ -17,9 +17,8 @@ VEIN_SPAWN_DELAY = 500
 VEIN_RATE_MIN = 8000
 VEIN_RATE_MAX = 17000
 
-
-class Background: 
-   def __init__(self, name, imgs):
+class Entity:
+   def __init__(self,name,imgs):
       self.name = name
       self.imgs = imgs
       self.current_img = 0
@@ -32,7 +31,13 @@ class Background:
       self.current_img = (self.current_img + 1) % len(self.imgs)      
    def get_name(self):
       return self.name
-class On_Grid:
+
+class Background(Entity): 
+   def __init__(self, name, imgs):
+      Entity.__init__(self,name,imgs)
+      
+   
+class On_Grid(Entity):
    def __init__(self,name,imgs,position):
       self.name = name
       self.imgs = imgs
@@ -61,17 +66,11 @@ class Actor(On_Grid):
       
    
       
-   def get_images(self):
-      return self.imgs
-   def get_image(self):
-      return self.imgs[self.current_img]
-   def next_image(self):
-      self.current_img = (self.current_img + 1) % len(self.imgs)      
+      
    def get_rate(self):
       return self.rate   
     
-   def get_name(self):
-      return self.name      
+        
    
    def remove_pending_action(self, action):
       if hasattr(self, "pending_actions"):
@@ -306,20 +305,13 @@ class Ore(Actor):
          
 
       
-class Obstacle:
+class Obstacle(On_Grid):
    def __init__(self, name, position, imgs):
       On_Grid.__init__(self,name,imgs,position)
       self.current_img = 0
     
    def entity_string(self): # dont need is instance just return...
-      return ' '.join(['obstacle', self.name, str(self.position.x), str(self.position.y)])
-           
-      
-   def set_position(self, point):
-      self.position = point
-   def get_position(self):
-      return self.position
-      
+      return ' '.join(['obstacle', self.name, str(self.position.x), str(self.position.y)])    
    def get_images(self):
       return self.imgs
    def get_image(self):
@@ -383,14 +375,12 @@ class OreBlob(Actor):
       return self.animation_rate
    
          
-class Quake:
+class Quake(On_Grid):
    def __init__(self, name, position, imgs, animation_rate):
-      self.name = name
-      self.position = position
-      self.imgs = imgs
+      On_Grid.__init__(self,name,imgs,position)      
       self.current_img = 0
-      self.animation_rate = animation_rate
-      self.pending_actions = []
+      self.animation_rate = animation_rate # animation_manager
+      
       
    def create_animation_action(self,world,repeat_count): #animation_manager
       def action(current_ticks):
@@ -411,12 +401,7 @@ class Quake:
       self.add_pending_action(action)
       world.schedule_action(action, time)
    def schedule_animation(self,world,repeat_count=0): # animation_manager
-      self.schedule_action(world,self.create_animation_action(world,repeat_count),self.get_animation_rate())
-   
-   def set_position(self, point):
-      self.position = point
-   def get_position(self):
-      return self.position
+      self.schedule_action(world,self.create_animation_action(world,repeat_count),self.get_animation_rate())   
       
    def get_images(self):
       return self.imgs

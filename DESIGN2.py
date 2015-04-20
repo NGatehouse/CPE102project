@@ -1,11 +1,11 @@
 Entities.py   
-   Entity #get_images  get_image  next_image  get_name 
-      Background(Entity)       
-      On_Grid(Entity) # set_position  get_position
+   Entity #get_images  get_image  next_image  get_name  DONE
+      Background(Entity) # DONE       
+      On_Grid(Entity) # set_position  get_position DONE
         Quake(On_Grid, animation_manager, action_manger) 
-        Obstacle(On_Grid)    
+        Obstacle(On_Grid) #DONE   
         Actor(On_Grid,action_manger) 
-         # get_rate
+         # get_rate 
             Ore(Actor) # create_ore_transform_action DONE              
             Vein(Actor) # create_vein_action   DONE         
             OreBlob(Actor,animation_manager) #blob_to_vein create_ore_blob_action
@@ -14,8 +14,8 @@ Entities.py
                  Miner(Mining,animation_manager) #create_miner_action try_transform_miner, animation_rate   
                      MinerNotFull(Miner) #try_transform_miner_not_full miner_to_ore create_miner_not_full_action DONE
                      MinerFull(Miner) #try_transform_miner_full miner_to_smith  DONE
-            Ore(Actor) # create_ore_transform_action               
-            Vein(Actor) # create_vein_action            
+            Ore(Actor) # create_ore_transform_action   DONE            
+            Vein(Actor) # create_vein_action DONE            
             OreBlob(Actor,animation_manager) #create_ore_blob_action
             Mining(Actor) '''Interface'''#set_resource_count get_resource_count  set_resource_limit   
                  Blacksmith(Mining) 

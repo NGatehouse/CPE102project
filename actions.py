@@ -304,7 +304,7 @@ def create_blob(world, name, pt, rate, ticks, i_store):
 
 
 def schedule_blob(world, blob, ticks, i_store):
-   blob.schedule_action(world, blob.create_ore_blob_action(world, i_store),
+   blob.schedule_action(world, blob.create_actor_motion(world, i_store),
       ticks + blob.get_rate())
    blob.schedule_animation(world)
 

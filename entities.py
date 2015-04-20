@@ -32,13 +32,22 @@ class Background:
       self.current_img = (self.current_img + 1) % len(self.imgs)      
    def get_name(self):
       return self.name
-      
-class Actor:
-   def __init__(self, name, position, rate, imgs):      
+class On_Grid:
+   def __init__(self,name,imgs,position):
       self.name = name
-      self.position = position
-      self.rate = rate
       self.imgs = imgs
+      self.position = position
+      
+   def set_position(self, point):
+      self.position = point
+   def get_position(self):
+      return self.position
+    
+         
+class Actor(On_Grid):
+   def __init__(self, name, position, rate, imgs):      
+      On_Grid.__init__(self,name,imgs,position)      
+      self.rate = rate      
       self.current_img = 0       
       self.pending_actions = [] 
       
@@ -50,10 +59,7 @@ class Actor:
          return [pt]
       return action 
       
-   def set_position(self, point):
-      self.position = point
-   def get_position(self):
-      return self.position
+   
       
    def get_images(self):
       return self.imgs
@@ -94,7 +100,7 @@ class Mining(Actor):
       return self.resource_count      
    def get_resource_limit(self):
       return self.resource_limit
-
+    # resource distance?
 class Miner(Mining):
    def __init__(self, name,resource_limit, position, rate, imgs,animation_rate):
       Mining.__init__(self,name,resource_limit, position, rate, imgs)
@@ -302,9 +308,7 @@ class Ore(Actor):
       
 class Obstacle:
    def __init__(self, name, position, imgs):
-      self.name = name
-      self.position = position
-      self.imgs = imgs
+      On_Grid.__init__(self,name,imgs,position)
       self.current_img = 0
     
    def entity_string(self): # dont need is instance just return...

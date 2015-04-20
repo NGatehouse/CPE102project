@@ -2,21 +2,21 @@ Entities.py
    Entity #get_images get_image next_image get_name 
       Background(Entity)       
       On_Grid(Entity) # set_position , get_position
+        Quake(On_Grid, animation_manager, action_manger) 
         Obstacle(On_Grid)   #    
         Actor(On_Grid,action_manger) 
-         # get_rate add_pending_actions remove_pending_actions clear_pending_actions get_pending_actions  
+         # get_rate 
             Ore(Actor) # create_ore_transform_action DONE              
             Vein(Actor) # create_vein_action   DONE         
-            Motion_actor(Actor)  #possibly next_possition and blob_next_possition from worldmodel.py, create_entity_death_action, (maybe self_to_other) (maybe create_actor_action)  (takes animation_rate)
-                OreBlob(Motion_actor,animation_manager) #blob_to_vein create_ore_blob_action
-                Quake(Motion_actor) 
-            Mining(Actor) #3 actors:  set_resource_count get_resource_count set_resource_limit  DONE             
+            OreBlob(Actor,animation_manager) #blob_to_vein create_ore_blob_action
+            Mining(Actor) '''Interface'''#3 actors:  set_resource_count get_resource_count set_resource_limit  DONE    
                  Blacksmith(Mining) # DONE 
                  Miner(Mining,Motion_actor, animation_manager) #create_miner_action try_transform_miner, animation_rate   
                      MinerNotFull(Miner) #try_transform_miner_not_full miner_to_ore create_miner_not_full_action DONE
                      MinerFull(Miner) #try_transform_miner_full miner_to_smith  DONE
-   Action_manager #scheduling class, schedule_action, 
-   Animation_manager # schedule_animation create_animation_action   get_animation_rate  
+   Action_manager '''Interface'''#scheduling class, schedule_action, 
+                  #add_pending_actions remove_pending_actions clear_pending_actions get_pending_actions  , create_entity_death_action
+   Animation_manager '''Interface'''# schedule_animation create_animation_action   get_animation_rate  
       
 
 #What is the difference between    super(b,self).__init__(x)  and  A.__init__(self,x) 

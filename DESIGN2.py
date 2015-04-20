@@ -11,7 +11,7 @@ Entities.py
             OreBlob(Actor,animation_manager) #blob_to_vein create_ore_blob_action
             Mining(Actor) '''Interface'''#3 actors:  set_resource_count get_resource_count set_resource_limit  DONE    
                  Blacksmith(Mining) # DONE 
-                 Miner(Mining,Motion_actor, animation_manager) #create_miner_action try_transform_miner, animation_rate   
+                 Miner(Mining,animation_manager) #create_miner_action try_transform_miner, animation_rate   
                      MinerNotFull(Miner) #try_transform_miner_not_full miner_to_ore create_miner_not_full_action DONE
                      MinerFull(Miner) #try_transform_miner_full miner_to_smith  DONE
    Action_manager '''Interface'''#scheduling class, schedule_action, 

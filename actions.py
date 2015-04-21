@@ -349,7 +349,7 @@ def create_vein(world, name, pt, ticks, i_store):
 
 
 def schedule_vein(world, vein, ticks, i_store):
-   vein.schedule_action(world, vein.create_vein_action(world, i_store),
+   vein.schedule_action(world, vein.create_actor_motion(world, i_store),
       ticks + vein.get_rate())
 
 

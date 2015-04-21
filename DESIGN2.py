@@ -1,4 +1,6 @@
-Entities.py   
+Entities.py 
+   Action_manager '''Interface''' #remove_pending_action  get_pending_action  clear_pending_actions  schedule_action  create_entity_death_action
+   Animation_manager '''Interface''' #get_animation_rate  create_animation_action  schedule_animation  
    Entity #DATA name images
    #get_images  get_image  next_image  get_name 
       Background(Entity)        
@@ -25,8 +27,7 @@ Entities.py
                      #try_transform  to_other   create_actor_motion 
                      MinerFull(Miner) #DATA name resoure_limit  position  rate  images animation_rate
                      #try_transform  to_other   create_actor_motion 
-   Action_manager '''Interface''' #remove_pending_action  get_pending_action  clear_pending_actions  schedule_action  create_entity_death_action
-   Animation_manager '''Interface''' #get_animation_rate  create_animation_action  schedule_animation
+   
       
 _____________________________________________________________________   
 

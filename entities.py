@@ -209,13 +209,8 @@ class MinerFull(Miner):
          return (world.move_entity(self, new_pt), False)
          
 class Blacksmith(Mining):
-   def __init__(self, name, position, imgs,resource_limit, rate,
-      resource_distance=1):
-      Mining.__init__(self,name,resource_limit, position, rate, imgs)  
-      self.resource_distance = resource_distance
-            
-   def get_resource_distance(self): # mining?
-      return self.resource_distance
+   def __init__(self, name, position, imgs,resource_limit, rate):
+      Mining.__init__(self,name,resource_limit, position, rate, imgs)  # account for resource_distance for save_load 
         
    def entity_string(self):
       return ' '.join(['blacksmith', self.name, str(self.position.x),str(self.position.y), str(self.resource_limit),str(self.rate), str(self.resource_distance)])     
@@ -256,10 +251,8 @@ class Ore(Actor):
          self.get_position(),
          self.get_rate() // BLOB_RATE_SCALE,
          current_ticks, i_store) 
-
          world.remove_entity(self)
          world.add_entity(blob)
-
          return [blob.get_position()]
       return action      
    def entity_string(self):   

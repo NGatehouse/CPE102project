@@ -151,8 +151,7 @@ def create_blacksmith(properties, i_store):
       return entities.Blacksmith(properties[SMITH_NAME],
          point.Point(int(properties[SMITH_COL]), int(properties[SMITH_ROW])),
          image_store.get_images(i_store, properties[PROPERTY_KEY]),
-         int(properties[SMITH_LIMIT]), int(properties[SMITH_RATE]),
-         int(properties[SMITH_REACH]))
+         int(properties[SMITH_LIMIT]), int(properties[SMITH_RATE]))
       return smith
    else:
       return None

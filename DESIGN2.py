@@ -17,10 +17,10 @@ Entities.py
             #create_actor_motion  entity_string  get_resource_distance             
             OreBlob(Actor,animation_manager) #DATA name  position  rate images  animation_rate
             #_to_other  create_actor_motion
-            Mining(Actor) '''Interface'''#DATA name  resoure_limit  position rate  images
+            Mining(Actor) #DATA name  resoure_limit  position rate  images
             #set_resource_count get_resource_count  set_resource_limit   
-                 Blacksmith(Mining) #DATA name  position  images  resoure_limit  rate  resource_distance(defaulted to 1)
-                 #get_resource_distance  entity_string
+                 Blacksmith(Mining) #DATA name  position  images  resoure_limit  rate 
+                 # entity_string
                  Miner(Mining, animation_manager) #DATA name resoure_limit  position  rate  images animation_rate
                  #create_miner_action  try_transform_miner entity_string   
                      MinerNotFull(Miner) #DATA name resoure_limit  position  rate  images animation_rate

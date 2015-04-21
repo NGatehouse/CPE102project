@@ -1,5 +1,4 @@
 Entities.py   
-
    Entity #DATA name images
    #get_images  get_image  next_image  get_name 
       Background(Entity)        

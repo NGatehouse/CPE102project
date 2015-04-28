@@ -1,4 +1,4 @@
-public class worldmodel {
+public class WorldModel {
 
     // fields
     //Do we want to make fields public or private?
@@ -20,6 +20,10 @@ public class worldmodel {
     }
 
     // methods
-
+    public void clear_pending_actions(){};
+    public void remove_entity(Entity entity)
+    {
+        for (Entity.action action : )
+    }
 
 }

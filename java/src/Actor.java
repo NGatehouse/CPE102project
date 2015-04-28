@@ -13,5 +13,5 @@ public class Actor extends On_Grid
     {
         return this.rate;
     }
-   //delete me
+   //delete me.. NO
 }

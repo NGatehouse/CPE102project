@@ -58,13 +58,39 @@ public class WorldModel {
         return null;
     }
 
-    public Point within_bounds(Point pt)
+    public Boolean within_bounds(Point pt)
     {
-       return pt.get_x()
+        return (pt.get_x() >= 0 && pt.get_x() < this.num_cols && pt.get_y() >= 0 && pt.get_y() < this.num_cols);
     }
 
+    public Boolean is_occupied(Point pt)
+    {
+        return (this.within_bounds(pt) && this.occupancy.get_cell(pt) != null);
+    }
 
+    public Void find_nearest(Point pt );  //What does it return?
+    {
+        /*
+      def find_nearest(self, pt, type):
+        oftype = [(e, distance_sq(pt, e.get_position()))
+                  for e in self.entities if isinstance(e, type)]
+      return nearest_entity(oftype)
+        */
+    }
 
-
+    public Void add_entity(Entity entity)
+    {
+        int pt = entity.get_position();
+        if (this.within_bounds(pt))
+        {
+            Entity old_entity = this.occupancy.get_cell(pt);
+            if (old_entity != null)
+            {
+                old_entity.clear_pending_actions();
+            }
+            this.occupancy.set_cell(pt, entity);
+            this.entities.append(entity);
+        }
+    }
 
 }

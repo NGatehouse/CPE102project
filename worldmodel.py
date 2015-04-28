@@ -65,6 +65,7 @@ class WorldModel:
    def is_occupied(self, pt):
       return (self.within_bounds(pt) and
          self.occupancy.get_cell(pt) != None)
+         
    def find_nearest(self, pt, type):
       oftype = [(e, distance_sq(pt, e.get_position())) # entities e?
          for e in self.entities if isinstance(e, type)]

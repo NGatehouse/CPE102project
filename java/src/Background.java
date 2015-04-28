@@ -4,5 +4,5 @@ public class Background extends Entity
     {
         super(name);
     }
-    //edit delete me
+
 }

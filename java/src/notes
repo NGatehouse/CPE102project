@@ -18,5 +18,10 @@ To add all files and subdirectories, recursively:
 
     git add .
 
+To add all files except workspace.xml and then commit
+
+    git add . && git rm -f java/.idea/workspace.xml && git commit
+    git add . ; git rm -f java/.idea/workspace.xml ; git commit
+
 Thanks!
 Luke

@@ -1,0 +1,14 @@
+Hi Nick,
+
+I found the best way to add files is to do the following:
+
+1. Right click on "src" > New > Java Class
+2. Name the class
+3. Copy and paste Java file into the empty project class file
+
+Once we both have our files in the project, then we should be able to
+ use Git to seamlessly sync files.
+
+Also, when you "add" files with Git, you will probably want to use 
+Thanks!
+Luke

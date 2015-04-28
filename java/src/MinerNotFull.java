@@ -1,8 +1,60 @@
 public class MinerNotFull extends Miner
 {
-    private Point position;
     public MinerNotFull(String name,int resource_limit,Point position,int rate)
     {
         super(name,resource_limit,position,rate);
+    }
+
+    public Miner try_transform(WorldModel world)
+    {
+        if(this.get_resource_count() < this.get_resource_limit())
+        {
+            return this;
+        }
+        else
+        {
+            return new MinerFull(this.get_name(),this.get_resource_limit(),this.get_position(),this.get_rate());
+        }
+
+    }
+    public tuple _to_other(WorldModel world, Ore ore) // whats the return type..tuple?
+    {
+        Point entity_pt = this.get_position();
+        if (! ore)
+        {
+            return ([entity_pt], false); //dont think this is right
+        }
+        Point ore_pt = ore.get_position();
+        if (adjacent(entity_pt,ore_pt)) //implement adjacent
+        {
+            this.set_resource_count(1+this.get_resource_count());
+            world.remove_entity(ore); // implement in worldmodel
+            return ([ore_pt], true); //not sure here either
+        }
+        else
+        {
+            Point new_pt = world.next_position(entity_pt,ore_pt);
+            return (world.move_entity(new_pt),false);
+        }
+    }
+
+    public create_actor_motion(WorldModel world, i_store)
+    {
+        public action(current_ticks)
+        {
+            this.remove_pending_action(action);
+            Point entity_pt = this.get_position();
+            Ore ore = world.find_nearest(entity_pt, ore);
+            (tiles,found) = this._to_other(world,ore);
+            Miner new_miner = this;
+            if(found)//whats found in python code?
+            {
+                new_miner = new_miner.try_transform_miner(world,new_miner.try_transform());
+            }
+            new_miner.schedule_action(world,new_miner.create_miner_action(world,i_store),current_ticks + new_miner.get_rate());
+            return tiles
+        }
+        return action
+
     }
 }

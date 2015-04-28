@@ -65,7 +65,7 @@ class Entity:
       self.imgs = imgs
       self.current_img = 0
       
-   def get_images(self):
+   def get_images(self): # omit these 3 image methods..?
       return self.imgs
    def get_image(self):
       return self.imgs[self.current_img]
@@ -117,9 +117,9 @@ class Miner(Mining, Animation_manager):
       Mining.__init__(self,name,resource_limit, position, rate, imgs)
       self.animation_rate = animation_rate    
     
-   def create_miner_action(self,world,image_store): 
+   def create_miner_action(self,world,image_store): # omit this?
       return self.create_actor_motion(world, image_store)      
-   def try_transform_miner(self,world,transform):
+   def try_transform_miner(self,world,transform): # is this techinically an action?
       new_entity = transform(world)      
       if self != new_entity: 
          world.clear_pending_actions(self)
@@ -145,7 +145,7 @@ class MinerNotFull(Miner):
          self.get_position(), self.get_rate(),
          self.get_images(), self.get_animation_rate())
       return new_entity      
-   def _to_other(self,world, ore): # to ore special
+   def _to_other(self,world, ore): # to ore special....this is also an action
       entity_pt = self.get_position()
       if not ore:
          return ([entity_pt], False)

@@ -5,5 +5,5 @@ public class OreBlob extends Actor
         super(name,position,rate);
     }
 
-    
+
 }

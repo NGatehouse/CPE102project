@@ -21,11 +21,54 @@ public class WorldModel {
     }
 
     // methods
-    public void clear_pending_actions(){};
-    public void remove_entity(Entity entity)
+    public void clear_pending_actions()
     {
-        for (Entity.action action : )
+        //
     }
 
+    public void remove_entity(Entity entity)
+    {
+        for (Entity.action action : entity.get_pending_actions())
+            this.unschedule_action(action);
+        entity.clear_pending_actions();
+        this.remove_entity(entity);
+    }
+
+    public Point find_open_around(Point pt, int distance)
+    {
+        for (int dy; dy <= distance; dy++)
+        {
+            for (int dx; dx <= distance; dx++)
+            {
+                Point new_pt = new Point(pt.get_x() + dx, pt.get_y() + dy);
+                if (this.within_bounds(new_pt) && !this.is_occupied(new_pt));
+                    return new_pt;
+            }
+        }
+        return null;
+    }
+
+    public Point blob_next_position()
+    {
+        return null;
+    }
+
+    public Point next_position()
+    {
+        return null;
+    }
+
+    public Point within_bounds(Point pt)
+    {
+       return pt.get_x()
+    }
+
+
+
+
+
 }
+<<<<<<< HEAD
  
+=======
+>>>>>>> 3bc33e32182b267f700814c54e391892487a2fb7

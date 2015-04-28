@@ -1,3 +1,18 @@
+DONE
+    actor.java
+        How to make a constant, for example current_image = 0
+    on_grid.java
+    entity.java
+
+
+
+
+
+this.position = super(position)
+
+
+
+____________________________________________________________________
 Hi Nick,
 
 I found the best way to add files is to do the following:
@@ -10,7 +25,8 @@ Once we both have our files in the project, then we should be able to
  use Git to seamlessly sync files.
 
 Also, when I "added" the files to our repository, I had to use the following command.
-I am not sure if we will continue to have to use it. There probably is a recursive way to do this.
+I am not sure if we will continue to have to use it. There probably is a recursive
+way to do this.
 
     git add java/* java/.idea/* java/.idea/.name/*
 
@@ -25,5 +41,3 @@ To add all files except workspace.xml and then commit
 
 Thanks!
 Luke
-
-test1 luke

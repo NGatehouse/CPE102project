@@ -1,0 +1,580 @@
+[33mcommit ff445673ee82ec1417653acb45b822aa17a9317d[m
+Merge: fb3d853 e43c251
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Tue Apr 28 14:21:23 2015 -0700
+
+    fixed worskpacsaMerge branch 'master' of https://github.com/rottren/CPE102project
+    
+    Conflicts:
+    	java/.idea/workspace.xml
+
+[33mcommit fb3d8533399e9a05b5a2b74b52f73136668e0c04[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Tue Apr 28 14:17:45 2015 -0700
+
+    hh
+
+[33mcommit e43c25193e66bfe6bfd49e28301c29ca302e4929[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Tue Apr 28 13:51:31 2015 -0700
+
+    test
+
+[33mcommit 1cb2eea5e4838e741e78e6e1addf47333783ac8a[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Tue Apr 28 13:49:09 2015 -0700
+
+    sync
+
+[33mcommit 08f28493d24c38f93a6eda42eb2f445d21aab48f[m
+Merge: b3a7917 c077e3b
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Tue Apr 28 13:47:42 2015 -0700
+
+    testdddMerge branch 'master' of https://github.com/rottren/CPE102project
+    
+    Conflicts:
+    	java/.idea/workspace.xml
+
+[33mcommit b3a7917851f3772c9675cfc784ad35a035e73a49[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Tue Apr 28 13:46:32 2015 -0700
+
+    test11luke
+
+[33mcommit c077e3bc791206636c78a27c0dfa464f27dae34c[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Tue Apr 28 13:42:44 2015 -0700
+
+    not sure whats ging on
+
+[33mcommit fc44077d066efba8ea2390860890b3001e873863[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Tue Apr 28 13:22:17 2015 -0700
+
+    Removed comments
+
+[33mcommit 30b47b597cd1f30b9c31781c00c79d26fd0be406[m
+Merge: 67b70e6 1c88933
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Tue Apr 28 13:20:30 2015 -0700
+
+    Merge branch 'master' of https://github.com/rottren/CPE102project
+
+[33mcommit 67b70e6547da1a4a3d0a120bcdca8b998c9f2a3c[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Mon Apr 27 20:44:13 2015 -0700
+
+    apll set up
+
+[33mcommit 1c8893317678dcce72cabd6232a98de8b77b69e2[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Mon Apr 27 20:42:19 2015 -0700
+
+    bam!
+
+[33mcommit 7e52dc64218c14322681db6a33b5db7c629aeb7c[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Mon Apr 27 20:37:31 2015 -0700
+
+    test4
+
+[33mcommit d0efc14cbd6222f21a133c800bc05c10533768e8[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Mon Apr 27 20:34:05 2015 -0700
+
+    dhched
+
+[33mcommit f2de0948cc24483ae9e6d3b3eb95f583e1f74b15[m
+Merge: 81eb878 880f8ae
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Mon Apr 27 20:32:45 2015 -0700
+
+    Merge branch 'master' of https://github.com/rottren/CPE102project
+
+[33mcommit 880f8aefdd54a67a847eeb627c4159f9c0958452[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Mon Apr 27 20:32:25 2015 -0700
+
+    testd
+
+[33mcommit 81eb878ed65a4ba81d952b8249091e9b9bee3edf[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Mon Apr 27 20:31:57 2015 -0700
+
+    workspace
+
+[33mcommit 395cff959d4a3b1962ba370a25193301d3f3c01d[m
+Merge: c43ebfd cf70395
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Mon Apr 27 20:25:37 2015 -0700
+
+    testing workspaceMerge branch 'master' of https://github.com/rottren/CPE102project
+    
+    Conflicts:
+    	java/.idea/workspace.xml
+
+[33mcommit c43ebfd902a8ed7fbb617fb42b6e132d060fd666[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Mon Apr 27 20:24:07 2015 -0700
+
+    test workspace del
+
+[33mcommit cf703953cac96a3fc0bceeb3572e761fd0efb973[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Mon Apr 27 20:23:32 2015 -0700
+
+    test
+
+[33mcommit ad258069785076aa8d5c9ea14d6510e9a780f0a8[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Mon Apr 27 20:16:43 2015 -0700
+
+    merged project, skeleton of all classes, still need to write and test methods/static funtions
+
+[33mcommit 84e3e1013192c925dbcddb2d117585af8957a02f[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Mon Apr 27 20:08:40 2015 -0700
+
+    Project and tests setup
+
+[33mcommit 5a449597692e65612f54a244a68ca73634a21c4d[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Mon Apr 27 17:25:57 2015 -0700
+
+    IntelliJ project created
+
+[33mcommit 40e9ffc4c02b5c1de5c44c302106c0c829796506[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Sun Apr 26 23:30:50 2015 -0700
+
+    Making Java Directory and adding worldmodel.java
+
+[33mcommit 01186f7a096bfcd95364e4d25667c76084fdd3a1[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Tue Apr 21 14:37:43 2015 -0700
+
+    done with assignment 2 (:
+
+[33mcommit b3759d71785f32ad529e13fed9331ec6cc7023bc[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Mon Apr 20 17:21:14 2015 -0700
+
+    neater
+
+[33mcommit 2608b4407d0499b4305bacac30d1e60cb702327a[m
+Merge: 55329a9 654d6f2
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Mon Apr 20 17:20:16 2015 -0700
+
+    Merge branch 'master' of https://github.com/rottren/CPE102project
+    
+    Conflicts:
+    	DESIGN2.py
+
+[33mcommit 55329a99e7ff53c09e2feac408a0c2bab196c75e[m
+Merge: c696875 c35a393
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Mon Apr 20 17:18:05 2015 -0700
+
+    megedMerge branch 'master' of https://github.com/rottren/CPE102project
+    
+    Conflicts:
+    	DESIGN2.py
+
+[33mcommit 654d6f28be974d8ec8e6f8718e6bfa73b16a8965[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Mon Apr 20 17:16:39 2015 -0700
+
+    s
+
+[33mcommit c6968756e111170a6187504529f3a142124f843e[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Mon Apr 20 17:15:31 2015 -0700
+
+    ALMOST THERE!
+
+[33mcommit c35a3936b70e3d6c9b8662ca7370fc8003702b53[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Mon Apr 20 17:13:54 2015 -0700
+
+    rough final draft
+
+[33mcommit 41d9943707a75d67e3bc2e51ad94786a0519c29a[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Mon Apr 20 16:41:24 2015 -0700
+
+    Fix merge
+
+[33mcommit 51e600745ea0f76cf462c90d4a2d2863961a030b[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Mon Apr 20 16:37:48 2015 -0700
+
+    almost done (:
+
+[33mcommit e307f489be8998689fca1df8bd18b597304a0d48[m
+Merge: 3daf349 eff02bc
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Mon Apr 20 16:25:57 2015 -0700
+
+    sMerge branch 'master' of https://github.com/rottren/CPE102project
+    
+    Conflicts:
+    	DESIGN2.py
+
+[33mcommit 3daf3494e5127f4b9a84f8323c6fabf10f94dc41[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Mon Apr 20 16:24:26 2015 -0700
+
+    pushhh
+
+[33mcommit 19eeac60eb01d466f8002b4447d90d98db6ccf84[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Mon Apr 20 16:23:33 2015 -0700
+
+    push
+
+[33mcommit eff02bc0c1089955ad890df6dfe2226ca4c23235[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Mon Apr 20 16:21:49 2015 -0700
+
+    cleaned up
+
+[33mcommit 6c742c38931575059f12fc47d16221600303773b[m
+Merge: ba7ac29 833ffaf
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Mon Apr 20 13:59:31 2015 -0700
+
+    Merge branch 'master' of https://github.com/rottren/CPE102project
+
+[33mcommit ba7ac2976f273967d840e8ae70fb2c5fd62fd9a2[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Mon Apr 20 13:59:08 2015 -0700
+
+    Design with fixed Quake
+
+[33mcommit 833ffaf2fe0a3aef8038c9d4df1e87a709b9343b[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Mon Apr 20 13:58:43 2015 -0700
+
+    changes to oreblob and redesigned quake
+
+[33mcommit 00fdf7db29b6e7646abc2cf2925a15d6ca414bbb[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Fri Apr 17 16:07:13 2015 -0700
+
+    changes Vein Ore... now takes Actor inheritance
+
+[33mcommit 4898a55f50d5cf206eff3fba5d53980b18e55554[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Fri Apr 17 15:25:11 2015 -0700
+
+    inheritance in progress
+
+[33mcommit 52bd07a69107d94eb0d312e849f27a7b52d5f96e[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Fri Apr 17 15:23:14 2015 -0700
+
+    Update for Friday on Des2
+
+[33mcommit 7ac4c9f22a59e9c57264d400950d7f7014f5c65c[m
+Merge: 778a444 ad49b7f
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Fri Apr 17 13:04:07 2015 -0700
+
+    nothi n Merge branch 'master' of https://github.com/rottren/CPE102project
+    
+    Conflicts:
+    	DESIGN2.py
+
+[33mcommit 778a4440cba234b77b51b3884b5641a0a8cc1599[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Fri Apr 17 13:00:08 2015 -0700
+
+    nothing
+
+[33mcommit ad49b7f3865cd7dd8c62c79258c8c3a7771df668[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Fri Apr 17 12:56:48 2015 -0700
+
+    after talking to Keen2
+
+[33mcommit 03360ca914691a48e2424c8853e146db66a40e0b[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Wed Apr 15 21:04:06 2015 -0700
+
+    neater design doc
+
+[33mcommit 56b56e767640b3035f37247aca081e29cbdbc4cd[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Wed Apr 15 20:59:14 2015 -0700
+
+    final^2 revisions to design doc before presenting to Keen
+
+[33mcommit e3cf3fd76e32bc1782082f5779dd6abbbf5c5648[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Wed Apr 15 20:43:07 2015 -0700
+
+    finished design doc for inheritance
+
+[33mcommit 37779d383b666d7e078d27dd81cade8e38b06e7e[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Tue Apr 14 13:44:18 2015 -0700
+
+    Design after talking with Keen
+
+[33mcommit c193e85215d346b7b41c34a50eb7a54157ccf810[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Mon Apr 13 17:08:33 2015 -0700
+
+    update to design
+
+[33mcommit e66de3566ed6472c711ce3b3bccb716314a7a671[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Mon Apr 13 17:00:05 2015 -0700
+
+    des2 update
+
+[33mcommit 5882122f2a1788e860d002891b624a9f01f6fb2b[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Mon Apr 13 16:28:27 2015 -0700
+
+    Color-coded design2
+
+[33mcommit c6ad1e7429e2fbe3915b4ba66ea6842b9862aa83[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Mon Apr 13 16:23:44 2015 -0700
+
+    Init Design2
+
+[33mcommit ab06fa3bdf3bd3682871544e1b338910f78a346c[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Fri Apr 10 16:47:19 2015 -0700
+
+    design and github doc
+
+[33mcommit e6a0a543647c5866d75785643873329a3cd4450a[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Fri Apr 10 16:45:29 2015 -0700
+
+    donso
+
+[33mcommit 19398f88680a3451b0fa4abc0001d9c828347ddd[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Fri Apr 10 16:10:08 2015 -0700
+
+    finished!!!
+
+[33mcommit 3c7fde69552acacf2c8abba15951bdd404f005f7[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Fri Apr 10 13:09:32 2015 -0700
+
+     almost done
+
+[33mcommit 169111d2e8736cfd00c24e0470a88a6f08809aab[m
+Merge: 0d38890 4174cbf
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Fri Apr 10 12:16:20 2015 -0700
+
+    Merge branch 'master' of https://github.com/rottren/CPE102project
+
+[33mcommit 0d388908173f66464a04a5080e6e2f6174b1d2f8[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Fri Apr 10 12:16:01 2015 -0700
+
+    changes to entities...
+
+[33mcommit 4174cbf67e1a1357261706886f5ecaed57ac397c[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Fri Apr 10 12:13:59 2015 -0700
+
+    Fixe errors with Keen
+
+[33mcommit d5c0dfb8514a7357589ec6770e2ecbf82f8cb3cb[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Fri Apr 10 12:06:06 2015 -0700
+
+    Fixedworldview
+
+[33mcommit d2f2986aa413b71d35d9e44876302d4030100cea[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Thu Apr 9 23:33:29 2015 -0700
+
+    Design comments
+
+[33mcommit ff4c097f1f97afc33d1f6c639f1116a4a3ac5553[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Thu Apr 9 23:32:22 2015 -0700
+
+    almost done! :D
+
+[33mcommit ce3ce02940659b6e4222cdfe2199846561a3d239[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Thu Apr 9 20:50:25 2015 -0700
+
+    final
+
+[33mcommit a0cb63aa5d12ecbaf3c9cc7e6ebc164dd819b4e7[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Thu Apr 9 14:46:07 2015 -0700
+
+    initial design file
+
+[33mcommit 5cddd7dffc2b1c120d1013b599f4ae4ec71d0780[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Thu Apr 9 14:44:27 2015 -0700
+
+    worldview and controller fixed
+
+[33mcommit b080efcca163a152593e08651a637820c94f67fb[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Thu Apr 9 14:36:00 2015 -0700
+
+    pushing rest of changes to worldmodel entities actions
+
+[33mcommit 85a4de30e1575a13580d9facfda8474ed82e3aa9[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Thu Apr 9 14:35:11 2015 -0700
+
+    fix
+
+[33mcommit e6054dbf2e46548d4a3ed712012b0dab3485d11f[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Thu Apr 9 14:32:50 2015 -0700
+
+    se enter the commit message for your changes. Lines starting
+
+[33mcommit c4ac1c1bacd277bc8c75ff5679f8b268ee27a64f[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Thu Apr 9 14:27:02 2015 -0700
+
+    world
+
+[33mcommit f97595e266728c0d750547a73641cfd2678d1bc2[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Thu Apr 9 14:23:59 2015 -0700
+
+    worldview modified for modules correction
+
+[33mcommit eb7d51fa6f813c4393684076b7e32c09c1fa5391[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Thu Apr 9 14:00:51 2015 -0700
+
+    save_load update for worldmodel,py
+
+[33mcommit 35462bd939c48c9b4d9f2004d28d5f612cce9175[m
+Merge: 1d4a689 cb8a9c7
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Thu Apr 9 13:48:54 2015 -0700
+
+    Merge branch 'master' of https://github.com/rottren/CPE102project
+    
+    Conflicts:
+    	test.txt
+
+[33mcommit 1d4a689acd05181add61f39d27d5b2f2117c0b64[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Thu Apr 9 13:48:09 2015 -0700
+
+    Merge of test.txt.
+
+[33mcommit 40fa3e87ae74d3ab5265dc67c50ce7bc9af693b4[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Thu Apr 9 13:35:57 2015 -0700
+
+    thurs
+
+[33mcommit cb8a9c74922bf2626bfd597eb72613374141a7ac[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Thu Apr 9 13:33:11 2015 -0700
+
+    don't know what to put in the comment
+
+[33mcommit d3d33e3d617480cdccc45fdbcf998ac3eaae1cdc[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Wed Apr 8 13:04:18 2015 -0700
+
+    something
+
+[33mcommit c603b4f6ca6af4e6f429a80978311abf9dbb3ab6[m
+Merge: e0978ae 8ce56f1
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Wed Apr 8 12:53:02 2015 -0700
+
+    Merge branch 'master' of https://github.com/rottren/CPE102project
+
+[33mcommit 8ce56f11a1a37b072f93f0e507364dccc994b2c4[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Wed Apr 8 12:52:06 2015 -0700
+
+     added
+
+[33mcommit e0978aebcb234a59fc9f38555a7cea772eab0fd7[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Wed Apr 8 12:50:40 2015 -0700
+
+    test
+
+[33mcommit 31a958f665fb0bd6c524cc1118aa3db5d4c0a059[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Tue Apr 7 16:43:11 2015 -0700
+
+     On branch master
+
+[33mcommit af33e4fa34e1587c25d4d905c0e1693245078789[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Tue Apr 7 16:42:20 2015 -0700
+
+    semi-final worldmodel fixed bug
+
+[33mcommit 041410e6677353c9b2b82735dbf5cf67a17522ef[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Tue Apr 7 16:24:14 2015 -0700
+
+    Worldview and builder initial update
+
+[33mcommit 494565f19e0783233f25260cdeb76d8f5a023dfe[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Tue Apr 7 16:18:28 2015 -0700
+
+       functions turned into methods but not  finished, doingthis to sync mine and lukes files :D
+
+[33mcommit 756ffe742b807997565572fc6b0429197f55a344[m
+Merge: 5b27e6b 0468a27
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Tue Apr 7 11:53:01 2015 -0700
+
+    Merge branch 'master' of https://github.com/rottren/CPE102project
+
+[33mcommit 5b27e6b161c4a63c6795bd0323b4e733b9eb4798[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Tue Apr 7 11:52:16 2015 -0700
+
+     commit
+
+[33mcommit 4a677f4a43266b1c82dcd8928906be0a48888dda[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Mon Apr 6 16:59:49 2015 -0700
+
+       testing changes
+     Please enter the commit message for your changes. Lines starting
+
+[33mcommit 4f74cb4207663255b2a15410fac3af776b929ce0[m
+Author: rottren <ngatehou@calpoly.edu>
+Date:   Mon Apr 6 12:08:45 2015 -0700
+
+      changed some fuctions in these files to methods, entities still has a function that needs mmodification
+
+[33mcommit 0468a270aba4dcbf47e24773a7cb39d502f41a06[m
+Author: lrfox <lhickman@calpoly.edu>
+Date:   Sun Apr 5 22:58:45 2015 -0700
+
+    div of labor
+
+[33mcommit f8c1d963e3db2227be03096aebaf50aca7472bc7[m
+Author: Aaron Keen <aaronkeen@gmail.com>
+Date:   Thu Mar 26 11:48:15 2015 -0700
+
+    Initial commit of CPE 102 Project start code.
+    
+    This is a reduced version of the final project from CPE 101 Experimental.

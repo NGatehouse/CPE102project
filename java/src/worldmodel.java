@@ -68,7 +68,3 @@ public class WorldModel {
 
 
 }
-<<<<<<< HEAD
- 
-=======
->>>>>>> 3bc33e32182b267f700814c54e391892487a2fb7

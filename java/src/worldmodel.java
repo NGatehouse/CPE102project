@@ -34,7 +34,7 @@ public class WorldModel {
         this.remove_entity(entity);
     }
 
-    public Point find_open_around(Point pt, int distance)
+    public Point find_open_around(Point pt, int distance)  //need
     {
         for (int dy; dy <= distance; dy++)
         {
@@ -58,17 +58,17 @@ public class WorldModel {
         return null;
     }
 
-    public Boolean within_bounds(Point pt)
+    public Boolean within_bounds(Point pt)  //need
     {
         return (pt.get_x() >= 0 && pt.get_x() < this.num_cols && pt.get_y() >= 0 && pt.get_y() < this.num_cols);
     }
 
-    public Boolean is_occupied(Point pt)
+    public Boolean is_occupied(Point pt)  //need
     {
         return (this.within_bounds(pt) && this.occupancy.get_cell(pt) != null);
     }
 
-    public Void find_nearest(Point pt );  //What does it return?
+    public Void find_nearest(Point pt );  //What does it return?   //need
     {
         /*
       def find_nearest(self, pt, type):
@@ -94,3 +94,24 @@ public class WorldModel {
     }
 
 }
+
+/*
+move_entity
+
+remove_entity second one
+
+remove_entity_at
+
+get_background
+
+set_background
+
+get_tile_occupant
+
+get_entities
+
+distance_sq  static method
+
+nearest_entity   static method
+
+*/

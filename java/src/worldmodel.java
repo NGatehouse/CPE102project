@@ -1,3 +1,4 @@
+
 public class WorldModel {
 
     // fields
@@ -115,3 +116,4 @@ distance_sq  static method
 nearest_entity   static method
 
 */
+

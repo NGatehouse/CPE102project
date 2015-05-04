@@ -14,18 +14,18 @@ class WorldModel:
       self.entities = []
       self.action_queue = ordered_list.OrderedList() 
 
-   def clear_pending_actions(self,entity):
+   def clear_pending_actions(self,entity): # omit assignment 3 
       for action in entity.get_pending_actions():
          self.unschedule_action(action)
       entity.clear_pending_actions()      
    
-#   def remove_entity(self, entity):
- #     for action in entity.get_pending_actions():
-  #       self.unschedule_action(action)
-   #   entity.clear_pending_actions()
-    #  self.remove_entity(entity)
+   def remove_entity_schedule(self, entity): #omit assignment 3
+      for action in entity.get_pending_actions():
+         self.unschedule_action(action)
+      entity.clear_pending_actions()
+      self.remove_entity(entity)
       
-   def find_open_around(self, pt, distance): #done
+   def find_open_around(self, pt, distance): #implement
       for dy in range(-distance, distance + 1):
          for dx in range(-distance, distance + 1):
             new_pt = point.Point(pt.x + dx, pt.y + dy)
@@ -34,7 +34,7 @@ class WorldModel:
                return new_pt
       return None
    
-   def blob_next_position(self, entity_pt, dest_pt):
+   def blob_next_position(self, entity_pt, dest_pt): # implement  Warning:coupling...solve later
       horiz = actions.sign(dest_pt.x - entity_pt.x)
       new_pt = point.Point(entity_pt.x + horiz, entity_pt.y)
       if horiz == 0 or (self.is_occupied(new_pt) and
@@ -48,7 +48,7 @@ class WorldModel:
             new_pt = point.Point(entity_pt.x, entity_pt.y)
       return new_pt
 
-   def next_position(self, entity_pt, dest_pt):
+   def next_position(self, entity_pt, dest_pt): # implement  Warning:coupling...solve later
       horiz = actions.sign(dest_pt.x - entity_pt.x)
       new_pt = point.Point(entity_pt.x + horiz, entity_pt.y)
       if horiz == 0 or self.is_occupied(new_pt):
@@ -58,21 +58,21 @@ class WorldModel:
             new_pt = point.Point(entity_pt.x, entity_pt.y)
       return new_pt
 
-   def within_bounds(self, pt):
+   def within_bounds(self, pt): # implement
       return (pt.x >= 0 and pt.x < self.num_cols and
          pt.y >= 0 and pt.y < self.num_rows)
 
-   def is_occupied(self, pt):
+   def is_occupied(self, pt):# implement
       return (self.within_bounds(pt) and
          self.occupancy.get_cell(pt) != None)
          
-   def find_nearest(self, pt, type):
+   def find_nearest(self, pt, type):# implement ... oftype = list comprehension, basically it creates a new list by using a for loop.. ask me if you need further clarification (:
       oftype = [(e, distance_sq(pt, e.get_position())) # entities e?
          for e in self.entities if isinstance(e, type)]
 
       return nearest_entity(oftype)
 
-   def add_entity(self, entity):
+   def add_entity(self, entity): # implement
       pt = entity.get_position()      
       if self.within_bounds(pt):
          old_entity = self.occupancy.get_cell(pt)
@@ -81,7 +81,7 @@ class WorldModel:
          self.occupancy.set_cell(pt, entity) 
          self.entities.append(entity)
 
-   def move_entity(self, entity, pt):
+   def move_entity(self, entity, pt): # implement
       tiles = []
       if self.within_bounds(pt):
          old_pt = entity.get_position() 
@@ -93,10 +93,10 @@ class WorldModel:
 
       return tiles
 
-   def remove_entity(self, entity):
+   def remove_entity(self, entity): # implement
       self.remove_entity_at(entity.get_position())
 
-   def remove_entity_at(self, pt):
+   def remove_entity_at(self, pt): #implement
       if (self.within_bounds(pt) and
          self.occupancy.get_cell(pt) != None):
          entity = self.occupancy.get_cell( pt)
@@ -104,13 +104,13 @@ class WorldModel:
          self.entities.remove(entity)
          self.occupancy.set_cell( pt, None)
 
-   def schedule_action(self, action, time):
+   def schedule_action(self, action, time): #omit
       self.action_queue.insert(action, time)
 
-   def unschedule_action(self, action):
+   def unschedule_action(self, action): #omit
       self.action_queue.remove(action)
 
-   def update_on_time(self, ticks):
+   def update_on_time(self, ticks):#omit
       tiles = []
 
       next = self.action_queue.head()
@@ -121,29 +121,29 @@ class WorldModel:
 
       return tiles
 
-   def get_background_image(self, pt):
+   def get_background_image(self, pt): # implement
       if self.within_bounds( pt):
          return (self.background.get_cell(pt)).get_image() # pt.get_image?
 
-   def get_background(self, pt):
+   def get_background(self, pt): # implement
       if self.within_bounds(pt):
          return self.background.get_cell(pt)
 
-   def set_background(self, pt, bgnd):
+   def set_background(self, pt, bgnd): # implement
       if self.within_bounds(pt):
          self.background.set_cell(pt, bgnd)
 
-   def get_tile_occupant(self, pt):
+   def get_tile_occupant(self, pt): # implement
       if self.within_bounds(pt):
          return self.occupancy.get_cell(pt)
 
-   def get_entities(self):
+   def get_entities(self): # implement
       return self.entities
    
-def distance_sq(p1, p2): # we are leaving this as a function because it just does a computation, however it does use data from the Point class
+def distance_sq(p1, p2): # implement as static 
    return (p1.x - p2.x)**2 + (p1.y - p2.y)**2
    
-def nearest_entity(entity_dists): # doesn't use any data from any of the classes and this is the only place entity_dists is used
+def nearest_entity(entity_dists): # implement as static.. ask for help if you need 
    if len(entity_dists) > 0:
       pair = entity_dists[0]
       for other in entity_dists:

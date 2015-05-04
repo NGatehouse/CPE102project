@@ -26,7 +26,7 @@ class Action_manager:
       def action(current_ticks):
          self.remove_pending_action(action)
          pt = self.get_position()
-         world.remove_entity(self)
+         world.remove_entity_schedule(self)
          return [pt]
       return action 
    def remove_pending_action(self, action):
@@ -152,7 +152,7 @@ class MinerNotFull(Miner):
       ore_pt = ore.get_position()
       if actions.adjacent(entity_pt, ore_pt):
          self.set_resource_count(1 + self.get_resource_count())
-         world.remove_entity(ore) 
+         world.remove_entity_schedule(ore) 
          return ([ore_pt], True)
       else:
          new_pt = world.next_position(entity_pt, ore_pt)
@@ -251,7 +251,7 @@ class Ore(Actor):
          self.get_position(),
          self.get_rate() // BLOB_RATE_SCALE,
          current_ticks, i_store) 
-         world.remove_entity(self)
+         world.remove_entity_schedule(self)
          world.add_entity(blob)
          return [blob.get_position()]
       return action      
@@ -277,13 +277,13 @@ class OreBlob(Actor,Animation_manager):
          return ([entity_pt], False)
       vein_pt = vein.get_position()
       if actions.adjacent(entity_pt, vein_pt):
-         world.remove_entity(vein)
+         world.remove_entity_schedule(vein)
          return ([vein_pt], True)
       else:
          new_pt = world.blob_next_position(entity_pt, vein_pt) 
          old_entity = world.get_tile_occupant(new_pt)
          if isinstance(old_entity, Ore): # do i need to change isinstance?
-            world.remove_entity(old_entity)
+            world.remove_entity_schedule(old_entity)
          return (world.move_entity(self, new_pt), False)
    def create_actor_motion(self,world, i_store): # special
       def action(current_ticks):

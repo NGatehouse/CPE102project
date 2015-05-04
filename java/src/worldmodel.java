@@ -74,10 +74,16 @@ public class WorldModel {
     }
 
 
-    public void find_nearest(Point pt )  //What does it return?   //need
+    public void find_nearest(Point pt )  //What does it return?   //TODO
     {
-        pt = null;
-        /*
+        List oftype = new ArrayList<>();
+
+        oftype = [(e,distance_sq(pt, e.get_position()))
+                  for (e : this.entities)
+                    if e.isInstanceOf(type)];
+
+
+                /*
       def find_nearest(self, pt, type):
         oftype = [(e, distance_sq(pt, e.get_position()))
                   for e in self.entities if isinstance(e, type)]
@@ -169,9 +175,20 @@ public class WorldModel {
         }
     }
 
+    public Entity get_entities()
+    {
+        return this.entities;
+    }
 
+    public double distance_sq(Point p1, Point p2)   //static method
+    {
+        return Math.pow((p1.get_x() - p2.get_y()),2) + Math.pow((p1.get_y() - p2.get_y()),2);
+    }
 
-
+    public returnType nearest_entity(ArrayList enity_dists)  //static method
+    {
+        if (enity_dists)
+    }
 
 /*
 

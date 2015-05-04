@@ -3,8 +3,13 @@ DONE
         How to make a constant, for example current_image = 0
     on_grid.java
     entity.java
+    background
+    mining
 
 
+TODO:
+Test Cases
+WorldModel
 
 
 this.position = super(position)

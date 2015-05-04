@@ -8,6 +8,8 @@ public class Actor extends On_Grid
         this.rate = rate;
     }
 
+
+
     protected int get_rate()
     {
         return this.rate;

@@ -40,3 +40,9 @@ To add all files except workspace.xml and then commit
 
 Thanks!
 Luke
+
+questions:
+1. how to make a constant in java... mining, vein.  do they get passed on through inheritance or no?
+2. ask about minernotfull/minerfull... specifically return([entity_pt], False)
+3. remove_entity in the python version of the game.. duplicates.
+

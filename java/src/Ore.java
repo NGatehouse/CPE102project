@@ -1,9 +1,10 @@
 public class Ore extends Actor
 {
-    private int rate = 5000;
+    private int RATE = 5000;
     public Ore(String name,Point position,int rate)
     {
         super(name,position,rate);
+        this.RATE = rate;
     }
 
     public String entity_string()

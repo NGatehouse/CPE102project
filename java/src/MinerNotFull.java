@@ -1,8 +1,10 @@
 public class MinerNotFull extends Miner
 {
+    private int resource_count;
     public MinerNotFull(String name,int resource_limit,Point position,int rate)
     {
         super(name,resource_limit,position,rate);
+        this.resource_count=RESOURCE_COUNT;
     }
 
     public Miner try_transform(WorldModel world)
@@ -17,7 +19,7 @@ public class MinerNotFull extends Miner
         }
 
     }
-    public tuple _to_other(WorldModel world, Ore ore) // whats the return type..tuple?
+    /*public Tuple _to_other(WorldModel world, Ore ore) // whats the return type..tuple?
     {
         Point entity_pt = this.get_position();
         if (! ore)
@@ -34,11 +36,11 @@ public class MinerNotFull extends Miner
         else
         {
             Point new_pt = world.next_position(entity_pt,ore_pt);
-            return (world.move_entity(new_pt),false);
+            return (world.move_entity(new_pt),false)
         }
-    }
+    } */
 
-    public create_actor_motion(WorldModel world, i_store)
+    /*public create_actor_motion(WorldModel world, i_store)
     {
         public action(current_ticks)
         {
@@ -56,5 +58,5 @@ public class MinerNotFull extends Miner
         }
         return action
 
-    }
+    }*/
 }

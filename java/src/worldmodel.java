@@ -1,22 +1,27 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class WorldModel {
 
     // fields
     //Do we want to make fields public or private?
     private int num_rows;
     private int num_cols;
-    private int background;
-    private int occupancy;
-    private int entities;
+    //private int background;
+    //private int occupancy;
+    private List entities = new ArrayList<>();
+    private int[][] background;
+    private int[][] occupancy;
 
 
     // constructor
     public WorldModel(int num_rows, int num_cols, int background) {
-        this.background = occ_grid.Grid(num_cols, num_rows, background);
+        this.background = new int[num_cols][num_rows];
+        //this.background = occ_grid.Grid(num_cols, num_rows, background);
         this.num_rows = num_rows;
         this.num_cols = num_cols;
-        this.occupancy = occ_grid.Grid(num_cols, num_rows, null); // null was None fyi
-        this.entities = [];
-
+        this.occupancy = new int[num_cols][num_rows];
+        //this.occupancy = occ_grid.Grid(num_cols, num_rows, null);
         //this.action_queue = ordered_list.OrderedList();
     }
 
@@ -26,7 +31,7 @@ public class WorldModel {
         //
     }
 
-    public void remove_entity(Entity entity)
+    public void remove_entity_schedule(Entity entity)  //Assignment 4
     {
         for (Entity.action action : entity.get_pending_actions())
             this.unschedule_action(action);
@@ -68,8 +73,10 @@ public class WorldModel {
         return (this.within_bounds(pt) && this.occupancy.get_cell(pt) != null);
     }
 
-    public Void find_nearest(Point pt );  //What does it return?   //need
+
+    public void find_nearest(Point pt )  //What does it return?   //need
     {
+        pt = null;
         /*
       def find_nearest(self, pt, type):
         oftype = [(e, distance_sq(pt, e.get_position()))
@@ -78,7 +85,7 @@ public class WorldModel {
         */
     }
 
-    public Void add_entity(Entity entity)
+    public void add_entity(Entity entity)
     {
         int pt = entity.get_position();
         if (this.within_bounds(pt))
@@ -89,18 +96,90 @@ public class WorldModel {
                 old_entity.clear_pending_actions();
             }
             this.occupancy.set_cell(pt, entity);
-            this.entities.append(entity);
+            this.entities.add(entity);
         }
     }
 
-}
+
+    public List move_entity(Entity entity, Point pt)
+    {
+        List tiles = new ArrayList<>();
+
+        return tiles;
+        /*
+      def move_entity(self, entity, pt):
+        tiles = []
+        if self.within_bounds(pt):
+             old_pt = entity.get_position()
+             self.occupancy.set_cell( old_pt, None)
+             tiles.append(old_pt)
+             self.occupancy.set_cell(pt, entity)
+             tiles.append(pt)
+             entity.set_position(pt)
+        return tiles
+         */
+    }
+
+
+    public void remove_entity(Entity entity)
+    {}
+
+
+    public returnType remove_entity_at()
+    {}
+
+    public void schedule_action(Action action, Time time)
+    {}
+
+    public void unschedule_action(Action action)
+    {    }
+
+    public returnType update_on_time(Ticks ticks)
+    {}
+
+
+    public returnType get_background_image(Point pt)
+    {
+        if (this.within_bounds(pt))
+        {
+            return (this.background.get_cell(pt)).get_image();
+        }
+    }
+
+    public returnType get_background(Point pt)
+    {
+        if (this.within_bounds(pt))
+        {
+            return this.background.get_cell(pt);
+        }
+    }
+
+
+    public returnType set_background(Point pt, Background bgnd)
+    {
+        if (this.within_bounds(pt))
+            this.background.set_cell(pt, bgnd);
+    }
+
+    public returnType get_tile_occupant(Point pt)
+    {
+        if (this.within_bounds(pt))
+        {
+            return this.occupancy.get_cell(pt);
+        }
+    }
+
+
+
+
 
 /*
-move_entity
 
-remove_entity second one
+remove_entity
 
 remove_entity_at
+
+get_background_image
 
 get_background
 
@@ -115,3 +194,5 @@ distance_sq  static method
 nearest_entity   static method
 
 */
+
+}

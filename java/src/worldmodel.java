@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class WorldModel {
@@ -76,11 +77,13 @@ public class WorldModel {
 
     public void find_nearest(Point pt )  //What does it return?   //TODO
     {
-        List oftype = new ArrayList<>();
+        List<Entity> variablename = new LinkedList<Entity>();
+        List<Double> dists = new LinkedList<>();
 
         oftype = [(e,distance_sq(pt, e.get_position()))
                   for (e : this.entities)
                     if e.isInstanceOf(type)];
+        return nearest_entity(oftype)
 
 
                 /*
@@ -143,24 +146,6 @@ public class WorldModel {
     public returnType update_on_time(Ticks ticks)
     {}
 
-
-    public returnType get_background_image(Point pt)
-    {
-        if (this.within_bounds(pt))
-        {
-            return (this.background.get_cell(pt)).get_image();
-        }
-    }
-
-    public returnType get_background(Point pt)
-    {
-        if (this.within_bounds(pt))
-        {
-            return this.background.get_cell(pt);
-        }
-    }
-
-
     public returnType set_background(Point pt, Background bgnd)
     {
         if (this.within_bounds(pt))
@@ -180,15 +165,31 @@ public class WorldModel {
         return this.entities;
     }
 
-    public double distance_sq(Point p1, Point p2)   //static method
+    public static double distance_sq(Point p1, Point p2)   //static method
     {
         return Math.pow((p1.get_x() - p2.get_y()),2) + Math.pow((p1.get_y() - p2.get_y()),2);
     }
 
-    public returnType nearest_entity(ArrayList enity_dists)  //static method
+    public static returnType nearest_entity(LinkedList entity_dists)  //static method
     {
-        if (enity_dists)
+        if (entity_dists.size() > 0)
+        {
+
+
+        }
     }
+
+
+    public returnType get_background_image(Point pt)
+    {
+        if (this.within_bounds(pt))
+        {
+            return (this.background.get_cell(pt)).get_image();
+        }
+        return null;
+    }
+
+
 
 /*
 

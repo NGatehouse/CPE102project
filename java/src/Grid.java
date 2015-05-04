@@ -7,30 +7,16 @@ public class Grid
     private static final int GATHERER =1;
     private static final int GENERATOR=2;
     private static final int RESOURCE = 3;
-    private double width;
-    private double height;
-    private int[][] cells;
-
-    public Grid(int width, int height, int[][] occupancy_value)
+    private Entity[][] cells;
+    public Grid(int width, int height)
     {
-        this.width = width;
-        this.height = height;
-
-        for(int i = 0; i<this.height;i++)
-        {
-            this.cells.add(int[]);
-            for(int j=0;j<this.width;j++)
-            {
-                this.cells[i].add(occupancy_value);
-            }
-        }
-
+        this.cells = new Entity[height][width];
     }
-    public void set_cell(Point p,int[][] value)
+    public void set_cell(Point p,Entity value)
     {
         this.cells[p.get_y()][p.get_x()]=value;
     }
-    public cells get_cell(Point p)
+    public Entity get_cell(Point p)
     {
         return this.cells[p.get_y()][p.get_x()];
     }

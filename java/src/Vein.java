@@ -1,10 +1,16 @@
 public class Vein extends Actor
 {
-    private int RESOURCE_DISTANCE = 1; // make this a constant
+    private static final int RESOURCE_DISTANCE = 1;
+    private int resource_distance;
     public Vein(String name, int rate, Point position, int resource_distance)
     {
         super(name,position,rate);
-        this.RESOURCE_DISTANCE = resource_distance;
+        this.resource_distance = resource_distance;
+    }
+    public Vein(String name, int rate, Point position)
+    {
+        this(name,rate,position,RESOURCE_DISTANCE);
+
     }
     public int get_resource_distance()
     {

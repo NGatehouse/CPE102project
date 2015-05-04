@@ -210,6 +210,7 @@ get_entities
 distance_sq  static method
 
 nearest_entity   static method
+[[],[]]
 
 */
 

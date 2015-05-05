@@ -154,5 +154,5 @@ public class WorldModelTests
 
         assertTrue( Utility.nearest_entity(entList, distsList).equals(null) );
     }
-    
+
 }

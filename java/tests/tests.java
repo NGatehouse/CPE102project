@@ -145,7 +145,7 @@ public class tests {
         MinerNotFull m = new MinerNotFull(n,resource,p,r);
         MinerFull new_m = new MinerFull(n,resource,p,r);
         WorldModel world = new WorldModel(1,2);
-        assertTrue(m.try_transform(world) == new_m); // check both pathways..resourcecount
+        assertTrue(m.try_transform(world).equals(new_m)); // check both pathways..resourcecount
     }
     @Test
     public void test_MinerNotFull_doesnt_transform()
@@ -156,7 +156,7 @@ public class tests {
         int resource = 0;
         MinerNotFull m = new MinerNotFull(n,resource,p,r);
         WorldModel world = new WorldModel(1,2);
-        assertTrue(m.try_transform(world) == m); // check both pathways..resourcecount
+        assertTrue(m.try_transform(world).equals(m)); // check both pathways..resourcecount
     }
     @Test
     public void test_MinerFull_try_transform()

@@ -16,7 +16,7 @@ public class WorldModel
 
 
     // constructor
-    public WorldModel(int num_rows, int num_cols, int background) {
+    public WorldModel(int num_rows, int num_cols) {
         //this.background = new int[num_cols][num_rows];
         this.background = new Grid(num_cols, num_rows);
         this.num_rows = num_rows;

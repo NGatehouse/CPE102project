@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.Test;
 
-public class tests {
+public class EntityTests {
     private static final double DELTA = 0.00001;
 
     @Test

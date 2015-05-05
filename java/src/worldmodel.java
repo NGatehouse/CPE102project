@@ -2,15 +2,15 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class WorldModel {
+public class WorldModel
+{
 
     // fields
-    //Do we want to make fields public or private?
     private int num_rows;
     private int num_cols;
     //private int background;
     //private int occupancy;
-    private List entities = new ArrayList<>();
+    private List<On_Grid> entities = new ArrayList<On_Grid>();
     private Grid background;
     private Grid occupancy;
 
@@ -27,24 +27,12 @@ public class WorldModel {
     }
 
     // methods
-    public void clear_pending_actions()  //assignment 4
-    {
-        //
-    }
 
-    public void remove_entity_schedule(On_Grid entity)  //assignment 4
+    public Point find_open_around(Point pt, int distance)
     {
-        for (Entity.action action : entity.get_pending_actions())
-            this.unschedule_action(action);
-        entity.clear_pending_actions();
-        this.remove_entity(entity);
-    }
-
-    public Point find_open_around(Point pt, int distance)   //DONE
-    {
-        for (int dy; dy <= distance; dy++)
+        for (int dy=0; dy <= distance; dy++)
         {
-            for (int dx; dx <= distance; dx++)
+            for (int dx=0; dx <= distance; dx++)
             {
                 Point new_pt = new Point(pt.get_x() + dx, pt.get_y() + dy);
                 if (this.within_bounds(new_pt) && !this.is_occupied(new_pt));
@@ -54,13 +42,13 @@ public class WorldModel {
         return null;
     }
 
-    public Point blob_next_position(Point entity_pt, Point dest_pt)  //coupling; solve later TODO
+    public Point blob_next_position(Point entity_pt, Point dest_pt)  //coupling; solve later
     {
-        int horiz = dest_pt.get_x().compareTo(entity_pt.get_x());
+        int horiz = Utility.sign(dest_pt.get_x() - entity_pt.get_x());
         Point new_pt = new Point(entity_pt.get_x() + horiz, entity_pt.get_y());
         if (horiz == 0 || (this.is_occupied(new_pt) && !(this.get_tile_occupant(new_pt) instanceof Ore)))
         {
-            int vert = dest_pt.get_y().compareTo(entity_pt.get_y());
+            int vert = Utility.sign(dest_pt.get_y() - entity_pt.get_y());
             new_pt = new Point(entity_pt.get_x(), entity_pt.get_y());
             if (vert == 0 || (this.is_occupied(new_pt) && !(this.get_tile_occupant(new_pt) instanceof Ore)))
             {
@@ -70,44 +58,36 @@ public class WorldModel {
         return new_pt;
     }
 
-    public Point next_position()  //coupling; solve later  //need
+    public Point next_position(Point entity_pt, Point dest_pt)  //coupling; solve later //TODO
     {
-        return null;
+        int horiz = Utility.sign(dest_pt.get_x() - entity_pt.get_x());
+        Point new_pt = new Point(entity_pt.get_x() + horiz, entity_pt.get_y());
+        if (horiz == 0 || (this.is_occupied(new_pt)))
+        {
+            int vert = Utility.sign(dest_pt.get_y() - entity_pt.get_y());
+            new_pt = new Point(entity_pt.get_x(), entity_pt.get_y());
+            if (vert == 0 || (this.is_occupied(new_pt)))
+            {
+                new_pt = new Point(entity_pt.get_x(), entity_pt.get_y());
+            }
+        }
+        return new_pt;
     }
 
-    public Boolean within_bounds(Point pt)  //need  //Done
+    public Boolean within_bounds(Point pt)
     {
         return (pt.get_x() >= 0 && pt.get_x() < this.num_cols && pt.get_y() >= 0 && pt.get_y() < this.num_cols);
     }
 
-    public Boolean is_occupied(Point pt)  //need //Done
+    public Boolean is_occupied(Point pt)
     {
         return (this.within_bounds(pt) && this.occupancy.get_cell(pt) != null);
     }
 
-
-
-    public void add_entity(On_Grid entity)  //Assignment 4
+    public List move_entity(On_Grid entity, Point pt)
     {
-        int pt = entity.get_position();
-        if (this.within_bounds(pt))
-        {
-            Entity old_entity = this.occupancy.get_cell(pt);
-            if (old_entity != null)
-            {
-                old_entity.clear_pending_actions();
-            }
-            this.occupancy.set_cell(pt, entity);
-            this.entities.add(entity);
-        }
-    }
-
-
-    public List move_entity(On_Grid entity, Point pt)  //TODO
-    {
-        List tiles = new ArrayList<Point>();
-        if (this.within_bounds(pt))
-        {
+        List<Point> tiles = new ArrayList<Point>();
+        if (this.within_bounds(pt)) {
             Point old_pt = entity.get_position();
             this.occupancy.set_cell(old_pt, null);
             tiles.add(old_pt);
@@ -116,100 +96,65 @@ public class WorldModel {
             entity.set_position(pt);
         }
         return tiles;
-        /*
-      def move_entity(self, entity, pt):
-        tiles = []
-        if self.within_bounds(pt):
-             old_pt = entity.get_position()
-             self.occupancy.set_cell( old_pt, None)
-             tiles.append(old_pt)
-             self.occupancy.set_cell(pt, entity)
-             tiles.append(pt)
-             entity.set_position(pt)
-        return tiles
-         */
     }
 
-
-    public void remove_entity(On_Grid entity) //TODO
+    public void remove_entity(On_Grid entity)
     {
         this.remove_entity_at(entity.get_position());
     }
 
-
-    public returnType remove_entity_at(Point pt)  //TODO
+    public void remove_entity_at(Point pt)
     {
         if (this.within_bounds(pt) && this.occupancy.get_cell(pt) != null )
         {
             On_Grid ent = this.occupancy.get_cell(pt);
-            ent.set_position(-1, -1);
-
+            ent.set_position(new Point(-1, -1));
+            this.entities.remove(ent);
+            this.occupancy.set_cell(pt, null);
         }
     }
 
-    public void schedule_action(Action action, Time time)  //Assignement 4
-    {}
-
-    public void unschedule_action(Action action)  //Assignement 4
-    {    }
-
-    public returnType update_on_time(Ticks ticks)  //Assignement 4
-    {}
-
-    public returnType set_background(Point pt, Background bgnd)  //TODO
+    public void set_background(Point pt, On_Grid bgnd)
     {
         if (this.within_bounds(pt))
-            this.background.set_cell(pt, bgnd);
+            this.background.set_cell(pt, bgnd); //bgnd isn't technically a background may cause future problems
     }
 
-    public returnType get_tile_occupant(Point pt)  //TODO
+    public On_Grid get_tile_occupant(Point pt)
     {
         if (this.within_bounds(pt))
         {
             return this.occupancy.get_cell(pt);
         }
+        else
+        { return null; }
     }
 
-    public Entity get_entities()  //TODO
+    public List get_entities()
     {
         return this.entities;
     }
 
-    public static double distance_sq(Point p1, Point p2)   //static method
+
+    public Entity find_nearest(Point pt, On_Grid ent)
     {
-        return Math.pow((p1.get_x() - p2.get_y()),2) + Math.pow((p1.get_y() - p2.get_y()),2);
-    }
-
-
-    public returnType get_background_image(Point pt)  //TODO
-    {
-        if (this.within_bounds(pt))
-        {
-            return (this.background.get_cell(pt)).get_image();
-        }
-        return null;
-    }
-
-
-    public Entity find_nearest(Point pt, Type type) //How to specify type  //TODO
-    {
-        List<Entity> entList = new LinkedList<Entity>();
+        List<On_Grid> entList = new LinkedList<On_Grid>();
         List<Double> distsList = new LinkedList<Double>();
 
-        for (Entity e : this.entities)
+        int i = 0;
+        for (On_Grid e : this.entities)
         {
-            if (e instanceof type)
+            if (e.getClass() == ent.getClass())  //q
             {
-
+                entList.add(e);
+                distsList.add(Utility.distance_sq(pt, e.get_position()));
+                i++;
             }
+
         }
         return nearest_entity(entList, distsList)
 
-        oftype = [(e, distance_sq(pt, e.get_position()))
-        for (e : this.entities)
-            if e.isInstanceOf(type)];
     }
-
 
     public static returnType nearest_entity(LinkedList<Entity> entList, LinkedList<Double> distsList)  //static method
     {
@@ -228,5 +173,54 @@ public class WorldModel {
         return nearest;
     }
 
+
+        /*
+    public void clear_pending_actions()  //assignment 4
+    {
+        //
+    }
+
+    public void remove_entity_schedule(On_Grid entity)  //assignment 4
+    {
+        for (Entity.action action : entity.get_pending_actions())
+            this.unschedule_action(action);
+        entity.clear_pending_actions();
+        this.remove_entity(entity);
+    }
+
+    public void add_entity(On_Grid entity)  //Assignment 4
+    {
+        Point pt = entity.get_position();
+        if (this.within_bounds(pt))
+        {
+            Entity old_entity = this.occupancy.get_cell(pt);
+            if (old_entity != null)
+            {
+                old_entity.clear_pending_actions();
+            }
+            this.occupancy.set_cell(pt, entity);
+            this.entities.add(entity);
+        }
+    }
+
+    public void schedule_action(Action action, Time time)  //Assignement 4
+    {}
+
+    public void unschedule_action(Action action)  //Assignement 4
+    {    }
+
+    public returnType update_on_time(Ticks ticks)  //Assignement 4
+    {}
+
+    public On_Grid get_background_image(Point pt)  //assigment 4
+    {
+        if (this.within_bounds(pt))
+        {
+            return (this.background.get_cell(pt)).get_image();
+        }
+        return null;
+    }
+
+    */
 
 }

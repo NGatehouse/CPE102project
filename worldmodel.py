@@ -101,7 +101,9 @@ class WorldModel:
          self.occupancy.get_cell(pt) != None):
          entity = self.occupancy.get_cell( pt)
          entity.set_position( point.Point(-1, -1))
+         print entitiesOn
          self.entities.remove(entity)
+         print entity
          self.occupancy.set_cell( pt, None)
 
    def schedule_action(self, action, time): #omit

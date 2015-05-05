@@ -36,6 +36,7 @@ class WorldModel:
    
    def blob_next_position(self, entity_pt, dest_pt): # implement  Warning:coupling...solve later
       horiz = actions.sign(dest_pt.x - entity_pt.x)
+  
       new_pt = point.Point(entity_pt.x + horiz, entity_pt.y)
       if horiz == 0 or (self.is_occupied(new_pt) and
          not isinstance(self.get_tile_occupant( new_pt),
@@ -90,7 +91,6 @@ class WorldModel:
          self.occupancy.set_cell(pt, entity)
          tiles.append(pt)
          entity.set_position(pt) 
-
       return tiles
 
    def remove_entity(self, entity): # implement
@@ -146,6 +146,7 @@ def distance_sq(p1, p2): # implement as static
 def nearest_entity(entity_dists): # implement as static.. ask for help if you need 
    if len(entity_dists) > 0:
       pair = entity_dists[0]
+      
       for other in entity_dists:
          if other[1] < pair[1]:
             pair = other

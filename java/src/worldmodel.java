@@ -16,7 +16,8 @@ public class WorldModel
 
 
     // constructor
-    public WorldModel(int num_rows, int num_cols, int background) {
+    public WorldModel(int num_rows, int num_cols)// int background)
+    {
         //this.background = new int[num_cols][num_rows];
         this.background = new Grid(num_cols, num_rows);
         this.num_rows = num_rows;
@@ -27,7 +28,6 @@ public class WorldModel
     }
 
     // methods
-
     public Point find_open_around(Point pt, int distance)
     {
         for (int dy=0; dy <= distance; dy++)

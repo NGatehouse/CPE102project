@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Created by Nicholas on 5/4/2015.
  */
@@ -27,4 +29,26 @@ public class Utility
     {
         return Math.pow((p1.get_x() - p2.get_y()),2) + Math.pow((p1.get_y() - p2.get_y()),2);
     }
+    public static On_Grid nearest_entity(List<On_Grid> entList, List<Double> distsList)  //static method
+    {
+        if (entList.size() > 0)
+        {
+            double dists = distsList.get(0);
+            int i=0;
+            for (double other : distsList)
+            {
+                if (other < dists)
+                {
+                    dists = other;
+                }
+                i++;
+            }
+            return entList.get(i);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
 }

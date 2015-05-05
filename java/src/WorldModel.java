@@ -35,8 +35,10 @@ public class WorldModel
             for (int dx=0; dx <= distance; dx++)
             {
                 Point new_pt = new Point(pt.get_x() + dx, pt.get_y() + dy);
-                if (this.within_bounds(new_pt) && !this.is_occupied(new_pt));
+                if (this.within_bounds(new_pt) && !this.is_occupied(new_pt))
+                {
                     return new_pt;
+                }
             }
         }
         return null;
@@ -151,31 +153,10 @@ public class WorldModel
                 i++;
             }
         }
-        return nearest_entity(entList, distsList);
+        return Utility.nearest_entity(entList, distsList);
 
     }
 
-    public static On_Grid nearest_entity(List<On_Grid> entList, List<Double> distsList)  //static method
-    {
-        if (entList.size() > 0)
-        {
-            double dists = distsList.get(0);
-            int i=0;
-            for (double other : distsList)
-            {
-                if (other < dists)
-                {
-                    dists = other;
-                }
-                i++;
-            }
-            return entList.get(i);
-        }
-        else
-        {
-            return null;
-        }
-    }
 
 
         /*

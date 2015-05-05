@@ -16,10 +16,13 @@ public class Miner extends Mining
     {
         if(this == that)
         {
+            return true;
+        }
+        if(!(that instanceof Miner))
+        {
             return false;
         }
-        Miner that = (Miner) other;
-        return this
+        return this.get_name().equals(that.get_name()) && this.get_resource_limit() == that.get_resource_limit() && this.get_position().get_x() ==that.get_position().get_x() && this.get_position().get_y() ==that.get_position().get_y() && this.get_rate()==that.get_rate();
     }
 
    /* public try_transform_miner(WorldModel world, function transform)

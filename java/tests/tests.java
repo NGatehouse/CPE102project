@@ -175,7 +175,7 @@ public class tests {
     {
         String n = "myName";
         Point p = new Point(3,4);
-        int r = 5000;
+        int r = 5000; 
         int resource = 0;
         MinerNotFull m = new MinerNotFull(n,resource,p,r);
         WorldModel world = new WorldModel(1,2);

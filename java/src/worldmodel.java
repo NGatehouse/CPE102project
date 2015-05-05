@@ -32,7 +32,7 @@ public class WorldModel {
         //
     }
 
-    public void remove_entity_schedule(Entity entity)  //assignment 4
+    public void remove_entity_schedule(On_Grid entity)  //assignment 4
     {
         for (Entity.action action : entity.get_pending_actions())
             this.unschedule_action(action);
@@ -87,7 +87,7 @@ public class WorldModel {
 
 
 
-    public void add_entity(Entity entity)  //need //Done
+    public void add_entity(On_Grid entity)  //Assignment 4
     {
         int pt = entity.get_position();
         if (this.within_bounds(pt))
@@ -103,7 +103,7 @@ public class WorldModel {
     }
 
 
-    public List move_entity(Entity entity, Point pt)  //TODO
+    public List move_entity(On_Grid entity, Point pt)  //TODO
     {
         List tiles = new ArrayList<Point>();
         if (this.within_bounds(pt))
@@ -131,7 +131,7 @@ public class WorldModel {
     }
 
 
-    public void remove_entity(Entity entity) //TODO
+    public void remove_entity(On_Grid entity) //TODO
     {
         this.remove_entity_at(entity.get_position());
     }
@@ -139,7 +139,12 @@ public class WorldModel {
 
     public returnType remove_entity_at(Point pt)  //TODO
     {
-        if (this.within_bounds())
+        if (this.within_bounds(pt) && this.occupancy.get_cell(pt) != null )
+        {
+            On_Grid ent = this.occupancy.get_cell(pt);
+            ent.set_position(-1, -1);
+
+        }
     }
 
     public void schedule_action(Action action, Time time)  //Assignement 4

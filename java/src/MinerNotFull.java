@@ -4,7 +4,7 @@ public class MinerNotFull extends Miner
     public MinerNotFull(String name,int resource_limit,Point position,int rate)
     {
         super(name,resource_limit,position,rate);
-        this.resource_count=RESOURCE_COUNT;
+        this.resource_count=0;
     }
 
     public Miner try_transform(WorldModel world)
@@ -24,14 +24,14 @@ public class MinerNotFull extends Miner
         Point entity_pt = this.get_position();
         if (ore != null)
         {
-            return false; //dont think this is right
+            return false;
         }
         Point ore_pt = ore.get_position();
-        if (Utility.adjacent(entity_pt,ore_pt)) //implement adjacent
+        if (Utility.adjacent(entity_pt,ore_pt))
         {
             this.set_resource_count(1+this.get_resource_count());
-            world.remove_entity(ore); // implement in worldmodel
-            return true; //not sure here either
+            world.remove_entity(ore);
+            return true;
         }
         else
         {

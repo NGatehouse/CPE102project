@@ -1,13 +1,13 @@
 public class Mining extends Actor
 {
-    final int RESOURCE_COUNT = 0;
+
     private int resource_limit;
     private int resource_count;
     public Mining(String name, int resource_limit,Point position, int rate)
     {
         super(name,position,rate);
         this.resource_limit=resource_limit;
-        this.resource_count=RESOURCE_COUNT;
+        this.resource_count=0;
     }
 
     public int get_resource_limit()

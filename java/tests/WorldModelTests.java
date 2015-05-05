@@ -26,6 +26,24 @@ public class WorldModelTests
         Point pt = new Point(3,4);
         int distance = 5;
         WorldModel world = new WorldModel(5,5);
-        assertTrue(pt,world.find_open_around.equals(pt, distance));
+        assertTrue(pt.equals(world.find_open_around(pt, distance)));
+    }
+
+    @Test
+    public void test_find_open_around_ifnot()
+    {
+        Point pt = new Point(3,4);
+        int distance = 5;
+        WorldModel world = new WorldModel(5,5);
+        assertTrue(pt.equals(world.find_open_around(pt, distance)));
+    }
+
+    @Test
+    public void test_blob_next_pos()
+    {
+        Point pt = new Point(3,4);
+        int distance = 5;
+        WorldModel world = new WorldModel(5,5);
+        assertTrue(pt.equals(world.find_open_around(pt, distance)));
     }
 }

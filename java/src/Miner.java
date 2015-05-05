@@ -12,6 +12,16 @@ public class Miner extends Mining
         return "miner" + " " + this.get_name() + " " + this.get_position().get_x() + " " + this.get_position().get_y() + " " + this.get_resource_limit() + " " + this.get_rate();
     }
 
+    public boolean equals(Miner that)
+    {
+        if(this == that)
+        {
+            return false;
+        }
+        Miner that = (Miner) other;
+        return this
+    }
+
    /* public try_transform_miner(WorldModel world, function transform)
     {
         Miner new_miner = tranform(world);

@@ -170,6 +170,7 @@ public class tests {
         WorldModel world = new WorldModel(1,2,3);
         assertTrue(m.try_transform(world) == new_m); // check both pathways..resourcecount
     }
+    /*
     @Test
     public void test_MinerNotFull_to_other()
     {
@@ -182,6 +183,6 @@ public class tests {
         Ore ore = new Ore(n,p,r);
         assertTrue(); // check both pathways..resourcecount
     }
-
+*/
 
 }

@@ -136,7 +136,7 @@ public class WorldModel
     }
 
 
-    public Entity find_nearest(Point pt, On_Grid ent)
+    public On_Grid find_nearest(Point pt, On_Grid ent)
     {
         List<On_Grid> entList = new LinkedList<On_Grid>();
         List<Double> distsList = new LinkedList<Double>();
@@ -144,33 +144,37 @@ public class WorldModel
         int i = 0;
         for (On_Grid e : this.entities)
         {
-            if (e.getClass() == ent.getClass())  //q
+            if (e.getClass() == ent.getClass())
             {
                 entList.add(e);
                 distsList.add(Utility.distance_sq(pt, e.get_position()));
                 i++;
             }
-
         }
-        return nearest_entity(entList, distsList)
+        return nearest_entity(entList, distsList);
 
     }
 
-    public static returnType nearest_entity(LinkedList<Entity> entList, LinkedList<Double> distsList)  //static method
+    public static On_Grid nearest_entity(List<On_Grid> entList, List<Double> distsList)  //static method
     {
         if (entList.size() > 0)
         {
-            Entity ent = entList[0];
-            for (Entity other : entList)
+            double dists = distsList.get(0);
+            int i=0;
+            for (double other : distsList)
             {
-                if other[1] < pair[1]:
+                if (other < dists)
+                {
+                    dists = other;
+                }
+                i++;
             }
+            return entList.get(i);
         }
         else
         {
             return null;
         }
-        return nearest;
     }
 
 

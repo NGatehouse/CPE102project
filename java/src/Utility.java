@@ -4,7 +4,7 @@
 public class Utility
 {
     private int x;
-    public int sign(int x)
+    public static int sign(int x)
     {
         if(x<0)
         {
@@ -19,7 +19,7 @@ public class Utility
             return 0;
         }
     }
-    public boolean adjacent(Point p1,Point p2)
+    public static boolean adjacent(Point p1, Point p2)
     {
         return ((p1.get_x() == p2.get_x() && Math.abs(p1.get_y()-p2.get_y()) == 1) || (p1.get_y()==p2.get_y() && Math.abs(p1.get_x()-p2.get_x())==1) );
     }

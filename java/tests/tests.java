@@ -170,6 +170,18 @@ public class tests {
         WorldModel world = new WorldModel(1,2,3);
         assertTrue(m.try_transform(world) == new_m); // check both pathways..resourcecount
     }
+    @Test
+    public void test_MinerNotFull_to_other()
+    {
+        String n = "myName";
+        Point p = new Point(3,4);
+        int r = 5000;
+        int resource = 0;
+        MinerNotFull m = new MinerNotFull(n,resource,p,r);
+        WorldModel world = new WorldModel(1,2,3);
+        Ore ore = new Ore(n,p,r);
+        assertTrue(); // check both pathways..resourcecount
+    }
 
 
 }

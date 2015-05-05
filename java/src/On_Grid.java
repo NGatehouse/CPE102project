@@ -11,5 +11,9 @@ public class On_Grid extends Entity
     {
         return this.position;
     }
+    public void set_position(Point p)
+    {
+        this.position = p;
+    }
 
 }

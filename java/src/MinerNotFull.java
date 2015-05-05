@@ -19,7 +19,7 @@ public class MinerNotFull extends Miner
         }
 
     }
-    public Tuple _to_other(WorldModel world, Ore ore) // whats the return type..tuple?
+    public boolean _to_other(WorldModel world, Ore ore) // whats the return type..tuple?
     {
         Point entity_pt = this.get_position();
         if (ore != null)
@@ -27,16 +27,16 @@ public class MinerNotFull extends Miner
             return false; //dont think this is right
         }
         Point ore_pt = ore.get_position();
-        if (adjacent(entity_pt,ore_pt)) //implement adjacent
+        if (Utility.adjacent(entity_pt,ore_pt)) //implement adjacent
         {
             this.set_resource_count(1+this.get_resource_count());
             world.remove_entity(ore); // implement in worldmodel
-            return ([ore_pt], true); //not sure here either
+            return true; //not sure here either
         }
         else
         {
             Point new_pt = world.next_position(entity_pt,ore_pt);
-            return (world.move_entity(new_pt),false)
+            return false;
         }
     }
 

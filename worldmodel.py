@@ -26,11 +26,22 @@ class WorldModel:
       self.remove_entity(entity)
       
    def find_open_around(self, pt, distance): #implement
+      print "pt is "
+      print pt.x
+      print pt.y
+      print distance
+      print "--"
+      print self
+      print "--"
+      
       for dy in range(-distance, distance + 1):
          for dx in range(-distance, distance + 1):
             new_pt = point.Point(pt.x + dx, pt.y + dy)
             if (self.within_bounds(new_pt) and
                (not self.is_occupied(new_pt))):
+               print new_pt.x 
+               print new_pt.y
+               print "_______"
                return new_pt
       return None
    
@@ -101,9 +112,7 @@ class WorldModel:
          self.occupancy.get_cell(pt) != None):
          entity = self.occupancy.get_cell( pt)
          entity.set_position( point.Point(-1, -1))
-         print entitiesOn
          self.entities.remove(entity)
-         print entity
          self.occupancy.set_cell( pt, None)
 
    def schedule_action(self, action, time): #omit

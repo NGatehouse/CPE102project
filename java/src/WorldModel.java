@@ -28,12 +28,30 @@ public class WorldModel
     }
 
     // methods
+
     public Point find_open_around(Point pt, int distance)
+    {
+        for (int dy=-distance; dy <= distance; dy++)
+        {
+            for (int dx=-distance; dx <= distance; dx++)
+            {
+                Point new_pt = new Point(pt.get_x() + dx, pt.get_y() + dy);
+                if (this.within_bounds(new_pt) && !this.is_occupied(new_pt))
+                {
+                    return new_pt;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Point find_open_around_wrong(Point pt, int distance)
     {
         for (int dy=0; dy <= distance; dy++)
         {
             for (int dx=0; dx <= distance; dx++)
             {
+                System.out.println(dx);
                 Point new_pt = new Point(pt.get_x() + dx, pt.get_y() + dy);
                 if (this.within_bounds(new_pt) && !this.is_occupied(new_pt))
                 {

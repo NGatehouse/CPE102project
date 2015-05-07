@@ -1,20 +1,37 @@
-DONE
-    actor.java
-        How to make a constant, for example current_image = 0
-    on_grid.java
-    entity.java
-    background
-    mining
+____________________________________________________________________
+                         --- Assignment 4 ---
+--  All entities.
+• All actions (triggered by time; see System.getCurrentTimeMillis).
+• Displaying the world with sprites (with the image list loaded from a file).
+• Moving the viewport.
+• Loading the world from a file.
+• Entity movement.
+
+--  Removed Functionality
+Your translated project will not include the builder portion of the original project. Your translation is not
+required to include the colored square under the mouse pointer.
 
 
-TODO:
-Test Cases
-WorldModel
+1. GUI (WorldView.py)
+    - No Mouse hover functionality
+    - mouse_buttons.py is just enums
+    - key.py is dictionary
+    - NO builder.py or builder_controller.py
 
+Over Weekend
+  Nick
+    Image_store.py
+    Ordered_lists.py
+    Save_Load.py (start)
+  Luke
+    Viewport.py
+    Controller.py (start) (don't do activity_loop)
+
+---DONE----
+occ_grid.py
+point.py
 
 this.position = super(position)
-
-
 
 ____________________________________________________________________
 Hi Nick,
@@ -42,6 +59,11 @@ To add all files except workspace.xml and then commit
 
     git add . && git rm -f java/.idea/workspace.xml && git commit
     git add . ; git rm -f java/.idea/workspace.xml ; git commit
+
+To do all of above plus ignore "out" files:
+
+    git add . && git rm -f -r java/out/* java/.idea/workspace.xml && git commit
+    git add . ; git rm -f -r java/out/* java/.idea/workspace.xml ; git commit
 
 Thanks!
 Luke

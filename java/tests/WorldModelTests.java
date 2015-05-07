@@ -23,20 +23,22 @@ public class WorldModelTests
     }
 
     @Test
-    public void test_find_open_around()
+    public void test_find_open_around() //TODO given pt and distance, should return new_pt
     {
-        Point pt = new Point(3,4);
-        int distance = 5;
-        WorldModel world = new WorldModel(5,5);
-        assertTrue(pt.equals(world.find_open_around(pt, distance)));
+        Point pt = new Point(14,22);
+        int distance = 1;
+        Point new_pt = new Point(13,21);
+
+        WorldModel world = new WorldModel(50,50);
+        assertTrue(new_pt.equals(world.find_open_around(pt, distance)));
     }
 
     @Test
-    public void test_find_open_around_ifnot()
+    public void test_find_open_around_ifnot()  //TODO, make return null
     {
-        Point pt = new Point(20,50);
-        int distance = 5;
-        WorldModel world = new WorldModel(5,5);
+        Point pt = new Point(14,22);
+        int distance = 1;
+        WorldModel world = new WorldModel(50,50);
         assertTrue(!pt.equals(world.find_open_around(pt, distance)));
     }
 
@@ -97,6 +99,7 @@ public class WorldModelTests
         Point pt = new Point(1,1);
         On_Grid ent = new On_Grid("Ore", pt);
         List<Point> tilesComp = new ArrayList<Point>();
+        tilesComp.add(pt);
         tilesComp.add(pt);
         assertTrue(tilesComp.equals(world.move_entity(ent, pt)));
     }

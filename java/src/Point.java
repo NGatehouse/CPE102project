@@ -18,4 +18,13 @@ public class Point
     {
         return this.y;
     }
+
+    public boolean equals(Point compPoint)
+    {
+        if ((this.get_x() == compPoint.get_x()) && (this.get_y() == compPoint.get_y()))
+        {
+            return true;
+        }
+        else { return false; }
+    }
 }

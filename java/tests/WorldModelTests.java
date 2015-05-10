@@ -18,6 +18,13 @@ public class WorldModelTests
     }
 
     @Test
+    public void test_pointComp() {
+        Point pt1 = new Point(14,22);
+        Point pt2 = new Point(14,22);
+        assertTrue(pt1.equals(pt2));
+    }
+
+    @Test
     public void test_2() {
         assertEquals(1.0, 1.00000000000001, DELTA);
     }
@@ -28,7 +35,6 @@ public class WorldModelTests
         Point pt = new Point(14,22);
         int distance = 1;
         Point new_pt = new Point(13,21);
-
         WorldModel world = new WorldModel(50,50);
         assertTrue(new_pt.equals(world.find_open_around(pt, distance)));
     }
@@ -43,15 +49,27 @@ public class WorldModelTests
     }
 
     @Test
-    public void test_blob_next_pos()
+    public void test_blob_next_pos_firstIf() //Should go into first
     {
-        Point entpt = new Point(1,1);
-        Point destpt = new Point(2,2);
-        Point newpt = new Point(0,-1);
-        WorldModel world = new WorldModel(5,5);
-        assertTrue(newpt.get_x() == world.blob_next_position(entpt, destpt).get_x());
+        //SHOULD:  horiz = 1
+        Point entpt = new Point(9,24);
+        Point destpt = new Point(10,25);
+        Point newpt = new Point(9,25);
+        WorldModel world = new WorldModel(50,50);
+        assertTrue(newpt.equals(world.blob_next_position(entpt, destpt)));
     }
-
+/*
+    @Test
+    public void test_blob_next_pos_secondIf()  //TODO Current values for second "if"
+    {
+        //SHOULD: horiz = 1   vert = -1
+        Point entpt = new Point(10,25);
+        Point destpt = new Point(14,22);
+        Point newpt = new Point(10,25);
+        WorldModel world = new WorldModel(50,50);
+        assertTrue(newpt.equals(world.blob_next_position(entpt, destpt)));
+    }
+*/
     @Test
     public void test_next_position()
     {
@@ -77,19 +95,21 @@ public class WorldModelTests
         WorldModel world = new WorldModel(5,5);
         assertTrue(world.within_bounds(pt));
     }
-
+/*
     @Test
     public  void test_is_occupiedF() {
         WorldModel world = new WorldModel(5, 5);
         Point pt = new Point(1, 1);
-        On_Grid ent = new On_Grid("Ore", pt);
+        On_Grid ent = new On_Grid("Obstacle", pt);
         assertTrue(!world.is_occupied(pt));
     }
+    */
     @Test
     public  void test_is_occupiedT()
     {
-        WorldModel world = new WorldModel(5,5);
-        Point pt = new Point(1,1);
+        WorldModel world = new WorldModel(50,50);
+        Point pt = new Point(13,22);
+        On_Grid ent = new On_Grid("Obstacle", pt);  //Should be return T = (T && T)
         assertTrue(world.is_occupied(pt));
     }
     @Test
@@ -141,9 +161,9 @@ public class WorldModelTests
     }
 
     @Test
-    public  void test_find_nearest()
+    public  void test_find_nearest()  //TODO
     {
-        Point pt = new Point(1,2);
+        Point pt = new Point(37,10);
         List<On_Grid> entList = new LinkedList<On_Grid>();
         List<Double> distsList = new LinkedList<Double>();
         On_Grid ent1 = new On_Grid("Ore", new Point(2,3));
@@ -153,8 +173,8 @@ public class WorldModelTests
         distsList.add(3.0);
         distsList.add(4.0);
 
-        WorldModel world = new WorldModel(5,5);
-
+        WorldModel world = new WorldModel(20,20);
+        System.out.println(Utility.nearest_entity(entList, distsList));
         assertTrue( Utility.nearest_entity(entList, distsList).equals(null) );
     }
 

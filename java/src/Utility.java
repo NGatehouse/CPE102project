@@ -43,7 +43,7 @@ public class Utility
                 }
                 i++;
             }
-            return entList.get(i);
+            return entList.get(i-1);
         }
         else
         {

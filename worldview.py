@@ -20,11 +20,11 @@ class WorldView:
       self.num_cols = world.num_cols
       self.mouse_img = mouse_img
       
-   def draw_viewport(self):
+   def draw_viewport(self): #creates GUI
       self.draw_background()
       self.draw_entities()
 
-   def draw_background(self):
+   def draw_background(self): #puts ents on board
       for y in range(0, self.viewport.height):
           for x in range(0, self.viewport.width):
              w_pt = viewport_to_world(self.viewport, point.Point(x, y))
@@ -37,14 +37,14 @@ class WorldView:
              v_pt = world_to_viewport(self.viewport, entity.position)
              self.screen.blit(entity.get_image(),(v_pt.x * self.tile_width, v_pt.y * self.tile_height))
 
-   def update_view(self, view_delta=(0,0), mouse_img=None): 
+   def update_view(self, view_delta=(0,0), mouse_img=None):  #Changes view of viewport
       self.viewport = create_shifted_viewport(self.viewport, view_delta, self.num_rows, self.num_cols)
       self.mouse_img = mouse_img
       self.draw_viewport()
       pygame.display.update()
       self.mouse_move(self.mouse_pt)
    
-   def update_view_tiles(self, tiles):
+   def update_view_tiles(self, tiles): #Not sure?
       rects = []
       for tile in tiles: 
           if self.viewport.collidepoint(tile.x, tile.y):

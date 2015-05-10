@@ -25,39 +25,44 @@ class WorldModel:
       entity.clear_pending_actions()
       self.remove_entity(entity)
       
-   def find_open_around(self, pt, distance): #implement
-      print "pt is "
-      print pt.x
-      print pt.y
-      print distance
-      print "--"
-      print self
-      print "--"
-      
+   def find_open_around(self, pt, distance): #implement    
       for dy in range(-distance, distance + 1):
          for dx in range(-distance, distance + 1):
             new_pt = point.Point(pt.x + dx, pt.y + dy)
-            if (self.within_bounds(new_pt) and
-               (not self.is_occupied(new_pt))):
-               print new_pt.x 
-               print new_pt.y
-               print "_______"
+            if (self.within_bounds(new_pt) and (not self.is_occupied(new_pt))):
                return new_pt
       return None
    
    def blob_next_position(self, entity_pt, dest_pt): # implement  Warning:coupling...solve later
+      print "blob_next_position"
+      print entity_pt.x 
+      print entity_pt.y
+      print "_______"
+      print dest_pt.x
+      print dest_pt.y
       horiz = actions.sign(dest_pt.x - entity_pt.x)
+      print "horiz = {0}".format(horiz)
   
       new_pt = point.Point(entity_pt.x + horiz, entity_pt.y)
+      
       if horiz == 0 or (self.is_occupied(new_pt) and
          not isinstance(self.get_tile_occupant( new_pt),
          entities.Ore)):
          vert = actions.sign(dest_pt.y - entity_pt.y)
          new_pt = point.Point(entity_pt.x, entity_pt.y + vert)
+         print "I went into first if"
+
          if vert == 0 or (self.is_occupied(new_pt) and
             not isinstance(self.get_tile_occupant( new_pt),
             entities.Ore)):
+            
+            print "vert = {0}".format(vert)
             new_pt = point.Point(entity_pt.x, entity_pt.y)
+            print "I went into second if"
+          
+      print "new_pt.x = {0}".format(new_pt.x)
+      print "new_pt.y = {0}".format(new_pt.y)
+      print "____DONE______________"
       return new_pt
 
    def next_position(self, entity_pt, dest_pt): # implement  Warning:coupling...solve later
@@ -75,13 +80,24 @@ class WorldModel:
          pt.y >= 0 and pt.y < self.num_rows)
 
    def is_occupied(self, pt):# implement
-      return (self.within_bounds(pt) and
-         self.occupancy.get_cell(pt) != None)
+      print "_____is_occ_______________"
+      print pt.x
+      print pt.y
+      print self.within_bounds(pt)
+      print self.occupancy.get_cell(pt)
+      print (self.within_bounds(pt) and self.occupancy.get_cell(pt) != None)
+      print "__________________________"
+      return (self.within_bounds(pt) and self.occupancy.get_cell(pt) != None)
          
    def find_nearest(self, pt, type):# implement ... oftype = list comprehension, basically it creates a new list by using a for loop.. ask me if you need further clarification (:
+      '''print "find_nearest"
+      print pt.x
+      print pt.y
+      print type'''
       oftype = [(e, distance_sq(pt, e.get_position())) # entities e?
          for e in self.entities if isinstance(e, type)]
-
+      #print nearest_entity(oftype)
+      #print "__________"
       return nearest_entity(oftype)
 
    def add_entity(self, entity): # implement

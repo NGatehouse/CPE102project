@@ -45,36 +45,32 @@ public class WorldModel
         return null;
     }
 
-    public Point find_open_around_wrong(Point pt, int distance)
-    {
-        for (int dy=0; dy <= distance; dy++)
-        {
-            for (int dx=0; dx <= distance; dx++)
-            {
-                System.out.println(dx);
-                Point new_pt = new Point(pt.get_x() + dx, pt.get_y() + dy);
-                if (this.within_bounds(new_pt) && !this.is_occupied(new_pt))
-                {
-                    return new_pt;
-                }
-            }
-        }
-        return null;
-    }
-
     public Point blob_next_position(Point entity_pt, Point dest_pt)  //coupling; solve later
     {
+        System.out.println(entity_pt.get_x());
+        System.out.println(entity_pt.get_y());
+        System.out.println("____________");
+        System.out.println(dest_pt.get_x());
+        System.out.println(dest_pt.get_y());
+
         int horiz = Utility.sign(dest_pt.get_x() - entity_pt.get_x());
+        System.out.println("horiz" + horiz);
         Point new_pt = new Point(entity_pt.get_x() + horiz, entity_pt.get_y());
         if (horiz == 0 || (this.is_occupied(new_pt) && !(this.get_tile_occupant(new_pt) instanceof Ore)))
         {
-            int vert = Utility.sign(dest_pt.get_y() - entity_pt.get_y());
+            System.out.println("Into first if");
             new_pt = new Point(entity_pt.get_x(), entity_pt.get_y());
+            int vert = Utility.sign(dest_pt.get_y() - entity_pt.get_y());
             if (vert == 0 || (this.is_occupied(new_pt) && !(this.get_tile_occupant(new_pt) instanceof Ore)))
             {
+                System.out.println("Into second if");
                 new_pt = new Point(entity_pt.get_x(), entity_pt.get_y());
             }
         }
+        System.out.println("____________");
+        System.out.println("newpt x = " + new_pt.get_x());
+        System.out.println("newpt y = " + new_pt.get_y());
+
         return new_pt;
     }
 
@@ -101,6 +97,11 @@ public class WorldModel
 
     public Boolean is_occupied(Point pt)
     {
+        System.out.println("______s________");
+        System.out.println("within bounds " + this.within_bounds(pt));
+        System.out.println("occ " + this.occupancy.get_cell(pt));
+        System.out.println((this.within_bounds(pt) && this.occupancy.get_cell(pt) != null));
+        System.out.println("______e________");
         return (this.within_bounds(pt) && this.occupancy.get_cell(pt) != null);
     }
 
@@ -154,27 +155,6 @@ public class WorldModel
     {
         return this.entities;
     }
-
-
-    public On_Grid find_nearest(Point pt, On_Grid ent)
-    {
-        List<On_Grid> entList = new LinkedList<On_Grid>();
-        List<Double> distsList = new LinkedList<Double>();
-
-        int i = 0;
-        for (On_Grid e : this.entities)
-        {
-            if (e.getClass() == ent.getClass())
-            {
-                entList.add(e);
-                distsList.add(Utility.distance_sq(pt, e.get_position()));
-                i++;
-            }
-        }
-        return Utility.nearest_entity(entList, distsList);
-
-    }
-
 
 
         /*

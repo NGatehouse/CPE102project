@@ -156,6 +156,20 @@ public class WorldModel
         return this.entities;
     }
 
+    public void add_entity(On_Grid entity)  //Assignment 4
+    {
+        Point pt = entity.get_position();
+        if (this.within_bounds(pt))
+        {
+            Entity old_entity = this.occupancy.get_cell(pt);
+            if (old_entity != null)
+            {
+                //old_entity.clear_pending_actions();
+            }
+            this.occupancy.set_cell(pt, entity);
+            this.entities.add(entity);
+        }
+    }
 
         /*
     public void clear_pending_actions()  //assignment 4
@@ -171,20 +185,7 @@ public class WorldModel
         this.remove_entity(entity);
     }
 
-    public void add_entity(On_Grid entity)  //Assignment 4
-    {
-        Point pt = entity.get_position();
-        if (this.within_bounds(pt))
-        {
-            Entity old_entity = this.occupancy.get_cell(pt);
-            if (old_entity != null)
-            {
-                old_entity.clear_pending_actions();
-            }
-            this.occupancy.set_cell(pt, entity);
-            this.entities.add(entity);
-        }
-    }
+
 
     public void schedule_action(Action action, Time time)  //Assignement 4
     {}

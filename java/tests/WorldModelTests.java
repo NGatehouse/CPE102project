@@ -110,6 +110,7 @@ public class WorldModelTests
         WorldModel world = new WorldModel(50,50);
         Point pt = new Point(13,22);
         On_Grid ent = new On_Grid("Obstacle", pt);  //Should be return T = (T && T)
+        world.add_entity(ent);
         assertTrue(world.is_occupied(pt));
     }
     @Test

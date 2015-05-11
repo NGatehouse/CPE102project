@@ -62,8 +62,8 @@ To add all files except workspace.xml and then commit
 
 To do all of above plus ignore "out" files:
 
-    git add . && git rm -f -r java/out/* java/.idea/workspace.xml && git commit
-    git add . ; git rm -f -r java/out/* java/.idea/workspace.xml ; git commit
+    git add . && git rm -f -r java/.idea/workspace.xml &&  git rm -f -r java/out/*  && git commit
+    git add . ; git rm -f -r java/.idea/workspace.xml ; git rm -f -r java/out/*  ; git commit
 
 Thanks!
 Luke
@@ -82,5 +82,6 @@ next questions 5/11:
 3. are we going to be going over file I/O in class or should i teach my self that in java?
 4. in image_store.py says images = {} ... what is {}? represented in java.
 5. attrs is that an ArrayList of type String?
-6.ListItem, should i be redefining equals method?
+6. ListItem, should i be redefining equals method?
+7.
 

@@ -5,7 +5,7 @@ import java.util.List;
  */
 public class OrderedList
 {
-    private List<Double> list;
+    private List<Double> list; // should this be a double?
     public OrderedList(int list)
     {
         this.list = new ArrayList<>();
@@ -15,11 +15,11 @@ public class OrderedList
     {
         int size = this.list.size();
         int idx = 0;
-        for(; idx < size && this.list.get(idx).ord < ord ; )
+        for(; idx < size && this.list.get(idx).ord < ord ; ) // if ord is time, why in python is it .ord
         {
             idx++;
         }
-        this.list[idx] = [ListItem(item,ord)]
+        this.list.get(idx) = new ListItem(item,ord) // what is goin on here exactly?
 
         
 
@@ -32,16 +32,15 @@ public class OrderedList
         {}
         if (idx < size)
         {
-            this.list[idx].remove();
+            this.list.remove(0); // what should i do instead of remove
         }
     }
 
-    public void head()
+    public Double head()
     {
-        return this.list[0]
-        if(this.list)
+        if(this.list.size() > 0)
         {
-
+            return this.list.get(0);
         }
         else
         {
@@ -49,11 +48,11 @@ public class OrderedList
         }
     }
 
-    public void pop()
+    public void pop() // what does pop do in
     {
-        if (this.list)
+        if (this.list.size() > 0) // confusion in translation list isn't a boolean, just checking to see if the list isn't empty?
         {
-            return this.list[0].remmove();
+            this.list.remove(0);
         }
     }
 }

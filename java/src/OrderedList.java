@@ -11,7 +11,7 @@ public class OrderedList
         this.list = new ArrayList<>();
 
     }
-    public void insert(Action item, int ord)//what is ord and item?
+    public void insert(Action item, int ord)//item is a function
     {
         int size = this.list.size();
         int idx = 0;

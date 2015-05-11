@@ -14,7 +14,7 @@ public class image_store
 
     public void load_images(file filename, int tile_width, int tile_height)
     {
-        images = {};
+        images = {}; // hashmap
         with as?
         // File I/O
     }

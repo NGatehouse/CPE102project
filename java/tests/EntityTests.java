@@ -181,18 +181,6 @@ public class EntityTests {
         MinerNotFull m = new MinerNotFull(n,resource,p,r);
         WorldModel world = new WorldModel(1,2);
         Ore ore = new Ore(n,p,r);
-        assertTrue(m._to_other(world,ore)); //
-    }
-    @Test
-    public void test_MinerNotFull_to_other_fail()
-    {
-        String n = "myName";
-        Point p = new Point(3,4);
-        int r = 5000;
-        int resource = 0;
-        MinerNotFull m = new MinerNotFull(n,resource,p,r);
-        WorldModel world = new WorldModel(1,2);
-        Ore ore = new Ore(n,p,r);
         assertTrue(!(m._to_other(world,ore))); // check both pathways..resourcecount
     }
 

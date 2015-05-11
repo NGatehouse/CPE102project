@@ -171,10 +171,13 @@ public class WorldModel
         }
     }
 
-        /*
-    public void clear_pending_actions()  //assignment 4
+
+    public void clear_pending_actions(Entity entity)  //assignment 4
     {
-        //
+        for (Action action : entity) {  //maybe Action is Lambda
+            this.unschedule_action(action);
+        }
+        entity.clear_pending_actions();
     }
 
     public void remove_entity_schedule(On_Grid entity)  //assignment 4
@@ -185,16 +188,21 @@ public class WorldModel
         this.remove_entity(entity);
     }
 
-
-
-    public void schedule_action(Action action, Time time)  //Assignement 4
-    {}
+    public void schedule_action(Action action, Time time)  //q how to best implement time
+    {
+        this.action_queue.add(action, time); //q is action the index and time the element that is being placed into
+                                                //the ordered list?
+    }
 
     public void unschedule_action(Action action)  //Assignement 4
-    {    }
+    {
+        this.action_queue.add(action);
+    }
 
     public returnType update_on_time(Ticks ticks)  //Assignement 4
-    {}
+    {
+        
+    }
 
     public On_Grid get_background_image(Point pt)  //assigment 4
     {

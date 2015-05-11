@@ -201,7 +201,7 @@ public class WorldModel
 
     public returnType update_on_time(Ticks ticks)  //Assignement 4
     {
-        
+//
     }
 
     public On_Grid get_background_image(Point pt)  //assigment 4

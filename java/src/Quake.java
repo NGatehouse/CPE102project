@@ -78,7 +78,7 @@ public class Quake
         public Action action(long current_ticks)//lamda
         {
             this.remove_pending_action(action);
-            this.next_image(); // python code?
+            this.next_image(); //
             if(repeat_count != 1)
             {
                 this.schedule_action(world,this.create_animation_action(world,Math.max(repeat_count -1,0)),current_ticks + this.get_animation_rate());

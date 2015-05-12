@@ -88,3 +88,8 @@ next questions 5/11:
 
 next Q's 5/12:
 1. if On_Grid implements action_manager... will those methods defined in On_Grid be inherited by everything else? or will the code know the difference between the interface contracted methods and the class defined methods.
+............................................ 5/12 again
+2. in Quake ask about instance of
+3.create_entity_death_action.. lamda?
+4. will making get_position in action manager be bad code?
+5. in quake why is action_manager not implementing?

@@ -81,7 +81,7 @@ class Background(Entity):
    
 class On_Grid(Entity):
    def __init__(self,name,imgs,position):
-      Entity.__init__(self,name,images)
+      Entity.__init__(self,name,imgs)
       self.position = position             
       self.pending_actions = [] 
       #current img and pending actions start here

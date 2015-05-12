@@ -1,0 +1,16 @@
+Grid is 20 wide by 15 tall
+    with a double width and double height possible,
+    making 4 20x15 quadrants
+
+Do we need controller.py
+    key stuff looks like keyPressed() in Processing (so in Main.java?)
+    activity_loop() looks like draw() in Processing (so in Main.java?)
+    Only thing is handle_timer_event(). Where to put it?
+
+Should have a Main.java file?
+
+Tick vs. Time milliseconds? Int or long?
+
+  public returnType update_on_time(Ticks ticks)
+    {
+        tile = new ArrayList<>();  //says can't resolve "tile"

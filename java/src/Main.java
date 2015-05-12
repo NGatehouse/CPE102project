@@ -19,19 +19,12 @@ public class Main extends PApplet
     private Grid[][] world = new Grid[15][20];
     private final static int HEIGHT = 20;
     private final static int WIDTH = 15;
-    private Point locOfBird = new Point(0,0);
-    private PImage grass = loadImage("../imgs/grass.jpg");
-    private PImage apple = loadImage("../imgs/apple.png");
-    private PImage fire = loadImage("../imgs/fire.gif");
-    private PImage done = loadImage("../imgs/done.gif");
-    //  private int stepSize = 10; //del
-//    public int x = frame.getX(); //del
-    //   public int y = frame.getY(); //del  //or is it Frame?
-
+    private PImage grass = loadImage("C:\\Users\\Luke\\cpe102\\experiment\\CPE102project\\images\\grass.bmp");
+    private PImage rock = loadImage("C:\\Users\\Luke\\cpe102\\experiment\\CPE102project\\images\\rock.bmp"); // Need to make images relative so Nick and Luke can use them
 
     public enum Grid
     {
-        BACKGROUND, OBSTACLE, GOAL
+        BACKGROUND, OBSTACLE
     }
 
     public void tiles()
@@ -43,10 +36,6 @@ public class Main extends PApplet
                 if (((h%8==1) && (w%3==0 || w%3==2 || h==1)) && !(h==1 && w==17))
                 {
                     world[h][w] = Grid.OBSTACLE;
-                }
-                else if (h==3 && w==4)
-                {
-                    world[h][w] = Grid.GOAL;
                 }
                 else
                 {
@@ -63,9 +52,6 @@ public class Main extends PApplet
         background(BGND_COLOR);
         System.out.println(world.length);
         imgs = new ArrayList<PImage>();
-        imgs.add(loadImage("wyvern1.png"));
-        imgs.add(loadImage("wyvern2.png"));
-        imgs.add(loadImage("wyvern3.png"));
 
         current_image = 0;
         next_time = System.currentTimeMillis() + ANIMATION_TIME;
@@ -75,58 +61,8 @@ public class Main extends PApplet
 
     }
 
-    public void keyPressed()
-    {
+    public void keyPressed() {
 
-        if ( (locOfBird.get_x()/32 != 4) || (locOfBird.get_y()/32 != 3) ) {
-
-            switch (key) {
-                case 'a':
-                    if ((locOfBird.get_x() > 0)
-                            && world[(locOfBird.get_y() / 32)][(locOfBird.get_x() / 32) - 1] != Grid.OBSTACLE)
-                    // && (world[locOfBird.get_x()/32][locOfBird.get_y()/32] != Grid.OBSTACLE))
-                    {
-                        locOfBird.set_x(locOfBird.get_x() - 32);
-                    }
-                    break;
-                case 'd':
-                    if ((locOfBird.get_x() < 608)
-                            && world[(locOfBird.get_y() / 32)][(locOfBird.get_x() / 32) + 1] != Grid.OBSTACLE) {
-                        locOfBird.set_x(locOfBird.get_x() + 32);
-                    }
-                    break;
-                case 'w':
-                    if ((locOfBird.get_y() > 0)
-                            && world[(locOfBird.get_y() / 32) - 1][(locOfBird.get_x() / 32)] != Grid.OBSTACLE) {
-                        locOfBird.set_y(locOfBird.get_y() - 32);
-                    }
-                    break;
-                case 's':
-                    if ((locOfBird.get_y() < 448)
-                            && world[(locOfBird.get_y() / 32) + 1][(locOfBird.get_x() / 32)] != Grid.OBSTACLE) {
-                        locOfBird.set_y(locOfBird.get_y() + 32);
-                    }
-                    break;
-                default:
-                    System.out.print(locOfBird.get_x() / 32);
-                    System.out.print(" ");
-                    System.out.println(locOfBird.get_y() / 32);
-            }
-        }
-        else
-        { image(done, 0,0); }
-
-/*
-        if (key=='a') //del
-            x -= stepSize;
-        else if (key=='d')
-            x += stepSize;
-        else if (key=='w')
-            y -= stepSize;
-        else if (key=='s')
-            y += stepSize;
-        frame.setLocation(x, y);
-        */
     }
 
 
@@ -143,11 +79,7 @@ public class Main extends PApplet
             {
                 if (world[h][w] == Grid.OBSTACLE)
                 {
-                    image(fire, w*32, h*32);
-                }
-                else if (world[h][w] == Grid.GOAL)
-                {
-                    image(apple, w*32, h*32);
+                    image(rock, w*32, h*32);
                 }
                 else
                 {
@@ -167,12 +99,11 @@ public class Main extends PApplet
             next_image();
             next_time = time + ANIMATION_TIME;
         }
-        image(imgs.get(current_image), locOfBird.get_x(), locOfBird.get_y());
     }
 
     public static void main(String[] args)
     {
-        PApplet.main("ProcessingIntro");
+        PApplet.main("Main");
     }
 }
 

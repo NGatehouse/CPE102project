@@ -205,7 +205,8 @@ public class WorldModel
 
     public returnType update_on_time(Ticks ticks)  //Assignement 4
     {
-        tile = new ArrayList<>()
+        tile = new ArrayList<>();
+
     }
 
     public On_Grid get_background_image(Point pt)  //assigment 4
@@ -217,6 +218,6 @@ public class WorldModel
         return null;
     }
 
-    */
+
 
 }

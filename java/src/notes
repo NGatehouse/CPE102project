@@ -89,7 +89,14 @@ next questions 5/11:
 next Q's 5/12:
 1. if On_Grid implements action_manager... will those methods defined in On_Grid be inherited by everything else? or will the code know the difference between the interface contracted methods and the class defined methods.
 ............................................ 5/12 again
-2. in Quake ask about instance of
-3.create_entity_death_action.. lamda?
-4. will making get_position in action manager be bad code?
-5. in quake why is action_manager not implementing?
+2. in Quake ask about instance of// everything is going to have pending actions that we call this method on
+3.create_entity_death_action.. lamda? // yes, look at code he posted for help
+4. will making get_position in action manager be bad code? // necessary evil
+5. in quake why is action_manager not implementing? // fixed, misname
+
+next Q's 5/13:
+1. confused about pending actions and current image and how they are inherited since they are constants.
+2. in ordered list am i doing remove correctly?
+3.what is going on in create animation action?
+not to self still need to add all the image data, File I/O, and lamda's, and actions.py create_ and schedule_,
+ look at tabs you have open and LEEEAAARRRNN :D

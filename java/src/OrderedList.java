@@ -5,13 +5,13 @@ import java.util.List;
  */
 public class OrderedList
 {
-    private List<ListItem> list; // -q should this be a double? .... forgot to ask
+    private List<ListItem> list;
     public OrderedList(List<ListItem> list)
     {
         this.list = list;
 
     }
-    public void insert(Action item, int ord)//item is a function
+    public void insert(Action item, int ord)
     {
         int size = this.list.size();
         int idx = 0;
@@ -31,7 +31,7 @@ public class OrderedList
         for(; idx < size && this.list.get(idx).get_item() != item;idx++) // was .item before
         if (idx < size)
         {
-            this.list.remove(0); // what should i do instead of remove
+            this.list.remove(0);
         }
     }
 

@@ -138,8 +138,8 @@ class WorldModel:
       self.action_queue.remove(action)
 
    def update_on_time(self, ticks):#omit
-      tiles = []
-
+      tiles = [] 
+      print "---------------------ticks: {0}".format(ticks)
       next = self.action_queue.head()
       while next and next.ord < ticks:
          self.action_queue.pop()

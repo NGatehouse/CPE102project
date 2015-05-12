@@ -8,11 +8,14 @@ public class WorldModel
     // fields
     private int num_rows;
     private int num_cols;
+    private List<Action> list = new ArrayList<Action>();
+    private OrderedList action_queue;
     //private int background;
     //private int occupancy;
     private List<On_Grid> entities = new ArrayList<On_Grid>();
     private Grid background;
     private Grid occupancy;
+    //private OrderedList<> = OrderedList(Action action);
 
 
     // constructor
@@ -24,7 +27,8 @@ public class WorldModel
         this.num_cols = num_cols;
         //this.occupancy = new int[num_cols][num_rows];
         this.occupancy = new Grid(num_cols, num_rows);
-        //this.action_queue = ordered_list.OrderedList();
+        this.action_queue = new OrderedList(list);
+
     }
 
     // methods
@@ -188,20 +192,20 @@ public class WorldModel
         this.remove_entity(entity);
     }
 
-    public void schedule_action(Action action, Time time)  //q how to best implement time
+    public void schedule_action(Action action, long time)
     {
-        this.action_queue.add(action, time); //q is action the index and time the element that is being placed into
-                                                //the ordered list?
-    }
+        this.action_queue.insert(action, 0);
+        //action is a functional interface, i.e. lambda, ordered by time in millsexs
+    } //hash map instead of dictionary
 
     public void unschedule_action(Action action)  //Assignement 4
     {
-        this.action_queue.add(action);
+        this.action_queue.insert(action);
     }
 
     public returnType update_on_time(Ticks ticks)  //Assignement 4
     {
-//
+        tile = new ArrayList<>()
     }
 
     public On_Grid get_background_image(Point pt)  //assigment 4

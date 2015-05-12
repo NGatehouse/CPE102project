@@ -205,7 +205,7 @@ public class WorldModel
 
     public returnType update_on_time(long ticks)  //Assignement 4
     {
-        tile = new ArrayList<>(); // ordered list is processed.. ticks is a long, time is passed to it, look thoruhgh orderd list and then call actions
+        //tile = new ArrayList<>(); // ordered list is processed.. ticks is a long, time is passed to it, look thoruhgh orderd list and then call actions
 
     }
 

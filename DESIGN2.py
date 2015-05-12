@@ -3,9 +3,9 @@ Entities.py
    Animation_manager '''Interface''' #get_animation_rate  create_animation_action  schedule_animation  
    Entity #DATA name images
    #get_images  get_image  next_image  get_name        
-      On_Grid(Entity) #DATA name images position
-        Background(On_Grid) 
+      On_Grid(Entity) #DATA name images position 
         #set_position  get_position 
+        Background(On_Grid)
         Quake(On_Grid, animation_manager, action_manger) #DATA name  position  images  animation_rate
         Obstacle(On_Grid) #name  position  images
         #entity_string

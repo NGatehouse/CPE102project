@@ -160,12 +160,12 @@ public class WorldModel
         return this.entities;
     }
 
-    public void add_entity(Action_manager entity)  //Assignment 4
+    public void add_entity(Action_manager entity)
     {
         Point pt = entity.get_position();
         if (this.within_bounds(pt))
         {
-            On_Grid old_entity = this.occupancy.get_cell(pt); //q
+            On_Grid old_entity = this.occupancy.get_cell(pt);
             if (old_entity != null)
             {
                 old_entity.clear_pending_actions();
@@ -198,18 +198,25 @@ public class WorldModel
         //action is a functional interface, i.e. lambda, ordered by time in millsexs
     } //hash map instead of dictionary
 
-    public void unschedule_action(Action action)  //Assignement 4
+    public void unschedule_action(Action action)
     {
         this.action_queue.remove(action);
     }
 
-    public returnType update_on_time(long ticks)  //Assignement 4
+    public void update_on_time(long ticks)
     {
         //tile = new ArrayList<>(); // ordered list is processed.. ticks is a long, time is passed to it, look thoruhgh orderd list and then call actions
-
+        ListItem next = this.action_queue.head();
+        while (next != null && next.get_ord() < ticks)
+        {
+            this.action_queue.pop();
+            //tiles.add(next.get_item(ticks));
+            next = this.action_queue.head();
+        }
+        //return tiles;
     }
 
-    public On_Grid get_background_image(Point pt)  //assigment 4
+    public On_Grid get_background_image(Point pt)
     {
         if (this.within_bounds(pt))
         {
@@ -217,7 +224,5 @@ public class WorldModel
         }
         return null;
     }
-
-
 
 }

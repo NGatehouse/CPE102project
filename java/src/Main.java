@@ -21,6 +21,7 @@ public class Main extends PApplet
     private final static int WIDTH = 15;
     private PImage grass = loadImage("C:\\Users\\Luke\\cpe102\\experiment\\CPE102project\\images\\grass.bmp");
     private PImage rock = loadImage("C:\\Users\\Luke\\cpe102\\experiment\\CPE102project\\images\\rock.bmp"); // Need to make images relative so Nick and Luke can use them
+    public Point origin = new Point(0,0);
 
     public enum Grid
     {
@@ -61,7 +62,28 @@ public class Main extends PApplet
 
     }
 
-    public void keyPressed() {
+    public void keyPressed()
+    {
+        if (key == CODED)
+        {
+            if (keyCode == LEFT)
+            {
+                origin.addTo_x(-1);
+            }
+            if (keyCode == RIGHT)
+            {
+                origin.addTo_x();
+            }
+            if (keyCode == UP)
+            {
+                //
+            }
+            if (keyCode == DOWN)
+            {
+                //0
+            }
+        }
+
 
     }
 

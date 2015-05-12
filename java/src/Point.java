@@ -18,6 +18,14 @@ public class Point
     {
         return this.y;
     }
+    public void addTo_x(int adder)
+    {
+        this.x += adder;
+    }
+    public void addTo_y(int adder)
+    {
+        this.y += adder;
+    }
 
     public boolean equals(Point compPoint)
     {

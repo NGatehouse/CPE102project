@@ -11,7 +11,7 @@ public class OrderedList
         this.list = list;
 
     }
-    public void insert(Action item, int ord)//item is a function
+    public void insert(Action item, long ord)//item is a function
     {
         int size = this.list.size();
         int idx = 0;
@@ -28,15 +28,14 @@ public class OrderedList
     {
         int size = this.list.size();
         int idx = 0;
-        for(; idx < size && this.list.get(idx).item != item;idx++)
-        {}
+        for(; idx < size && this.list.get(idx) != item;idx++) // was .item before
         if (idx < size)
         {
             this.list.remove(0); // what should i do instead of remove
         }
     }
 
-    public Double head()
+    public Action head()
     {
         if(this.list.size() > 0)
         {

@@ -5,7 +5,7 @@ import java.util.List;
  */
 public class OrderedList
 {
-    private List<Double> list; // should this be a double?
+    private List<Double> list; // -q should this be a double? .... forgot to ask
     public OrderedList(int list)
     {
         this.list = new ArrayList<>();
@@ -15,11 +15,11 @@ public class OrderedList
     {
         int size = this.list.size();
         int idx = 0;
-        for(; idx < size && this.list.get(idx).ord < ord ; ) // if ord is time, why in python is it .ord
+        for(; idx < size && this.list.get(idx).ord < ord ; ) // -q if ord is time, why in python is it .ord
         {
             idx++;
         }
-        this.list.get(idx) = new ListItem(item,ord) // what is goin on here exactly?
+        this.list.get(idx) = new ListItem(item,ord) // -q what is goin on here exactly?
 
         
 

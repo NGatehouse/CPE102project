@@ -11,7 +11,7 @@ public class ListItem
         this.ord = ord;
     }
 
-    public boolean equals(ListItem that)
+    public boolean equals(ListItem that) // don't know if we need this item
     {
         if(this == that)
         {

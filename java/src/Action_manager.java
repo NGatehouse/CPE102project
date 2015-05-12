@@ -3,8 +3,9 @@
  */
 public interface Action_manager
 {
+    // these are not all really void
     public void schedule_action(WorldModel world, Action action, long time);
-    public void create_entity_death_action(WorldModel world);
+    public Action create_entity_death_action(WorldModel world);
     public void remove_pending_actions(Action action);
     public void add_pending_action(Action action);
     public void get_pending_actions();

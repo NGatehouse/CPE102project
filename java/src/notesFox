@@ -14,3 +14,5 @@ Tick vs. Time milliseconds? Int or long?
   public returnType update_on_time(Ticks ticks)
     {
         tile = new ArrayList<>();  //says can't resolve "tile"
+
+        //Instead of redrawing each tile like in Python, we redraw the World

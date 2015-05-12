@@ -123,7 +123,7 @@ public class WorldModel
         return tiles;
     }
 
-    public void remove_entity(On_Grid entity)
+    public void remove_entity(Action_manager entity)
     {
         this.remove_entity_at(entity.get_position());
     }
@@ -176,17 +176,17 @@ public class WorldModel
     }
 
 
-    public void clear_pending_actions(Entity entity)  //assignment 4
+    public void clear_pending_actions(Action_manager entity)  //assignment 4
     {
-        for (Action action : entity) {  //maybe Action is Lambda
+        for (Action action : entity.get_pending_actions()) {
             this.unschedule_action(action);
         }
         entity.clear_pending_actions();
     }
 
-    public void remove_entity_schedule(On_Grid entity)  //assignment 4
+    public void remove_entity_schedule(Action_manager entity)  //assignment 4
     {
-        for (Entity.action action : entity.get_pending_actions())
+        for (Action action : entity.get_pending_actions())
             this.unschedule_action(action);
         entity.clear_pending_actions();
         this.remove_entity(entity);
@@ -200,7 +200,7 @@ public class WorldModel
 
     public void unschedule_action(Action action)  //Assignement 4
     {
-        this.action_queue.insert(action);
+        this.action_queue.remove(action);
     }
 
     public returnType update_on_time(Ticks ticks)  //Assignement 4

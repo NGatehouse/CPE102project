@@ -1,7 +1,8 @@
 import java.util.List;
 import java.util.ArrayList;
 
-public class Quake extends  On_Grid
+public class Quake
+        extends  On_Grid
         implements Animation_manager
         implements Action_manager
 {

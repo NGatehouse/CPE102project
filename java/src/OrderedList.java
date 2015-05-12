@@ -19,7 +19,7 @@ public class OrderedList
         {
             idx++;
         }
-        this.list.set(idx,new ListItem(item,ord)); // -q what is goin on here exactly?
+        this.list.add(idx+1,new ListItem(item,ord)); // -q what is goin on here exactly?
 
         
 

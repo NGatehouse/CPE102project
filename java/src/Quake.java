@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.ArrayList;
 
 public class Quake extends  On_Grid
         implements Animation_manager
@@ -7,19 +8,20 @@ public class Quake extends  On_Grid
     private Point position;
     public Quake(String name,Point position)
     {
-        super(name,position);
+        super(name, position);
     }
 
 
     //...........................actions
-    public void schedule_action(WorldModel world, int action, int time)
+    public void schedule_action(WorldModel world, Action action, Time time)
     {
         this.add_pending_action(action);
         world.schedule_action(action,time);
     }
-    public void create_entity_death_action(WorldModel world)
+    public Action create_entity_death_action(WorldModel world)
     {
-        public action(int current_ticks) // local function? static?
+        int current_ticks;
+        public Action action(current_ticks) // local function? static?
         {
             this.remove_pending_action(action);
             Point pt = this.get_position();
@@ -28,30 +30,39 @@ public class Quake extends  On_Grid
         }
         return action;
     }
-    public void remove_pending_action(int action)
+    public void remove_pending_action(Action action)
     {
-        if(hasattr("pending_actions"))
+        if(this instanceof "pending_actions")
         {
             this.pending_actions.remove(action);
         }
     }
-    public void get_pending_actions()
+    public void add_pending_action(Action action)
     {
-        if(hasattr("pending_actions"))
+        if(this instanceof "pending_actions")
         {
-            return this.pending_actions.add();
+            this.pending_actions.add(action);
+        }
+    }
+    public List<Action> get_pending_actions()
+    {
+        if(this instanceof "pending_actions")
+        {
+            return this.pending_actions;
         }
         else
         {
-            return new List<Integer>;// empty list, what type though?
+            List<Action> new_list = new ArrayList<Action>();
+            return new_list;// empty list, what type though?
         }
 
     }
     public void clear_pending_actions()
     {
-        if(hasattr("pending_actions"))
+        if(this instanceof "pending_actions")
         {
-            this.pending_actions = [] // empty list, but what type though?
+            List<Action> new_list = new ArrayList<Action>();
+            this.pending_actions = new_list;// empty list, but what type though?
         }
     }
 

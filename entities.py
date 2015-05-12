@@ -63,7 +63,7 @@ class Entity:
    def __init__(self,name,imgs):
       self.name = name
       self.imgs = imgs
-      
+      self.current_img = 0
       
    def get_images(self): # omit these 3 image methods..?
       return self.imgs
@@ -82,8 +82,7 @@ class Background(Entity):
 class On_Grid(Entity):
    def __init__(self,name,imgs,position):
       Entity.__init__(self,name,images)
-      self.position = position
-      self.current_img = 0       
+      self.position = position             
       self.pending_actions = [] 
       #current img and pending actions start here
       
@@ -103,7 +102,7 @@ class Actor(On_Grid,Action_manager):
       
 class Mining(Actor):
    def __init__(self, name,resource_limit, position, rate, imgs):
-      Actor.__init__(self,name, position, rate, imgs,current_img,pending_actions)      
+      Actor.__init__(self,name, position, rate, imgs)      
       self.resource_limit = resource_limit
       self.resource_count=0        
    def set_resource_count(self, n):
@@ -115,7 +114,7 @@ class Mining(Actor):
     
 class Miner(Mining, Animation_manager):
    def __init__(self, name,resource_limit, position, rate, imgs,animation_rate):
-      Mining.__init__(self,name,resource_limit, position, rate, imgs,current_img,pending_actions)
+      Mining.__init__(self,name,resource_limit, position, rate, imgs)
       self.animation_rate = animation_rate    
     
    def create_miner_action(self,world,image_store): # omit this?
@@ -134,7 +133,7 @@ class Miner(Mining, Animation_manager):
 class MinerNotFull(Miner):
    def __init__(self, name, resource_limit, position, rate, imgs,
       animation_rate):
-      Miner.__init__(self,name, resource_limit, position, rate, imgs, animation_rate,current_img,pending_actions) 
+      Miner.__init__(self,name, resource_limit, position, rate, imgs, animation_rate) 
       self.pending_actions = []
       self.current_img = 0     
    def try_transform(self,world): # not full into full special
@@ -175,7 +174,7 @@ class MinerFull(Miner):
    def __init__(self, name, resource_limit, position, rate, imgs,
       animation_rate):
       Miner.__init__(self,name, resource_limit, position, rate, imgs,
-      animation_rate,current_img,pending_actions) 
+      animation_rate) 
            
    def try_transform(self,world): #full to not full special
       new_entity = MinerNotFull(
@@ -210,14 +209,14 @@ class MinerFull(Miner):
          
 class Blacksmith(Mining):
    def __init__(self, name, position, imgs,resource_limit, rate):
-      Mining.__init__(self,name,resource_limit, position, rate, imgs,current_img,pending_actions)  # account for resource_distance for save_load 
+      Mining.__init__(self,name,resource_limit, position, rate, imgs)  # account for resource_distance for save_load 
         
    def entity_string(self):
       return ' '.join(['blacksmith', self.name, str(self.position.x),str(self.position.y), str(self.resource_limit),str(self.rate)])     
    
 class Vein(Actor):
    def __init__(self, name, rate, position,imgs,resource_distance=1):
-      Actor.__init__(self, name, position, rate, imgs,current_img,pending_actions)
+      Actor.__init__(self, name, position, rate, imgs)
       self.resource_distance = resource_distance  
         
    def create_actor_motion(self,world,i_store): # special, create_vein_action
@@ -242,7 +241,7 @@ class Vein(Actor):
          
 class Ore(Actor):
    def __init__(self, name,position,imgs,rate = 5000):
-      Actor.__init__(self, name, position, rate, imgs,current_img,pending_actions)
+      Actor.__init__(self, name, position, rate, imgs)
       
    def create_ore_transform_action(self,world,i_store): # special
       def action(current_ticks):
@@ -260,7 +259,7 @@ class Ore(Actor):
       
 class Obstacle(On_Grid):
    def __init__(self, name, position, imgs):
-      On_Grid.__init__(self,name,imgs,position,current_img,pending_actions)
+      On_Grid.__init__(self,name,imgs,position)
       
     
    def entity_string(self): # dont need is instance just return...
@@ -268,7 +267,7 @@ class Obstacle(On_Grid):
   
 class OreBlob(Actor,Animation_manager):
    def __init__(self, name, position, rate, imgs, animation_rate):
-      Actor.__init__(self, name, position, rate, imgs,current_img,pending_actions)
+      Actor.__init__(self, name, position, rate, imgs)
       self.animation_rate = animation_rate   
       
    def _to_other(self,world,vein): # special
@@ -302,7 +301,7 @@ class OreBlob(Actor,Animation_manager):
       
 class Quake(On_Grid,Animation_manager,Action_manager):
    def __init__(self, name, position, imgs, animation_rate):
-      On_Grid.__init__(self,name,imgs,position,current_img,pending_actions)      
+      On_Grid.__init__(self,name,imgs,position)      
       
       self.animation_rate = animation_rate # animation_manager
   

@@ -5,21 +5,21 @@ import java.util.List;
  */
 public class OrderedList
 {
-    private List<Action> list; // -q should this be a double? .... forgot to ask
-    public OrderedList(List<Action> list)
+    private List<ListItem> list; // -q should this be a double? .... forgot to ask
+    public OrderedList(List<ListItem> list)
     {
         this.list = list;
 
     }
-    public void insert(Action item, long ord)//item is a function
+    public void insert(Action item, int ord)//item is a function
     {
         int size = this.list.size();
         int idx = 0;
-        for(; idx < size && this.list.get(idx).ord < ord ; ) // -q if ord is time, why in python is it .ord
+        for(; idx < size && this.list.get(idx).get_ord() < ord ; ) // -q if ord is time, why in python is it .ord
         {
             idx++;
         }
-        this.list.get(idx) = new ListItem(item,ord) // -q what is goin on here exactly?
+        this.list.set(idx,new ListItem(item,ord)); // -q what is goin on here exactly?
 
         
 
@@ -28,14 +28,14 @@ public class OrderedList
     {
         int size = this.list.size();
         int idx = 0;
-        for(; idx < size && this.list.get(idx) != item;idx++) // was .item before
+        for(; idx < size && this.list.get(idx).get_item() != item;idx++) // was .item before
         if (idx < size)
         {
             this.list.remove(0); // what should i do instead of remove
         }
     }
 
-    public Action head()
+    public ListItem head()
     {
         if(this.list.size() > 0)
         {

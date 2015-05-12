@@ -13,7 +13,7 @@ public class Quake extends  On_Grid
 
 
     //...........................actions
-    public void schedule_action(WorldModel world, Action action, Time time)
+    public void schedule_action(WorldModel world, Action action, long time)
     {
         this.add_pending_action(action);
         world.schedule_action(action,time);
@@ -21,7 +21,7 @@ public class Quake extends  On_Grid
     public Action create_entity_death_action(WorldModel world)
     {
         int current_ticks;
-        public Action action(current_ticks) // local function? static?
+        public Action action(long current_ticks) // lambda
         {
             this.remove_pending_action(action);
             Point pt = this.get_position();
@@ -68,24 +68,27 @@ public class Quake extends  On_Grid
 
     //.................................... animations
 
-    public void get_animation_rate()
+    public long get_animation_rate()
     {
         return this.animation_rate;
     }
-    public void create_animation_action(WorldModel world, int repeat_count)
+    public Action create_animation_action(WorldModel world, int repeat_count)
     {
-        public void action(int current_ticks)
+        public Action action(long current_ticks)//lamda
         {
             this.remove_pending_action(action);
-            this.next_image();
+            this.next_image(); // python code?
             if(repeat_count != 1)
             {
-                this.schedule_action(world,this.create_animation_action(world,max(repeat_count -1,0)),current_ticks + this.get_animation_rate());
+                this.schedule_action(world,this.create_animation_action(world,Math.max(repeat_count -1,0)),current_ticks + this.get_animation_rate());
 
             }
-            return [this.get_position()]; // making a new list with this position?
+            List<Point> new_list = new ArrayList<Point>();
+            new_list.add(this.get_position());
+            return new_list; // making a new list with this position?
 
         }
+        return action;
     }
 
     public void schedule_animation(WorldModel world, int repeat_count)

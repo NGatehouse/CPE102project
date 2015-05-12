@@ -86,3 +86,5 @@ next questions 5/11:
 7. what is hasattr in Action_manager.py? // in java instance of check,
 8. says i need to declare something abstract to use an interface? "Quake"
 
+next Q's 5/12:
+1. if On_Grid implements action_manager... will those methods defined in On_Grid be inherited by everything else? or will the code know the difference between the interface contracted methods and the class defined methods.

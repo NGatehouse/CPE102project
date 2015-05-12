@@ -5,6 +5,7 @@ public class Quake
         extends  On_Grid
         implements Animation_manager, Action_manager
 {
+    List<Action> pending_actions = new ArrayList<Action>();
     private Point position;
     public Quake(String name,Point position)
     {
@@ -34,37 +35,20 @@ public class Quake
 
     public void remove_pending_actions(Action action)
     {
-
-            this.pending_actions.remove(action); // only use pending actions if you have it anyway
-
+        this.pending_actions.remove(action); // only use pending actions if you have it anyway
     }
     public void add_pending_action(Action action)
     {
-        if(this instanceof "pending_actions")
-        {
-            this.pending_actions.add(action);
-        }
+        this.pending_actions.add(action);
     }
     public List<Action> get_pending_actions()
     {
-        if(this instanceof "pending_actions")
-        {
-            return this.pending_actions;
-        }
-        else
-        {
-            List<Action> new_list = new ArrayList<Action>();
-            return new_list;// empty list, what type though?
-        }
-
+        return this.pending_actions;
     }
     public void clear_pending_actions()
     {
-        if(this instanceof "pending_actions")
-        {
-            List<Action> new_list = new ArrayList<Action>();
-            this.pending_actions = new_list;// empty list, but what type though?
-        }
+        List<Action> new_list = new ArrayList<Action>();
+        this.pending_actions = new_list;
     }
 
     //.................................... animations
@@ -75,7 +59,7 @@ public class Quake
     }
     public Action create_animation_action(WorldModel world, int repeat_count)
     {
-        public Action action(long current_ticks)//lamda
+        public List<Point> action(long current_ticks)//lamda
         {
             this.remove_pending_action(action);
             this.next_image(); //

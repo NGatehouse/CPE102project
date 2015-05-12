@@ -1,4 +1,4 @@
-public class Background extends Entity
+public class Background extends On_Grid
 {
     public Background(String name)
     {

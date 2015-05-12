@@ -3,8 +3,7 @@ import java.util.ArrayList;
 
 public class Quake
         extends  On_Grid
-        implements Animation_manager
-        implements Action_manager
+        implements Animation_manager, Action_manager
 {
     private Point position;
     public Quake(String name,Point position)
@@ -22,7 +21,7 @@ public class Quake
     public Action create_entity_death_action(WorldModel world)
     {
         int current_ticks;
-        public Action action(long current_ticks) // lambda
+        public Action action(long current_ticks) // lambda yes use lamda... pointing to make java happpy , look at course website
         {
             this.remove_pending_action(action);
             Point pt = this.get_position();
@@ -31,12 +30,13 @@ public class Quake
         }
         return action;
     }
-    public void remove_pending_action(Action action)
+
+
+    public void remove_pending_actions(Action action)
     {
-        if(this instanceof "pending_actions")
-        {
-            this.pending_actions.remove(action);
-        }
+
+            this.pending_actions.remove(action); // only use pending actions if you have it anyway
+
     }
     public void add_pending_action(Action action)
     {

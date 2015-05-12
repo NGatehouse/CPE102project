@@ -2,9 +2,9 @@ Entities.py
    Action_manager '''Interface''' #remove_pending_action  get_pending_action  clear_pending_actions  schedule_action  create_entity_death_action
    Animation_manager '''Interface''' #get_animation_rate  create_animation_action  schedule_animation  
    Entity #DATA name images
-   #get_images  get_image  next_image  get_name 
-      Background(Entity)        
+   #get_images  get_image  next_image  get_name        
       On_Grid(Entity) #DATA name images position
+        Background(On_Grid) 
         #set_position  get_position 
         Quake(On_Grid, animation_manager, action_manger) #DATA name  position  images  animation_rate
         Obstacle(On_Grid) #name  position  images

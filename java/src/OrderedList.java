@@ -5,10 +5,10 @@ import java.util.List;
  */
 public class OrderedList
 {
-    private List<Double> list; // -q should this be a double? .... forgot to ask
-    public OrderedList(int list)
+    private List<Action> list; // -q should this be a double? .... forgot to ask
+    public OrderedList(List<Action> list)
     {
-        this.list = new ArrayList<>();
+        this.list = list;
 
     }
     public void insert(Action item, int ord)//item is a function

@@ -12,12 +12,12 @@ public class Quake extends  On_Grid
 
 
     //...........................actions
-    public schedule_action(WorldModel world, int action, int time)
+    public void schedule_action(WorldModel world, int action, int time)
     {
         this.add_pending_action(action);
         world.schedule_action(action,time);
     }
-    public create_entity_death_action(WorldModel world)
+    public void create_entity_death_action(WorldModel world)
     {
         public action(int current_ticks) // local function? static?
         {
@@ -28,14 +28,14 @@ public class Quake extends  On_Grid
         }
         return action;
     }
-    public remove_pending_action(int action)
+    public void remove_pending_action(int action)
     {
         if(hasattr("pending_actions"))
         {
             this.pending_actions.remove(action);
         }
     }
-    public get_pending_actions()
+    public void get_pending_actions()
     {
         if(hasattr("pending_actions"))
         {
@@ -47,7 +47,7 @@ public class Quake extends  On_Grid
         }
 
     }
-    public clear_pending_actions()
+    public void clear_pending_actions()
     {
         if(hasattr("pending_actions"))
         {
@@ -57,13 +57,13 @@ public class Quake extends  On_Grid
 
     //.................................... animations
 
-    public get_animation_rate()
+    public void get_animation_rate()
     {
         return this.animation_rate;
     }
-    public create_animation_action(WorldModel world, int repeat_count)
+    public void create_animation_action(WorldModel world, int repeat_count)
     {
-        public action(int current_ticks)
+        public void action(int current_ticks)
         {
             this.remove_pending_action(action);
             this.next_image();
@@ -77,7 +77,7 @@ public class Quake extends  On_Grid
         }
     }
 
-    public schedule_animation(WorldModel world, int repeat_count)
+    public void schedule_animation(WorldModel world, int repeat_count)
     {
         this.schedule_action(world,this.create_animation_action(world,repeat_count),this.get_animation_rate());
     }

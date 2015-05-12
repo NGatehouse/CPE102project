@@ -96,7 +96,7 @@ public class Main extends PApplet
         long time = System.currentTimeMillis();
         if (time >= next_time)
         {
-            next_image();
+            next_image();  //updater on ticks in project... instead of handle timer events
             next_time = time + ANIMATION_TIME;
         }
     }

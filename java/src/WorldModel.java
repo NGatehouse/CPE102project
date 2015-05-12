@@ -160,15 +160,15 @@ public class WorldModel
         return this.entities;
     }
 
-    public void add_entity(On_Grid entity)  //Assignment 4
+    public void add_entity(Action_manager entity)  //Assignment 4
     {
         Point pt = entity.get_position();
         if (this.within_bounds(pt))
         {
-            Entity old_entity = this.occupancy.get_cell(pt);
+            On_Grid old_entity = this.occupancy.get_cell(pt); //q
             if (old_entity != null)
             {
-                //old_entity.clear_pending_actions();
+                old_entity.clear_pending_actions();
             }
             this.occupancy.set_cell(pt, entity);
             this.entities.add(entity);
@@ -203,7 +203,7 @@ public class WorldModel
         this.action_queue.remove(action);
     }
 
-    public returnType update_on_time(Ticks ticks)  //Assignement 4
+    public returnType update_on_time(long ticks)  //Assignement 4
     {
         tile = new ArrayList<>(); // ordered list is processed.. ticks is a long, time is passed to it, look thoruhgh orderd list and then call actions
 

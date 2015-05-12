@@ -16,3 +16,7 @@ Tick vs. Time milliseconds? Int or long?
         tile = new ArrayList<>();  //says can't resolve "tile"
 
         //Instead of redrawing each tile like in Python, we redraw the World
+----------------------------------------------------------------------
+
+If (WorldModel) add_entity planned on only updating tiles that have ents that move,
+but this will need to take in objects that are anything, such as obstacles.

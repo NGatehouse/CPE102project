@@ -10,8 +10,16 @@ public class ListItem
         this.item = item;
         this.ord = ord;
     }
+    public Action get_item()
+    {
+        return this.item;
+    }
+    public int get_ord()
+    {
+        return this.ord;
+    }
 
-    public boolean equals(ListItem that) // don't know if we need this item
+   /* public boolean equals(ListItem that) // don't know if we need this item
     {
         if(this == that)
         {
@@ -21,6 +29,6 @@ public class ListItem
         {
             return false;
         }
-        return this.item == that.item && this.ord == that.ord
-    }
+        return this.item == that.item && this.ord == that.ord;
+    }*/
 }

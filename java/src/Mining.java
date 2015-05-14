@@ -1,11 +1,13 @@
+import java.util.List;
+
 public class Mining extends Actor
 {
 
     private int resource_limit;
     private int resource_count;
-    public Mining(String name, int resource_limit,Point position, int rate)
+    public Mining(String name, int resource_limit,Point position, int rate,List<PImage> imgs)
     {
-        super(name,position,rate);
+        super(name,position,rate,imgs);
         this.resource_limit=resource_limit;
         this.resource_count=0;
     }

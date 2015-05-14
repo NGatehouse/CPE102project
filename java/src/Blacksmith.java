@@ -1,8 +1,10 @@
+import java.util.List;
+
 public class Blacksmith extends Mining
 {
-    public Blacksmith(String name, Point position,int resource_limit, int rate)
+    public Blacksmith(String name, Point position,List<PImage> imgs,int resource_limit, int rate)
     {
-        super(name,resource_limit,position,rate);
+        super(name,resource_limit,position,rate,imgs);
     }
 
     public String entity_string()

@@ -4,19 +4,19 @@ public class Entity
 {
     private String name;
     private int current_img;
-    private List<type> imgs; // imgs is a list of images... for animation
-    public Entity(String name, List<type> imgs)
+    private List<PImage> imgs; // imgs is a list of images... for animation
+    public Entity(String name, List<PImage> imgs)
     {
         this.name = name;
-        this.imgs = new ArrayList<type>();
+        this.imgs = new ArrayList<PImage>();
         this.current_img = 0;
     }
 
-    public List<type> get_images() // returns list
+    public List<PImage> get_images() // returns list
     {
         return this.imgs;
     }
-    public type get_image()
+    public PImage get_image()
     {
         return this.get_images().get(this.current_img);
     }

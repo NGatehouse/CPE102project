@@ -6,9 +6,9 @@ public class On_Grid extends Entity
     private Point position;
 
 
-    public On_Grid(String name, Point position)
+    public On_Grid(String name, Point position,List<PImage> imgs)
     {
-        super(name);
+        super(name,imgs);
         this.position = position;
     }
 

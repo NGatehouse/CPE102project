@@ -4,7 +4,7 @@
 public interface Animation_manager
 {
     public long get_animation_rate();
-    public void create_animation_action(WorldModel world, int repeat_count);
+    public Action create_animation_action(WorldModel world, int repeat_count);
     public void schedule_animation(WorldModel world, int repeat_count);
 
 }

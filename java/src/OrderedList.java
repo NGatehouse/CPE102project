@@ -31,7 +31,7 @@ public class OrderedList
         for(; idx < size && this.list.get(idx).get_item() != item;idx++) // was .item before
         if (idx < size)
         {
-            this.list.remove(0);
+            this.list.remove(idx);
         }
     }
 

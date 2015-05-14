@@ -135,7 +135,7 @@ public class Main extends PApplet
 
     public unknown create_default_background(PImage img)
     {
-        return Background(image_store.get_DEFAULT_IMAGE1_NAME(), img);
+        return Background(image_store.getDefaultImageName(), img);
     }
 
     public static void main(String[] args)

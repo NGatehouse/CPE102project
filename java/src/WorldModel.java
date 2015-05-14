@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import processing.core.PImage;
 
 public class WorldModel
 {
@@ -160,12 +161,12 @@ public class WorldModel
         return this.entities;
     }
 
-    public void add_entity(Action_manager entity)
+    public void add_entity(On_Grid entity)
     {
         Point pt = entity.get_position();
         if (this.within_bounds(pt))
         {
-            On_Grid old_entity = this.occupancy.get_cell(pt);
+            Action_manager old_entity = (Action_manager) this.occupancy.get_cell(pt); //q
             if (old_entity != null)
             {
                 old_entity.clear_pending_actions();
@@ -235,7 +236,7 @@ public class WorldModel
 
     }
 
-    public On_Grid get_background_image(Point pt)
+    public PImage get_background_image(Point pt)
     {
         if (this.within_bounds(pt))
         {

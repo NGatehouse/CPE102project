@@ -1,3 +1,6 @@
+    git add . | git rm -f -r java/.idea/workspace.xml |  git rm -f -r java/out/*  | git commit
+
+
 Grid is 20 wide by 15 tall
     with a double width and double height possible,
     making 4 20x15 quadrants
@@ -20,3 +23,9 @@ Tick vs. Time milliseconds? Int or long?
 
 If (WorldModel) add_entity planned on only updating tiles that have ents that move,
 but this will need to take in objects that are anything, such as obstacles.
+----------------------------------------------------------------------
+
+- World_Model.java  add_entity  Action_manager or On_Grid..casting??
+- What type is i_store? (in MinerNotFull.java  create_actor_motion)
+   - What does   (tiles,found)  mean?
+- Main.java  create_default_background()

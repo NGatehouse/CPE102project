@@ -294,7 +294,7 @@ def remove_entity(world, entity):
    worldmodel.remove_entity(world, entity)"""
 
 
-def create_blob(world, name, pt, rate, ticks, i_store):
+def create_blob(world, name, pt, rate, ticks, i_store): #static utility class
    blob = entities.OreBlob(name, pt, rate,
       image_store.get_images(i_store, 'blob'),
       random.randint(BLOB_ANIMATION_MIN, BLOB_ANIMATION_MAX)

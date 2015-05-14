@@ -108,4 +108,5 @@ not to self still need to add all the image data, File I/O, and lamda's, and act
  NOTE TO SELF!!! still need to go through entities (like miners) and do specific functions like create_actor_motion
  - also change try transforms and other entity creations to match new data of pending actions or imgs etc.
  - and also make sure everything implements action/animation manager
- 3.
+ 3.in create_actor motion what is (tiles,found)
+ -LUKE: needs to do fins_nearest in worldmodel

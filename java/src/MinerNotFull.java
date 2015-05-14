@@ -42,11 +42,12 @@ public class MinerNotFull extends Miner
         }
     }
 
-    /*public create_actor_motion(WorldModel world, i_store)
+    public create_actor_motion(WorldModel world, type i_store)
     {
-        public action(current_ticks)
+        Action[] action = {null};
+        action[0] = (current_ticks)->
         {
-            this.remove_pending_action(action);
+            this.remove_pending_actions(action[0]);
             Point entity_pt = this.get_position();
             Ore ore = world.find_nearest(entity_pt, ore);
             (tiles,found) = this._to_other(world,ore);
@@ -55,10 +56,10 @@ public class MinerNotFull extends Miner
             {
                 new_miner = new_miner.try_transform_miner(world,new_miner.try_transform());
             }
-            new_miner.schedule_action(world,new_miner.create_miner_action(world,i_store),current_ticks + new_miner.get_rate());
+            new_miner.schedule_action(world, new_miner.create_miner_action(world, i_store), current_ticks + new_miner.get_rate());
             return tiles
-        }
+        };
         return action
 
-    }*/
+    }
 }

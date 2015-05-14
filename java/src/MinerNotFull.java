@@ -1,9 +1,11 @@
+import java.util.List;
+
 public class MinerNotFull extends Miner
 {
     private int resource_count;
-    public MinerNotFull(String name,int resource_limit,Point position,int rate)
+    public MinerNotFull(String name,int resource_limit,Point position,int rate,List<PImage> imgs,int animation_rate)
     {
-        super(name,resource_limit,position,rate);
+        super(name,resource_limit,position,rate,imgs,animation_rate);
         this.resource_count=0;
     }
 
@@ -15,7 +17,7 @@ public class MinerNotFull extends Miner
         }
         else
         {
-            return new MinerFull(this.get_name(),this.get_resource_limit(),this.get_position(),this.get_rate());
+            return new MinerFull(this.get_name(),this.get_resource_limit(),this.get_position(),this.get_rate(),this.get_images(),this.get_animation_rate());
         }
 
     }
@@ -27,7 +29,7 @@ public class MinerNotFull extends Miner
             return false;
         }
         Point ore_pt = ore.get_position();
-        if (Utility.adjacent(entity_pt,ore_pt))
+        if (Utility.adjacent(entity_pt, ore_pt))
         {
             this.set_resource_count(1+this.get_resource_count());
             world.remove_entity(ore);

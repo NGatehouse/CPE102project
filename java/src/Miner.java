@@ -1,10 +1,13 @@
+import java.util.List;
+
 public class Miner extends Mining
     //implements Animation_manager missing data imgs,animation_rate
 {
-
-    public Miner(String name,int resource_limit,Point position,int rate)
+    private int animation_rate; //q
+    public Miner(String name,int resource_limit,Point position,int rate, List<PImage> imgs, int animation_rate)
     {
-        super(name,resource_limit,position,rate);
+        super(name,resource_limit,position,rate,imgs);
+        this.animation_rate = animation_rate;
     }
 
     public String entity_string()

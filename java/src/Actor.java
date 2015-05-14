@@ -6,9 +6,9 @@ public class Actor extends On_Grid
 {
     List<Action> pending_actions = new ArrayList<Action>();
     private int rate;
-    public Actor(String name,Point position,int rate)
+    public Actor(String name,Point position,int rate,List<PImage> imgs)
     {
-        super(name,position);
+        super(name,position,imgs);
         this.rate = rate;
     }
 

@@ -1,10 +1,21 @@
 /**
  * Created by Nicholas on 5/10/2015.
  */
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class image_store
 {
     private String DEFAULT_IMAGE_NAME = "background_default";
-    private List<int> DEFAULT_IMAGE_COLOR = new ArrayList[128,128,128,0];
+    private List<Integer> DEFAULT_IMAGE_COLOR = new ArrayList<Integer>(128,128,128,0);//q this is wrong
+    private static final int MIN_ARGS = 1;
+
+    private static boolean verifyArgs(String [] args)
+    {
+        return args.length >= MIN_ARGS;
+    }
 
     public void create_default_image(int tile_width,int tile_height)
     {

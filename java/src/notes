@@ -98,5 +98,14 @@ next Q's 5/13:
 1. confused about pending actions and current image and how they are inherited since they are constants.
 2. in ordered list am i doing remove correctly?
 3.what is going on in create animation action?
+4. actions.py create and schedule
 not to self still need to add all the image data, File I/O, and lamda's, and actions.py create_ and schedule_,
  look at tabs you have open and LEEEAAARRRNN :D
+
+ next Q's 5/13 - 5/14;
+ 1. animation_rate in multiple classes
+ 2. in miner full ask about to_other specificlly the return statements
+ NOTE TO SELF!!! still need to go through entities (like miners) and do specific functions like create_actor_motion
+ - also change try transforms and other entity creations to match new data of pending actions or imgs etc.
+ - and also make sure everything implements action/animation manager
+ 3.

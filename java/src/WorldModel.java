@@ -216,6 +216,25 @@ public class WorldModel
         //return tiles;
     }
 
+    public On_Grid find_nearest(Point pt, On_Grid ent)
+    {
+        List<On_Grid> entList = new LinkedList<On_Grid>();
+        List<Double> distsList = new LinkedList<Double>();
+
+        int i = 0;
+        for (On_Grid e : this.entities)
+        {
+            if (e.getClass() == ent.getClass())
+            {
+                entList.add(e);
+                distsList.add(Utility.distance_sq(pt, e.get_position()));
+                i++;
+            }
+        }
+        return Utility.nearest_entity(entList, distsList);
+
+    }
+
     public On_Grid get_background_image(Point pt)
     {
         if (this.within_bounds(pt))

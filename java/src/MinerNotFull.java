@@ -52,7 +52,7 @@ public class MinerNotFull extends Miner implements Action_manager , Animation_ma
             this.remove_pending_actions(action[0]);
             Point entity_pt = this.get_position();
             Ore ore = world.find_nearest(entity_pt, ore);
-            (tiles,found) = this._to_other(world,ore);
+            (tiles,found) = this._to_other(world,ore); //q
             Miner new_miner = this;
             if(found)//whats found in python code?
             {

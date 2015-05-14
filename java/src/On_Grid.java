@@ -23,4 +23,6 @@ public class On_Grid extends Entity
         this.position = p;
     }
 
+
+
 }

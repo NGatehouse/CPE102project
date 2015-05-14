@@ -166,10 +166,10 @@ public class WorldModel
         Point pt = entity.get_position();
         if (this.within_bounds(pt))
         {
-            Action_manager old_entity = (Action_manager) this.occupancy.get_cell(pt); //q
-            if (old_entity != null)
+            On_Grid old_entity =  this.occupancy.get_cell(pt); //q
+            if (old_entity instanceof Action_manager)
             {
-                old_entity.clear_pending_actions();
+                ((Action_manager) old_entity).clear_pending_actions();
             }
             this.occupancy.set_cell(pt, entity);
             this.entities.add(entity);

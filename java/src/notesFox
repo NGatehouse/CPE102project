@@ -26,6 +26,6 @@ but this will need to take in objects that are anything, such as obstacles.
 ----------------------------------------------------------------------
 
 - World_Model.java  add_entity  Action_manager or On_Grid..casting??
-- What type is i_store? (in MinerNotFull.java  create_actor_motion)
-   - What does   (tiles,found)  mean?
+- What type is i_store? (in MinerNotFull.java  create_actor_motion)  //Was dictionary... Map is interface and Hashmap is class to use
+   - What does   (tiles,found)  mean?  // Ignore tiles part, so just "found = ..."
 - Main.java  create_default_background()

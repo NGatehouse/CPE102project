@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.List;
 import java.util.ArrayList;
 import processing.core.*;
+import sun.security.acl.PermissionImpl;
+
+import javax.management.BadAttributeValueExpException;
+
 //TODO GET CODE FROM MAIN.PY
 public class Main extends PApplet
 {
@@ -133,9 +137,11 @@ public class Main extends PApplet
         }
     }
 
-    public unknown create_default_background(PImage img)
+    public Background create_default_background(PImage img)
     {
-        return Background(image_store.getDefaultImageName(), img);
+        List<PImage> imagelist = new ArrayList<>();
+        imagelist.add(img);
+        return new Background(image_store.getDefaultImageName(), origin, imagelist);
     }
 
     public static void main(String[] args)

@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class image_store
 {
-    public final String DEFAULT_IMAGE_NAME = "background_default";
+    public static final String DEFAULT_IMAGE_NAME = "background_default";
     private List<Integer> DEFAULT_IMAGE_COLOR = new ArrayList<Integer>(128,128,128,0);//q this is wrong
     private static final int MIN_ARGS = 1;
 
@@ -17,9 +17,9 @@ public class image_store
         return args.length >= MIN_ARGS;
     }
 
-    public String getDefaultImageName()
+    public static String getDefaultImageName()
     {
-        return this.DEFAULT_IMAGE_NAME;
+        return DEFAULT_IMAGE_NAME;
     }
     public void create_default_image(int tile_width,int tile_height)
     {

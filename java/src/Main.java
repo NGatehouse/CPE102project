@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.List;
 import java.util.ArrayList;
 import processing.core.*;
-
+//TODO GET CODE FROM MAIN.PY
 public class Main extends PApplet
 {
     private List<PImage> imgs;
@@ -72,19 +72,17 @@ public class Main extends PApplet
             }
             if (keyCode == RIGHT)
             {
-                origin.addTo_x();
+                origin.addTo_x(1);
             }
             if (keyCode == UP)
             {
-                //
+                origin.addTo_y(1);
             }
             if (keyCode == DOWN)
             {
-                //0
+                origin.addTo_y(-1);
             }
         }
-
-
     }
 
 

@@ -2,7 +2,7 @@ import processing.core.PImage;
 
 import java.util.ArrayList;
 import java.util.List;
-public class Ore extends Actor
+public class Ore extends Actor implements Action_manager
 {
 
     public Ore(String name,Point position,int rate,List<PImage> imgs)

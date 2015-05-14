@@ -2,7 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public class Mining extends Actor
+public class Mining extends Actor implements Action_manager
 {
 
     private int resource_limit;

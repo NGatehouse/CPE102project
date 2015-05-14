@@ -2,7 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public class MinerFull extends Miner
+public class MinerFull extends Miner implements Action_manager , Animation_manager
 {
     public MinerFull(String name,int resource_limit,Point position,int rate,List<PImage> imgs,int animation_rate)
     {

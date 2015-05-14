@@ -12,7 +12,7 @@ public class OreBlob extends Actor implements Animation_manager
         this.animation_rate = animation_rate;
     }
 
-    public long get_animation_rate()
+    public int get_animation_rate()
     {
         return this.animation_rate;
     }

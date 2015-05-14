@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class image_store
 {
-    private String DEFAULT_IMAGE_NAME = "background_default";
+    public static final String DEFAULT_IMAGE_NAME = "background_default";
     private List<Integer> DEFAULT_IMAGE_COLOR = new ArrayList<Integer>(128,128,128,0);//q this is wrong
     private static final int MIN_ARGS = 1;
 

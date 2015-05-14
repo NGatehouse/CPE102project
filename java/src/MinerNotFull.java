@@ -2,7 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public class MinerNotFull extends Miner
+public class MinerNotFull extends Miner implements Action_manager , Animation_manager
 {
     private int resource_count;
     public MinerNotFull(String name,int resource_limit,Point position,int rate,List<PImage> imgs,int animation_rate)
@@ -44,7 +44,7 @@ public class MinerNotFull extends Miner
         }
     }
 
-    public create_actor_motion(WorldModel world, type i_store)
+    public Action create_actor_motion(WorldModel world, type i_store)
     {
         Action[] action = {null};
         action[0] = (current_ticks)->
@@ -59,9 +59,8 @@ public class MinerNotFull extends Miner
                 new_miner = new_miner.try_transform_miner(world,new_miner.try_transform());
             }
             new_miner.schedule_action(world, new_miner.create_miner_action(world, i_store), current_ticks + new_miner.get_rate());
-            return tiles
+            return tiles;
         };
-        return action
-
+        return action[0];
     }
 }

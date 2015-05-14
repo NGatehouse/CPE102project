@@ -2,7 +2,7 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public class Vein extends Actor
+public class Vein extends Actor implements Action_manager
 {
     private static final int RESOURCE_DISTANCE = 1;
     private int resource_distance; //q
@@ -11,12 +11,12 @@ public class Vein extends Actor
         super(name,position,rate,imgs);
         this.resource_distance = resource_distance;
     }
-    public Vein(String name, int rate, Point position)
+    /*public Vein(String name, int rate, Point position,List<PImage> imgs, int resource_distance)
     {
         this(name,position,rate,imgs,RESOURCE_DISTANCE);
 
 
-    }
+    }*/
     public int get_resource_distance()
     {
         return this.resource_distance; //q was RESOURCE_DISTANCE

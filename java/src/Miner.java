@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Miner extends Mining implements Animation_manager
+public class Miner extends Mining implements Action_manager , Animation_manager
     //implements Animation_manager missing data imgs,animation_rate
 {
     private int animation_rate; //q
@@ -36,7 +36,7 @@ public class Miner extends Mining implements Animation_manager
         Miner new_miner = tranform(world);
         if(this != new_miner)
         {
-            world.clear_pending_actions();
+            world.clear_pending_actions(this);
             world.remove_entity_at(this.get_position());
             world.add_entity(new_miner);
             new_miner.schedule_animation(world);
@@ -46,7 +46,7 @@ public class Miner extends Mining implements Animation_manager
 
     }
    // ..................................... animation
-    public long get_animation_rate()
+    public int get_animation_rate()
     {
         return this.animation_rate;
     }
@@ -72,6 +72,10 @@ public class Miner extends Mining implements Animation_manager
     public void schedule_animation(WorldModel world, int repeat_count)
     {
         this.schedule_action(world,this.create_animation_action(world,repeat_count),this.get_animation_rate());
+    }
+    public void schedule_animation(WorldModel world)
+    {
+        this.schedule_action(world,this.create_animation_action(world,0),this.get_animation_rate());
     }
 
 }

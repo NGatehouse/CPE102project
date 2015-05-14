@@ -58,7 +58,7 @@ public class Quake
 
     //.................................... animations
 
-    public long get_animation_rate()
+    public int get_animation_rate()
     {
         return this.animation_rate;
     }

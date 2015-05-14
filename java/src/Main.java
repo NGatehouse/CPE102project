@@ -10,6 +10,17 @@ import processing.core.*;
 //TODO GET CODE FROM MAIN.PY
 public class Main extends PApplet
 {
+    private static final boolean RUN_AFTER_LOAD = true;
+    private static final String IMAGE_LIST_FILE_NAME = "imagelist";
+    private static final String WORLD_FILE = "gaia.sav";
+
+    private static final int SCREEN_WIDTH = 640;
+    private static final int SCREEN_HEIGHT = 480;
+    private static final int TILE_WIDTH = 32;
+    private static final int TILE_HEIGHT = 32;
+    private static final int WORLD_WIDTH_SCALE = 2;
+    private static final int WORLD_HEIGHT_SCALE = 2;
+
     private List<PImage> imgs;
     private int current_image;
     private long next_time;
@@ -22,6 +33,7 @@ public class Main extends PApplet
     private PImage grass = loadImage("C:\\Users\\Luke\\cpe102\\experiment\\CPE102project\\images\\grass.bmp");
     private PImage rock = loadImage("C:\\Users\\Luke\\cpe102\\experiment\\CPE102project\\images\\rock.bmp"); // Need to make images relative so Nick and Luke can use them
     public Point origin = new Point(0,0);
+
 
     public enum Grid
     {
@@ -49,7 +61,7 @@ public class Main extends PApplet
 
     public void setup()
     {
-        size(640, 480);
+        size(SCREEN_WIDTH, SCREEN_HEIGHT);
         background(BGND_COLOR);
         System.out.println(world.length);
         imgs = new ArrayList<PImage>();
@@ -121,9 +133,15 @@ public class Main extends PApplet
         }
     }
 
+    public unknown create_default_background(PImage img)
+    {
+        return Background(image_store.DEFAULT_IMAGE_NAME, img)
+    }
+
     public static void main(String[] args)
     {
         PApplet.main("Main");
     }
 }
+
 

@@ -51,4 +51,24 @@ public class Utility
         }
     }
 
+    public static create_blob(WorldModel world, String name, Point pt, int rate, int ticks, type i_store)
+    {}
+    public static schedule_blob(WorldModel world, OreBlob blob, long ticks, type i_store)
+    {}
+    public static schedule_miner(WorldModel world, Miner miner, long ticks, type i_store)
+    {}
+    public static create_ore(WorldModel world, String name, Point point, long ticks, type i_store)
+    {}
+    public static schedule_ore(WorldModel world, Ore ore, long ticks, type i_store)
+    {}
+    public static create_quake(WorldModel world, Point pt, long ticks, type i_store)
+    {}
+    public static schedule_quake(WorldModel world, Quake quake, long ticks)
+    {}
+    public static create_vein(WorldModel world,String name , Point pt, long ticks, type i_store)
+    {}
+    public static schedule_vein(WorldModel world, Vein vein, long ticks, type i_store)
+    {}
+
+
 }

@@ -32,7 +32,7 @@ def load_world(world, i_store, filename): # deals with files and we don't have a
 
 
 def main(): # this is what starts the game, wouldn't leave that up to a class.
-   random.seed()
+   random.seed() //dont need
    pygame.init()
    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
    i_store = image_store.load_images(IMAGE_LIST_FILE_NAME,

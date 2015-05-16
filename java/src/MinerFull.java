@@ -34,4 +34,23 @@ public class MinerFull extends Miner implements Action_manager , Animation_manag
             return false;
         }
     }
+    public Action create_actor_motion(WorldModel world, type i_store)
+    {
+        Action[] action = {null};
+        action[0] = (current_ticks)->
+        {
+            this.remove_pending_actions(action[0]);
+            Point entity_pt = this.get_position();
+            Blacksmith smith = world.find_nearest(entity_pt, Blacksmith);
+            boolean found = this._to_other(world, smith); //q
+            Miner new_miner = this;
+            if(found)//whats found in python code?
+            {
+                new_miner = new_miner.try_transform_miner(world,(Transform)(new_miner).try_transform(world));
+            }
+            new_miner.schedule_action(world, new_miner.create_miner_action(world, i_store), current_ticks + new_miner.get_rate());
+            return null;
+        };
+        return action[0];
+    }
 }

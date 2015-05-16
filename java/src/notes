@@ -112,3 +112,6 @@ not to self still need to add all the image data, File I/O, and lamda's, and act
  -LUKE: needs to do fins_nearest in worldmodel // answer: it was turned into nearest_entity in utility
  - also you need to move all constants from entities.py into corresponding entities
 
+last Q's:
+1. floor division in ore create_ore_transform_action
+2.in orelblob assigning next_time twice in python doesn't work in java..

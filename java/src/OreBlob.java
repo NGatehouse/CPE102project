@@ -39,5 +39,55 @@ public class OreBlob extends Actor implements Animation_manager
     {
         this.schedule_action(world,this.create_animation_action(world,repeat_count),this.get_animation_rate());
     }
+    public void schedule_animation(WorldModel world)
+    {
+        this.schedule_action(world,this.create_animation_action(world,0),this.get_animation_rate());
+    }
+    public boolean _to_other(WorldModel world,Vein vein)
+    {
+        Point entity_pt = this.get_position();
+        if (vein != null)
+        {
+            return false; //don't return tuple just boolean
+        }
+        Point vein_pt = vein.get_position();
+        if (Utility.adjacent(entity_pt,vein_pt))
+        {
+            world.remove_entity_schedule(vein);
+            return true;
+        }
+        else
+        {
+            Point new_pt = world.blob_next_position(entity_pt,vein_pt);
+            On_Grid old_entity = world.get_tile_occupant(new_pt);
+            if (old_entity instanceof Ore)
+            {
+                world.remove_entity_schedule((Action_manager)old_entity);
+            }
+
+            return world.move_entity(this,new_pt), false; //q was being returned in python code
+        }
+    }
+    public Action create_actor_motion(WorldModel world, type i_store)
+    {
+        Action[] action = {null};
+        action[0] = (current_ticks)->
+        {
+            this.remove_pending_actions(action[0]);
+            Point entity_pt = this.get_position();
+            Vein vein = world.find_nearest(entity_pt, Vein);
+            boolean found = this._to_other(world, vein);
+            long next_time = current_ticks + (long)this.get_rate();
+            if(found)
+            {
+                Quake quake = Utility.create_quake(world,tiles[0],current_ticks,i_store);
+                world.add_entity(quake);
+                long next_time = current_ticks + (long)this.get_rate()*2;
+            }
+            this.schedule_action(world,this.create_actor_motion(world,i_store),next_time);
+            return null;
+        };
+        return action[0];
+    }
 
 }

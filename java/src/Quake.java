@@ -85,4 +85,8 @@ public class Quake
     {
         this.schedule_action(world,this.create_animation_action(world,repeat_count),this.get_animation_rate());
     }
+    public void schedule_animation(WorldModel world)
+    {
+        this.schedule_action(world,this.create_animation_action(world,0),this.get_animation_rate());
+    }
 }

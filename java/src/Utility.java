@@ -5,6 +5,24 @@ import java.util.List;
  */
 public class Utility
 {
+
+    private static final int BLOB_RATE_SCALE = 4;
+    private static final int BLOB_ANIMATION_RATE_SCALE = 50;
+    private static final int BLOB_ANIMATION_MIN = 1;
+    private static final int BLOB_ANIMATION_MAX = 3;
+
+    private static final int ORE_CORRUPT_MIN = 20000;
+    private static final int ORE_CORRUPT_MAX = 30000;
+
+    private static final int QUAKE_STEPS = 10;
+    private static final int QUAKE_DURATION = 1100;
+    private static final int QUAKE_ANIMATION_RATE = 100;
+
+    private static final int VEIN_SPAWN_DELAY = 500;
+    private static final int VEIN_RATE_MIN = 8000;
+    private static final int VEIN_RATE_MAX = 17000;
+
+
     private int x;
     public static int sign(int x)
     {
@@ -51,24 +69,60 @@ public class Utility
         }
     }
 
-    public static create_blob(WorldModel world, String name, Point pt, int rate, int ticks, type i_store)
-    {}
-    public static schedule_blob(WorldModel world, OreBlob blob, long ticks, type i_store)
-    {}
-    public static schedule_miner(WorldModel world, Miner miner, long ticks, type i_store)
-    {}
-    public static create_ore(WorldModel world, String name, Point point, long ticks, type i_store)
-    {}
-    public static schedule_ore(WorldModel world, Ore ore, long ticks, type i_store)
-    {}
-    public static create_quake(WorldModel world, Point pt, long ticks, type i_store)
-    {}
-    public static schedule_quake(WorldModel world, Quake quake, long ticks)
-    {}
-    public static create_vein(WorldModel world,String name , Point pt, long ticks, type i_store)
-    {}
-    public static schedule_vein(WorldModel world, Vein vein, long ticks, type i_store)
-    {}
+    public static OreBlob create_blob(WorldModel world, String name, Point pt, int rate, int ticks, type i_store)
+    {
+        OreBlob blob = new OreBlob(name,pt,rate,image_store.get_images(i_store, "blob"),random.randint(BLOB_ANIMATION_MIN,BLOB_ANIMATION_MAX)*BLOB_ANIMATION_RATE_SCALE);
+        schedule_blob(world,blob,ticks,i_store);
+        return blob;
+    }
+    public static void schedule_blob(WorldModel world, OreBlob blob, long ticks, type i_store)
+    {
+        blob.schedule_action(world,blob.create_actor_motion(world,i_store),ticks+blob.get_rate());
+        blob.schedule_animation(world);
+    }
+    public static void schedule_miner(WorldModel world, Miner miner, long ticks, type i_store)
+    {
+        miner.schedule_action( world, miner.create_miner_action(world, i_store),
+                ticks + miner.get_rate());
+        miner.schedule_animation(world);
+    }
+    public static Ore create_ore(WorldModel world, String name, Point point, long ticks, type i_store)
+    {
+        Ore ore = new Ore(name, point, image_store.get_images(i_store, 'ore'),
+                random.randint(ORE_CORRUPT_MIN, ORE_CORRUPT_MAX));
+        schedule_ore(world,ore, ticks, i_store);
+        return ore;
+    }
+    public static void schedule_ore(WorldModel world, Ore ore, long ticks, type i_store)
+    {
+        ore.schedule_action(world,ore.create_ore_transform_action(world, i_store),
+                ticks + ore.get_rate());
+    }
+    public static Quake create_quake(WorldModel world, Point pt, long ticks, type i_store)
+    {
+        Quake quake = new Quake("quake", pt,
+                image_store.get_images(i_store, 'quake'), QUAKE_ANIMATION_RATE);
+        schedule_quake(world, quake, ticks);
+        return quake;
+    }
+    public static void schedule_quake(WorldModel world, Quake quake, long ticks)
+    {
+        quake.schedule_animation(world, QUAKE_STEPS);
+        quake.schedule_action(world, quake.create_entity_death_action(world),
+                ticks + QUAKE_DURATION);
+    }
+    public static Vein create_vein(WorldModel world,String name , Point pt, long ticks, type i_store)
+    {
+        Vein vein = new Vein("vein" + name,
+                random.randint(VEIN_RATE_MIN, VEIN_RATE_MAX),
+                pt, image_store.get_images(i_store, "vein"));
+        return vein;
+    }
+    public static void schedule_vein(WorldModel world, Vein vein, long ticks, type i_store)
+    {
+        vein.schedule_action(world, vein.create_actor_motion(world, i_store),
+                ticks + vein.get_rate());
+    }
 
 
 }

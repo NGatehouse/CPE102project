@@ -31,9 +31,9 @@ public class Miner extends Mining implements Action_manager , Animation_manager
         return this.get_name().equals(that.get_name()) && this.get_resource_limit() == that.get_resource_limit() && this.get_position().get_x() ==that.get_position().get_x() && this.get_position().get_y() ==that.get_position().get_y() && this.get_rate()==that.get_rate();
     }
 
-   public Miner try_transform_miner(WorldModel world, function transform)
-    {
-        Miner new_miner = tranform(world);
+   public Miner try_transform_miner(WorldModel world, Transform transform)
+   {
+        Miner new_miner = transform.try_transform(world);
         if(this != new_miner)
         {
             world.clear_pending_actions(this);
@@ -43,7 +43,10 @@ public class Miner extends Mining implements Action_manager , Animation_manager
 
         }
         return new_miner;
-
+    }
+    public Action create_miner_action(WorldModel world, type image_store)
+    {
+        return this.create_actor_motion(world,image_store);
     }
    // ..................................... animation
     public int get_animation_rate()
@@ -77,5 +80,10 @@ public class Miner extends Mining implements Action_manager , Animation_manager
     {
         this.schedule_action(world,this.create_animation_action(world,0),this.get_animation_rate());
     }
+
+    public Miner try_transform(WorldModel world)
+    {return null;}
+    public Action create_actor_motion(WorldModel world, type i_store)
+    {return null;}
 
 }

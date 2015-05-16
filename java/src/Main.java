@@ -15,8 +15,8 @@ import javax.management.BadAttributeValueExpException;
 public class Main extends PApplet
 {
     private static final boolean RUN_AFTER_LOAD = true;
-    private static final String IMAGE_LIST_FILE_NAME = "imagelist";
-    private static final String WORLD_FILE = "gaia.sav";
+    private static final String IMAGE_LIST_FILE_NAME = "../data/imagelist";
+    private static final String WORLD_FILE = "../data/gaia.sav";
 
     private static final int SCREEN_WIDTH = 640;
     private static final int SCREEN_HEIGHT = 480;
@@ -163,6 +163,8 @@ public class Main extends PApplet
         imagelist.add(img);
         return new Background(image_store.getDefaultImageName(), origin, imagelist);
     }
+
+    public void createWorld()
 
     public static void main(String[] args)
     {

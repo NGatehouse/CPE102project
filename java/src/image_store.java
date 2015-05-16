@@ -10,14 +10,8 @@ public class image_store
 {
     public static final String DEFAULT_IMAGE_NAME = "background_default";
     private static final int DEFAULT_IMAGE_COLOR = 808080 wrong; //q this is wrong
+    private static final int FILE_IDX = 0;
     private static final int MIN_ARGS = 1;
-
-
-
-
-
-        private static final int FILE_IDX = 0;
-        private static final int MIN_ARGS = 1;
 
         private static boolean verifyArguments(String [] args)
         {
@@ -55,8 +49,8 @@ public class image_store
             {
                 if (verifyArguments(args)) // see's if correct args
                 {
-                    Scanner in = new Scanner(new FileInputStream(args[FILE_IDX])); // pass it the fiile we want
-                    findYoungest(in);
+                    Scanner in = new Scanner(new FileInputStream(args[FILE_IDX])); // pass it the fiile we want from terminal
+                    findYoungest(in); // calls previous
                 }
                 else
                 {

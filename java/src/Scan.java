@@ -67,26 +67,12 @@ public class Scan
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*private static boolean verifyArgs(String [] args)
+    /* private static boolean verifyArgs(String [] args)
     {
         return args.length >= MIN_ARGS;
     } */
 
+    /*
     public static String getDefaultImageName()
     {
         return DEFAULT_IMAGE_NAME;
@@ -141,8 +127,7 @@ public class Scan
         }
     }
 
-    public get_images(img images, int key)
-    {
+    public get_images(img images, int key) {
         if (key in images)
         {
             return images[keys];
@@ -152,4 +137,5 @@ public class Scan
             return images[DEFAULT_IMAGE_NAME];
         }
     }
+*/
 }

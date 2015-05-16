@@ -149,7 +149,7 @@ public class Main extends PApplet
                 view.update_view()
 
                 controller.activity_loop(view, world)
-                
+
         if (time >= next_time)
         {
             next_image();  //updater on ticks in project... instead of handle timer events

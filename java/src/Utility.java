@@ -101,7 +101,7 @@ public class Utility
     public static Quake create_quake(WorldModel world, Point pt, long ticks, type i_store)
     {
         Quake quake = new Quake("quake", pt,
-                image_store.get_images(i_store, 'quake'), QUAKE_ANIMATION_RATE);
+                image_store.get_images(i_store, "quake"), QUAKE_ANIMATION_RATE);
         schedule_quake(world, quake, ticks);
         return quake;
     }

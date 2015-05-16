@@ -75,7 +75,7 @@ public class OreBlob extends Actor implements Animation_manager
         {
             this.remove_pending_actions(action[0]);
             Point entity_pt = this.get_position();
-            Vein vein = world.find_nearest(entity_pt, Vein);
+            Vein vein = world.find_nearest(entity_pt, Vein.class);
             boolean found = this._to_other(world, vein);
             long next_time = current_ticks + (long)this.get_rate();
             if(found)

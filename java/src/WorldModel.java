@@ -217,7 +217,7 @@ public class WorldModel
         //return tiles;
     }
 
-    public On_Grid find_nearest(Point pt, On_Grid ent)
+    public On_Grid find_nearest(Point pt, Class<On_Grid> ent)
     {
         List<On_Grid> entList = new LinkedList<On_Grid>();
         List<Double> distsList = new LinkedList<Double>();

@@ -25,7 +25,7 @@ public class Ore extends Actor implements Action_manager
         action[0] = (current_ticks)->
         {
             this.remove_pending_actions(action[0]);
-            OreBlob blob = Utility.create_blob(world, this.get_name() + " -- blob", this.get_position(),wrong this.get_rate()/BLOB_RATE_SCALE,(int)current_ticks,i_store);
+            OreBlob blob = Utility.create_blob(world, this.get_name() + " -- blob", this.get_position(),this.get_rate()/BLOB_RATE_SCALE,(int)current_ticks,i_store);
             world.remove_entity_schedule(this);
             world.add_entity(blob);
             return null;

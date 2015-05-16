@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Nicholas on 5/4/2015.
@@ -6,7 +7,7 @@ import java.util.List;
 public class Utility
 {
 
-    private static final int BLOB_RATE_SCALE = 4;
+    //private static final int BLOB_RATE_SCALE = 4;
     private static final int BLOB_ANIMATION_RATE_SCALE = 50;
     private static final int BLOB_ANIMATION_MIN = 1;
     private static final int BLOB_ANIMATION_MAX = 3;
@@ -22,8 +23,12 @@ public class Utility
     private static final int VEIN_RATE_MIN = 8000;
     private static final int VEIN_RATE_MAX = 17000;
 
+    public static int randInt(int min, int max)
+    {
+        Random rand = new Random();
+        return rand.nextInt((max - min)+1)+min;
+    }
 
-    private int x;
     public static int sign(int x)
     {
         if(x<0)
@@ -39,14 +44,17 @@ public class Utility
             return 0;
         }
     }
+
     public static boolean adjacent(Point p1, Point p2)
     {
         return ((p1.get_x() == p2.get_x() && Math.abs(p1.get_y()-p2.get_y()) == 1) || (p1.get_y()==p2.get_y() && Math.abs(p1.get_x()-p2.get_x())==1) );
     }
+
     public static double distance_sq(Point p1, Point p2)   //static method
     {
         return Math.pow((p1.get_x() - p2.get_y()),2) + Math.pow((p1.get_y() - p2.get_y()),2);
     }
+
     public static On_Grid nearest_entity(List<On_Grid> entList, List<Double> distsList)  //static method
     {
         if (entList.size() > 0)
@@ -71,7 +79,7 @@ public class Utility
 
     public static OreBlob create_blob(WorldModel world, String name, Point pt, int rate, int ticks, type i_store)
     {
-        OreBlob blob = new OreBlob(name,pt,rate,image_store.get_images(i_store, "blob"),random.randint(BLOB_ANIMATION_MIN,BLOB_ANIMATION_MAX)*BLOB_ANIMATION_RATE_SCALE);
+        OreBlob blob = new OreBlob(name,pt,rate,image_store.get_images(i_store, "blob"),randInt(BLOB_ANIMATION_MIN,BLOB_ANIMATION_MAX)*BLOB_ANIMATION_RATE_SCALE);
         schedule_blob(world,blob,ticks,i_store);
         return blob;
     }
@@ -89,7 +97,7 @@ public class Utility
     public static Ore create_ore(WorldModel world, String name, Point point, long ticks, type i_store)
     {
         Ore ore = new Ore(name, point, image_store.get_images(i_store, 'ore'),
-                random.randint(ORE_CORRUPT_MIN, ORE_CORRUPT_MAX));
+                randInt(ORE_CORRUPT_MIN, ORE_CORRUPT_MAX));
         schedule_ore(world,ore, ticks, i_store);
         return ore;
     }
@@ -114,7 +122,7 @@ public class Utility
     public static Vein create_vein(WorldModel world,String name , Point pt, long ticks, type i_store)
     {
         Vein vein = new Vein("vein" + name,
-                random.randint(VEIN_RATE_MIN, VEIN_RATE_MAX),
+                randInt(VEIN_RATE_MIN, VEIN_RATE_MAX),
                 pt, image_store.get_images(i_store, "vein"));
         return vein;
     }

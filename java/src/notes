@@ -113,5 +113,6 @@ not to self still need to add all the image data, File I/O, and lamda's, and act
  - also you need to move all constants from entities.py into corresponding entities
 
 last Q's:
-1. floor division in ore create_ore_transform_action
-2.in orelblob assigning next_time twice in python doesn't work in java..
+1. in email you said i should make create_actor_motion an abstract method instead of returning null... not sure how to do this still wants me to return something
+2. creating new quake in OreBlob?
+3. piazza question about using Class in create_actor_motion *Blacksmith smith = world.find_nearest(entity_pt, Blacksmith.class);*

@@ -80,9 +80,9 @@ public class OreBlob extends Actor implements Animation_manager
             long next_time = current_ticks + (long)this.get_rate();
             if(found)
             {
-                Quake quake = Utility.create_quake(world,tiles[0],current_ticks,i_store);
+                Quake quake = Utility.create_quake(world,point from file,current_ticks,i_store);
                 world.add_entity(quake);
-                long next_time = current_ticks + (long)this.get_rate()*2;
+                next_time = current_ticks + (long)this.get_rate()*2;
             }
             this.schedule_action(world,this.create_actor_motion(world,i_store),next_time);
             return null;

@@ -130,6 +130,26 @@ public class Main extends PApplet
         add_ents();
         // A simplified action scheduling handler
         long time = System.currentTimeMillis();
+        image_store i_store = new image_store().load_images(IMAGE_LIST_FILE_NAME,
+                TILE_WIDTH, TILE_HEIGHT);
+        int num_cols = 40;
+        int num_rows = 30;
+        //num_cols = SCREEN_WIDTH // TILE_WIDTH * WORLD_WIDTH_SCALE
+        //num_rows = SCREEN_HEIGHT // TILE_HEIGHT * WORLD_HEIGHT_SCALE
+
+        Background default_background = create_default_background(
+                image_store.get_images(i_store, image_store.DEFAULT_IMAGE_NAME));
+
+        world = worldmodel.WorldModel(num_rows, num_cols, default_background)
+        view = worldview.WorldView(SCREEN_WIDTH // TILE_WIDTH,
+                SCREEN_HEIGHT // TILE_HEIGHT, screen, world, TILE_WIDTH, TILE_HEIGHT)
+
+                load_world(world, i_store, WORLD_FILE)
+
+                view.update_view()
+
+                controller.activity_loop(view, world)
+                
         if (time >= next_time)
         {
             next_image();  //updater on ticks in project... instead of handle timer events

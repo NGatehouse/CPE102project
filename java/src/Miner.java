@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Miner extends Mining implements Action_manager , Animation_manager
+public abstract class Miner extends Mining implements Action_manager , Animation_manager
     //implements Animation_manager missing data imgs,animation_rate
 {
     private int animation_rate; //q
@@ -81,9 +81,8 @@ public class Miner extends Mining implements Action_manager , Animation_manager
         this.schedule_action(world,this.create_animation_action(world,0),this.get_animation_rate());
     }
 
-    public Miner try_transform(WorldModel world)
-    {return null;}
-    public Action create_actor_motion(WorldModel world, type i_store)
-    {return null;}
+    public abstract Miner try_transform(WorldModel world);
+
+    public abstract Action create_actor_motion(WorldModel world, type i_store);
 
 }

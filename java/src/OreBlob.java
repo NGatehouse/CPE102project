@@ -64,8 +64,8 @@ public class OreBlob extends Actor implements Animation_manager
             {
                 world.remove_entity_schedule((Action_manager)old_entity);
             }
-
-            return world.move_entity(this,new_pt), false; //q was being returned in python code
+            world.move_entity(this,new_pt);
+            return false; //q was being returned in python code
         }
     }
     public Action create_actor_motion(WorldModel world, type i_store)

@@ -116,3 +116,5 @@ last Q's:
 1. in email you said i should make create_actor_motion an abstract method instead of returning null... not sure how to do this still wants me to return something
 2. creating new quake in OreBlob?
 3. piazza question about using Class in create_actor_motion *Blacksmith smith = world.find_nearest(entity_pt, Blacksmith.class);*
+4. miner as abstract class?
+what is :: exactly?

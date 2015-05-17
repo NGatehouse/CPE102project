@@ -96,7 +96,7 @@ public class Utility
     }
     public static Ore create_ore(WorldModel world, String name, Point point, long ticks, type i_store)
     {
-        Ore ore = new Ore(name, point, image_store.get_images(i_store, 'ore'),
+        Ore ore = new Ore(name, point, image_store.get_images(i_store, "ore"),
                 randInt(ORE_CORRUPT_MIN, ORE_CORRUPT_MAX));
         schedule_ore(world,ore, ticks, i_store);
         return ore;

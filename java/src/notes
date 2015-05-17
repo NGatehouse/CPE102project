@@ -118,3 +118,9 @@ last Q's:
 3. piazza question about using Class in create_actor_motion *Blacksmith smith = world.find_nearest(entity_pt, Blacksmith.class);*
 4. miner as abstract class?
 what is :: exactly?
+5. in Scan problem with scope possibly?
+6.schedule_miner() what do we do with ticks?
+7. world wont work in scan.java
+8. static vs. non static problem in scan
+9. what do we do for the colors like setAlpha and r,g,b
+ NOTE: compiler errors in tutoring and logic errors in office hours

@@ -1,7 +1,9 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 import java.util.List;
@@ -14,8 +16,8 @@ import javax.management.BadAttributeValueExpException;
 public class Main extends PApplet
 {
     private static final boolean RUN_AFTER_LOAD = true;
-    private static final String IMAGE_LIST_FILE = "./data/imagelist";
-    private static final String WORLD_FILE = "./data/gaia.sav";
+    private static final String IMAGE_LIST_FILE = "../data/imagelist";
+    private static final String WORLD_FILE = "../data/gaia.sav";
 
     private static final int SCREEN_WIDTH = 640;
     private static final int SCREEN_HEIGHT = 480;
@@ -65,10 +67,29 @@ public class Main extends PApplet
 
     public void setup()
     {
-        Scanner image_list_file = new Scanner(IMAGE_LIST_FILE);
-        Scanner world_file = new Scanner(WORLD_FILE);
-        Scan.get_imgs(image_list_file);
-        Scan.create_ents(world_file, worldModel);
+       // File world_file = null;
+        //File image_list_file = null;
+
+        //world_file = new File(WORLD_FILE);
+        //image_list_file = new File(IMAGE_LIST_FILE);
+        Scanner i_list_scanner = null;
+        Scanner w_scanner = null;
+
+        try
+        {
+            File world_file = new File(getClass().getClassLoader().getResource(WORLD_FILE).getFile());
+            File image_list_file = new File(getClass().getClassLoader().getResource(IMAGE_LIST_FILE).getFile());
+            i_list_scanner = new Scanner(image_list_file);
+            w_scanner = new Scanner(world_file);
+        }
+        catch (Exception e)
+        {
+            System.err.println(e.getMessage() + " " + getClass().getClassLoader().getResource(WORLD_FILE));
+        }
+
+
+        Scan.get_imgs(i_list_scanner);
+        Scan.create_ents(w_scanner, worldModel);
         size(SCREEN_WIDTH, SCREEN_HEIGHT);
         background(BGND_COLOR);
         System.out.println(world.length);

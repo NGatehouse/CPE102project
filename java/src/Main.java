@@ -66,8 +66,8 @@ public class Main extends PApplet
 
     public void setup()
     {
-        Scan.get_imgs(new FileInputStream(args[IMAGE_LIST_FILE]));
-        Scan.create_ents(new FileInputStream(args[WORLD_FILE]));
+        Scan.get_imgs(IMAGE_LIST_FILE);
+        Scan.create_ents(WORLD_FILE);
         size(SCREEN_WIDTH, SCREEN_HEIGHT);
         background(BGND_COLOR);
         System.out.println(world.length);

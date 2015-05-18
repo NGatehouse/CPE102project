@@ -1,3 +1,5 @@
+import processing.core.PImage;
+
 import java.util.List;
 import java.util.Random;
 
@@ -79,7 +81,7 @@ public class Utility
 
     public static OreBlob create_blob(WorldModel world, String name, Point pt, int rate, int ticks, type i_store)
     {
-        OreBlob blob = new OreBlob(name,pt,rate,image_store.get_images(i_store, "blob"),randInt(BLOB_ANIMATION_MIN,BLOB_ANIMATION_MAX)*BLOB_ANIMATION_RATE_SCALE);
+        OreBlob blob = new OreBlob(name,pt,rate,image_store.get_images(i_store, "blob"),randInt(BLOB_ANIMATION_MIN, BLOB_ANIMATION_MAX)*BLOB_ANIMATION_RATE_SCALE);
         schedule_blob(world,blob,ticks,i_store);
         return blob;
     }
@@ -119,14 +121,14 @@ public class Utility
         quake.schedule_action(world, quake.create_entity_death_action(world),
                 ticks + QUAKE_DURATION);
     }
-    public static Vein create_vein(WorldModel world,String name , Point pt, long ticks, type i_store)
+    public static Vein create_vein(WorldModel world,String name , Point pt, long ticks, List<PImage> amiges)
     {
         Vein vein = new Vein("vein" + name,
                 randInt(VEIN_RATE_MIN, VEIN_RATE_MAX),
-                pt, image_store.get_images(i_store, "vein"));
+                pt, amiges);
         return vein;
     }
-    public static void schedule_vein(WorldModel world, Vein vein, long ticks, type i_store)
+    public static void schedule_vein(WorldModel world, Vein vein, long ticks, List<PImage> amiges)
     {
         vein.schedule_action(world, vein.create_actor_motion(world, i_store),
                 ticks + vein.get_rate());

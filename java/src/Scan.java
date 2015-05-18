@@ -112,7 +112,7 @@ public class Scan extends PApplet
             }
         }
     }
-    public static void create_ents(Scanner in)
+    public static void create_ents(Scanner in,WorldModel world) // pass in a worldmodel?
     {
 
         while (in.hasNextLine())
@@ -175,6 +175,7 @@ public class Scan extends PApplet
                 case VEIN_KEY:
                 {
                     Vein vein = new Vein(ent_name,the_rate,ent_p,vein_imgs,resource_lim);
+                    Utility.schedule_vein(world, vein,ticks,vein_imgs);
                     break;
                 }
 

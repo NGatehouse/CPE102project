@@ -11,10 +11,10 @@ public class Vein extends Actor implements Action_manager
         super(name,position,rate,imgs);
         this.resource_distance = resource_distance;
     }
-    /*public Vein(String name, int rate, Point position,List<PImage> imgs, int resource_distance)
+    public Vein(String name, int rate, Point position,List<PImage> imgs)
     {
-        this(name,position,rate,imgs,RESOURCE_DISTANCE);
-    }*/
+        this(name,rate,position,imgs,RESOURCE_DISTANCE);
+    }
     public int get_resource_distance()
     {
         return this.resource_distance; //q was RESOURCE_DISTANCE

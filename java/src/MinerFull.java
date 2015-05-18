@@ -41,7 +41,7 @@ public class MinerFull extends Miner implements Action_manager , Animation_manag
         {
             this.remove_pending_actions(action[0]);
             Point entity_pt = this.get_position();
-            Blacksmith smith = world.find_nearest(entity_pt, Blacksmith.class);
+            Blacksmith smith = (Blacksmith)world.find_nearest(entity_pt, Blacksmith.class);
             boolean found = this._to_other(world, smith); //q
             Miner new_miner = this;
             if(found)//whats found in python code?

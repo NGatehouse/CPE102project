@@ -1,6 +1,6 @@
 /**
  * Created by Nicholas on 5/10/2015.
- */
+ *//*
 import java.io.*;
 
 import java.util.List;
@@ -64,7 +64,7 @@ public class image_store
         }
 
 
-
+*/
 
 
 
@@ -86,6 +86,7 @@ public class image_store
     {
         return args.length >= MIN_ARGS;
     } */
+/*
 
     public static String getDefaultImageName()
     {
@@ -153,3 +154,4 @@ public class image_store
         }
     }
 }
+*/

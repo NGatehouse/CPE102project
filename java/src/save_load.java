@@ -1,6 +1,6 @@
 /**
  * Created by Nicholas on 5/10/2015.
- */
+ *//*
 public class save_load
 {
     //all the constants
@@ -30,3 +30,4 @@ public class save_load
         }
     }
 }
+*/

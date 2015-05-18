@@ -23,7 +23,7 @@ public class Vein extends Actor implements Action_manager
     {
        return "vein" + " " + this.get_name() + " " + this.get_position().get_x() + " " + this.get_position().get_y() + " " + this.get_rate() + " " + this.get_resource_distance();
     }
-    public Action create_actor_motion(WorldModel world, type i_store)
+    public Action create_actor_motion(WorldModel world, List<PImage> imgs)
     {
         Action[] action = {null};
         action[0] = (current_ticks)->
@@ -32,10 +32,10 @@ public class Vein extends Actor implements Action_manager
             Point open_pt = world.find_open_around(this.get_position(),this.get_resource_distance());
             if(open_pt != null)//whats found in python code?
             {
-                Ore ore = Utility.create_ore(world,"ore - " + this.get_name() + " - " + current_ticks,open_pt,current_ticks,i_store );
+                Ore ore = Utility.create_ore(world,"ore - " + this.get_name() + " - " + current_ticks,open_pt,current_ticks,imgs );
                 world.add_entity(ore);
             }
-            this.schedule_action(world,this.create_actor_motion(world,i_store),current_ticks + this.get_rate());
+            this.schedule_action(world,this.create_actor_motion(world,imgs),current_ticks + this.get_rate());
             return null;
         };
         return action[0];

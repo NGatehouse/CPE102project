@@ -14,7 +14,7 @@ public class Scan extends PApplet
 {
     public static final String DEFAULT_IMAGE_NAME = "background_default";
     private static final int DEFAULT_IMAGE_COLOR = 808080 wrong; //q this is wrong
-    private static final int FILE_IDX = 0;
+
     private static final int MIN_ARGS = 1;
 
     private static final String MINER_KEY = "miner";
@@ -27,24 +27,27 @@ public class Scan extends PApplet
     private static final String QUAKE_KEY = "quake";
     private static final String GRASS_KEY = "grass";
     private static final String ROCKS_KEY = "rocks";
-    private WorldModel world;
 
-    private List<PImage> miner_imgs = new ArrayList<PImage>();
-    private List<PImage> blacksmith_imgs = new ArrayList<PImage>();
-    private List<PImage> rocks_imgs = new ArrayList<PImage>();
-    private List<PImage> grass_imgs = new ArrayList<PImage>();
-    private List<PImage> ore_imgs = new ArrayList<PImage>();
-    private List<PImage> vein_imgs = new ArrayList<PImage>();
-    private List<PImage> obstacle_imgs = new ArrayList<PImage>();
-    private List<PImage> blob_imgs = new ArrayList<PImage>();
-    private List<PImage> quake_imgs = new ArrayList<PImage>();
+
+    private static List<PImage> miner_imgs = new ArrayList<PImage>();
+    private static List<PImage> blacksmith_imgs = new ArrayList<PImage>();
+    private static List<PImage> rocks_imgs = new ArrayList<PImage>();
+    private static List<PImage> grass_imgs = new ArrayList<PImage>();
+    private static List<PImage> ore_imgs = new ArrayList<PImage>();
+    private static List<PImage> vein_imgs = new ArrayList<PImage>();
+    private static List<PImage> obstacle_imgs = new ArrayList<PImage>();
+    private static List<PImage> blob_imgs = new ArrayList<PImage>();
+    private static List<PImage> quake_imgs = new ArrayList<PImage>();
+    private static List<PImage> bgnd_imgs = new ArrayList<PImage>();
+
+
 
     private static boolean verifyArguments(String [] args)
     {
         return args.length >= MIN_ARGS;
     }
 
-    public void get_imgs(Scanner in) {
+    public static void get_imgs(Scanner in) {
         while (in.hasNextLine())
         {
 
@@ -79,6 +82,10 @@ public class Scan extends PApplet
                 {
                     rocks_imgs.add(file_location);
                     break;
+                }
+                case DEFAULT_IMAGE_NAME:
+                {
+                    bgnd_imgs.add(file_location);
                 }
                 case ORE_KEY:
                 {
@@ -124,30 +131,33 @@ public class Scan extends PApplet
             int x_cord = Integer.parseInt(entity[2]);
             int y_cord = Integer.parseInt(entity[3]);
             Point ent_p = new Point(x_cord,y_cord);
+            int resource_lim;
+            int the_rate;
+            int reach;
             //i=3;
             if (entity[4] != null)
             {
-                int resource_lim = Integer.parseInt(entity[4]);
+                resource_lim = Integer.parseInt(entity[4]);
                 //i =4;
                 if (entity[5] != null)
                 {
-                    String the_rate = entity[5];
+                     the_rate = Integer.parseInt(entity[5]);
                     //i = 5;
                     if (entity[6] != null)
                     {
-                        String reach = entity[6];
+                         reach = Integer.parseInt(entity[6]);
                         //i=6;
                     }
                 }
             }
 
 
-            switch(class_type)
+            switch(class_type) //q gotta be more we have to do here..
             {
                 case MINER_KEY:
                 {
                     Miner miner = new MinerNotFull(ent_name,ent_p,resource_lim,the_rate,reach,miner_imgs);
-                    Utility.schedule_miner(world,miner,(long)(the_rate),miner_imgs);
+                    Utility.schedule_miner(world,miner,Utility.ticks,miner_imgs);
                     break;
                 }
                 case BGND_KEY:
@@ -164,7 +174,7 @@ public class Scan extends PApplet
                 case ORE_KEY:
                 {
                     Ore ore = new Ore(ent_name,ent_p,ore_imgs);
-                    Utility.schedule_ore(world,ore,ticks,ore_imgs);
+                    Utility.schedule_ore(world,ore,Utility.ticks,ore_imgs);
                     break;
                 }
                 case SMITH_KEY:
@@ -175,7 +185,7 @@ public class Scan extends PApplet
                 case VEIN_KEY:
                 {
                     Vein vein = new Vein(ent_name,the_rate,ent_p,vein_imgs,resource_lim);
-                    Utility.schedule_vein(world, vein,ticks,vein_imgs);
+                    Utility.schedule_vein(world, vein,Utility.ticks,vein_imgs);
                     break;
                 }
 

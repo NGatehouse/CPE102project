@@ -34,7 +34,7 @@ public class MinerFull extends Miner implements Action_manager , Animation_manag
             return false;
         }
     }
-    public Action create_actor_motion(WorldModel world, type i_store)
+    public Action create_actor_motion(WorldModel world, List<PImage> imgs)
     {
         Action[] action = {null};
         action[0] = (current_ticks)->
@@ -48,7 +48,7 @@ public class MinerFull extends Miner implements Action_manager , Animation_manag
             {
                 new_miner = new_miner.try_transform_miner(world,(Transform)(new_miner).try_transform(world));
             }
-            new_miner.schedule_action(world, new_miner.create_miner_action(world, i_store), current_ticks + new_miner.get_rate());
+            new_miner.schedule_action(world, new_miner.create_miner_action(world, imgs), current_ticks + new_miner.get_rate());
             return null;
         };
         return action[0];

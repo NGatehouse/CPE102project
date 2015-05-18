@@ -68,7 +68,7 @@ public class OreBlob extends Actor implements Animation_manager
             return false; //q was being returned in python code
         }
     }
-    public Action create_actor_motion(WorldModel world, type i_store)
+    public Action create_actor_motion(WorldModel world, List<PImage> imgs)
     {
         Action[] action = {null};
         action[0] = (current_ticks)->
@@ -80,11 +80,11 @@ public class OreBlob extends Actor implements Animation_manager
             long next_time = current_ticks + (long)this.get_rate();
             if(found)
             {
-                Quake quake = Utility.create_quake(world,point from file,current_ticks,i_store);
+                Quake quake = Utility.create_quake(world,point from file,current_ticks,imgs);
                 world.add_entity(quake);
                 next_time = current_ticks + (long)this.get_rate()*2;
             }
-            this.schedule_action(world,this.create_actor_motion(world,i_store),next_time);
+            this.schedule_action(world,this.create_actor_motion(world,imgs),next_time);
             return null;
         };
         return action[0];

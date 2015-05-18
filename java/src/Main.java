@@ -1,6 +1,7 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.*;
 
@@ -14,8 +15,11 @@ import javax.management.BadAttributeValueExpException;
 public class Main extends PApplet
 {
     private static final boolean RUN_AFTER_LOAD = true;
-    private static final String IMAGE_LIST_FILE = "./data/imagelist";
+    private static final String IMAGE_LIST_FILE = "data/imagelist";
     private static final String WORLD_FILE = "./data/gaia.sav";
+    File worldFile = new File(getClass().getClassLoader().getResource(WORLD_FILE).getFile());
+    File imageListFile = new File(getClass().getClassLoader().getResource(IMAGE_LIST_FILE).getFile());
+    Scanner image_list_file = new Scanner(new File(WORLD_FILE));
 
     private static final int SCREEN_WIDTH = 640;
     private static final int SCREEN_HEIGHT = 480;
@@ -65,8 +69,8 @@ public class Main extends PApplet
 
     public void setup()
     {
-        Scanner image_list_file = new Scanner(IMAGE_LIST_FILE);
-        Scanner world_file = new Scanner(WORLD_FILE);
+        Scanner image_list_file = new Scanner(imageListFile);
+        Scanner world_file = new Scanner(worldFile);
         Scan.get_imgs(image_list_file);
         Scan.create_ents(world_file, worldModel);
         size(SCREEN_WIDTH, SCREEN_HEIGHT);

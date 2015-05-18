@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
+/*
 public class WorldModelTests
 {
     private static final double DELTA = 0.00001;
@@ -58,6 +58,7 @@ public class WorldModelTests
         WorldModel world = new WorldModel(50,50);
         assertTrue(newpt.equals(world.blob_next_position(entpt, destpt)));
     }
+    */
 /*
     @Test
     public void test_blob_next_pos_secondIf()  //TODO Current values for second "if"
@@ -70,6 +71,7 @@ public class WorldModelTests
         assertTrue(newpt.equals(world.blob_next_position(entpt, destpt)));
     }
 */
+/*
     @Test
     public void test_next_position()
     {
@@ -104,6 +106,7 @@ public class WorldModelTests
         assertTrue(!world.is_occupied(pt));
     }
     */
+/*
     @Test
     public  void test_is_occupiedT()
     {
@@ -180,3 +183,4 @@ public class WorldModelTests
     }
 
 }
+*/

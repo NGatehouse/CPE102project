@@ -59,6 +59,8 @@ public class Scan extends PApplet
 
             String[] amige = in.nextLine().split("\\s"); // amige is image lolz
             String the_key = amige[0];
+            System.out.println(amige[0]);
+
             PImage file_location = paplet.loadImage(amige[1]);
 
             if (amige[2] != null)

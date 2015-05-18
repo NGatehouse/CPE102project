@@ -159,14 +159,14 @@ public class Main extends PApplet
             next_time = Utility.ticks + ANIMATION_TIME;
         }
     }
-
+/*
     public Background create_default_background(PImage img)
     {
         List<PImage> imagelist = new ArrayList<>();
         imagelist.add(img);
         return new Background(image_store.getDefaultImageName(), origin, imagelist);
     }
-
+*/
   //  public void createWorld()
 
     public static void main(String[] args)

@@ -113,15 +113,15 @@ not to self still need to add all the image data, File I/O, and lamda's, and act
  - also you need to move all constants from entities.py into corresponding entities
 
 last Q's:
-1. in email you said i should make create_actor_motion an abstract method instead of returning null... not sure how to do this still wants me to return something
-2. creating new quake in OreBlob?
+1. in email you said i should make create_actor_motion an abstract method instead of returning null... not sure how to do this still wants me to return something // resolved in miner class at bottom
+2. creating new quake in OreBlob? // unresolved
 3. piazza question about using Class in create_actor_motion *Blacksmith smith = world.find_nearest(entity_pt, Blacksmith.class);*
-4. miner as abstract class?
 what is :: exactly?
+4. so in scanner we are creating the entities and scheduling them what do we do after?
 5. in Scan problem with scope possibly?
-6.schedule_miner() what do we do with ticks?
-7. world wont work in scan.java
 8. static vs. non static problem in scan
 9. what do we do for the colors like setAlpha and r,g,b
 10. how to pass a file to our scanners
+11.not using vein respawn delay?
+
  NOTE: compiler errors in tutoring and logic errors in office hours

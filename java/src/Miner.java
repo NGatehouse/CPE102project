@@ -44,9 +44,9 @@ public abstract class Miner extends Mining implements Action_manager , Animation
         }
         return new_miner;
     }
-    public Action create_miner_action(WorldModel world, type image_store)
+    public Action create_miner_action(WorldModel world, List<PImage> imgs)
     {
-        return this.create_actor_motion(world,image_store);
+        return this.create_actor_motion(world,imgs);
     }
    // ..................................... animation
     public int get_animation_rate()
@@ -83,6 +83,6 @@ public abstract class Miner extends Mining implements Action_manager , Animation
 
     public abstract Miner try_transform(WorldModel world);
 
-    public abstract Action create_actor_motion(WorldModel world, type i_store);
+    public abstract Action create_actor_motion(WorldModel world, List<PImage> imgs);
 
 }

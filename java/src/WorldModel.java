@@ -218,7 +218,7 @@ public class WorldModel
         //return tiles;
     }
 
-    public On_Grid find_nearest(Point pt, Class<? extends On_Grid> ent)
+    public On_Grid find_nearest(Point pt, Class<?> ent) //q
     {
         List<On_Grid> entList = new LinkedList<On_Grid>();
         List<Double> distsList = new LinkedList<Double>();
@@ -226,7 +226,7 @@ public class WorldModel
         int i = 0;
         for (On_Grid e : this.entities)
         {
-            if (e.getClass() == ent.getClass())
+            if (e.getClass() == ent)
             {
                 entList.add(e);
                 distsList.add(Utility.distance_sq(pt, e.get_position()));

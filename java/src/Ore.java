@@ -19,13 +19,13 @@ public class Ore extends Actor implements Action_manager
     {
         return "ore" + " " + this.get_name() + " " + this.get_position().get_x() + " " + this.get_position().get_y() + " " + this.get_rate();
     }
-    public Action create_ore_transform_action(WorldModel world,type i_store)
+    public Action create_ore_transform_action(WorldModel world,List<PImage> imgs)
     {
         Action[] action = {null};
         action[0] = (current_ticks)->
         {
             this.remove_pending_actions(action[0]);
-            OreBlob blob = Utility.create_blob(world, this.get_name() + " -- blob", this.get_position(),this.get_rate()/BLOB_RATE_SCALE,(int)current_ticks,i_store);
+            OreBlob blob = Utility.create_blob(world, this.get_name() + " -- blob", this.get_position(),this.get_rate()/BLOB_RATE_SCALE,(int)current_ticks,imgs);
             world.remove_entity_schedule(this);
             world.add_entity(blob);
             return null;

@@ -2,8 +2,7 @@ import processing.core.PApplet;
 import processing.core.PImage;
 
 import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import sun.security.acl.PermissionImpl;
 
 import javax.management.BadAttributeValueExpException;
 
-//TODO GET CODE FROM MAIN.PY
 public class Main extends PApplet
 {
     private static final boolean RUN_AFTER_LOAD = true;
@@ -33,13 +31,14 @@ public class Main extends PApplet
     private final int BGND_COLOR = color(550, 230, 245);
     private static final int ANIMATION_TIME = 100;
     private Grid[][] world = new Grid[15][20];
+    private WorldModel worldModel = new WorldModel(30,40);
     private final static int HEIGHT = 20;
     private final static int WIDTH = 15;
     private PImage grass = loadImage("C:\\Users\\Luke\\cpe102\\experiment\\CPE102project\\images\\grass.bmp");
     private PImage rock = loadImage("C:\\Users\\Luke\\cpe102\\experiment\\CPE102project\\images\\rock.bmp"); // Need to make images relative so Nick and Luke can use them
     public Point origin = new Point(0,0);
 
-
+/*
     public enum Grid
     {
         BACKGROUND, OBSTACLE
@@ -62,12 +61,14 @@ public class Main extends PApplet
             }
         }
     }
-
+*/
 
     public void setup()
     {
-        Scan.get_imgs(IMAGE_LIST_FILE);
-        Scan.create_ents(WORLD_FILE);
+        Scanner image_list_file = new Scanner(IMAGE_LIST_FILE);
+        Scanner world_file = new Scanner(WORLD_FILE);
+        Scan.get_imgs(image_list_file);
+        Scan.create_ents(world_file, worldModel);
         size(SCREEN_WIDTH, SCREEN_HEIGHT);
         background(BGND_COLOR);
         System.out.println(world.length);
@@ -76,7 +77,7 @@ public class Main extends PApplet
 
         current_image = 0;
         next_time = System.currentTimeMillis() + ANIMATION_TIME;
-        tiles();
+      //  tiles();
         System.out.println(world.length);
         System.out.println(world[0].length);
 
@@ -111,7 +112,7 @@ public class Main extends PApplet
         current_image = (current_image + 1) % imgs.size();
     }
 
-    private void add_ents()
+  /*  private void add_ents()
     {
         for (int h=0; h < world.length; h++)
         {
@@ -128,36 +129,34 @@ public class Main extends PApplet
             }
         }
     }
-
+*/
     public void draw()
     {
-        add_ents();
+       // add_ents();
         // A simplified action scheduling handler
-        long time = System.currentTimeMillis();
-        image_store i_store = new image_store().load_images(IMAGE_LIST_FILE_NAME,
-                TILE_WIDTH, TILE_HEIGHT);
+       // long time = System.currentTimeMillis();
+    //    image_store i_store = new image_store().load_images(IMAGE_LIST_FILE_NAME,
+     //           TILE_WIDTH, TILE_HEIGHT);
         int num_cols = 40;
         int num_rows = 30;
         //num_cols = SCREEN_WIDTH // TILE_WIDTH * WORLD_WIDTH_SCALE
         //num_rows = SCREEN_HEIGHT // TILE_HEIGHT * WORLD_HEIGHT_SCALE
 
-        Background default_background = create_default_background(
-                image_store.get_images(i_store, image_store.DEFAULT_IMAGE_NAME));
+       // Background default_background = create_default_background(
+       //         image_store.get_images(i_store, image_store.DEFAULT_IMAGE_NAME));
 
-        world = worldmodel.WorldModel(num_rows, num_cols, default_background)
-        view = worldview.WorldView(SCREEN_WIDTH // TILE_WIDTH,
-                SCREEN_HEIGHT // TILE_HEIGHT, screen, world, TILE_WIDTH, TILE_HEIGHT)
+        //WorldModel world = new WorldModel(num_rows, num_cols, default_background)
+      //  view = worldview.WorldView(SCREEN_WIDTH / TILE_WIDTH, SCREEN_HEIGHT / TILE_HEIGHT, screen, world, TILE_WIDTH, TILE_HEIGHT)
+     //           load_world(world, i_store, WORLD_FILE)
 
-                load_world(world, i_store, WORLD_FILE)
+     //           view.update_view()
 
-                view.update_view()
+       //         controller.activity_loop(view, world)
 
-                controller.activity_loop(view, world)
-
-        if (time >= next_time)
+        if (Utility.ticks >= next_time)
         {
             next_image();  //updater on ticks in project... instead of handle timer events
-            next_time = time + ANIMATION_TIME;
+            next_time = Utility.ticks + ANIMATION_TIME;
         }
     }
 
@@ -168,7 +167,7 @@ public class Main extends PApplet
         return new Background(image_store.getDefaultImageName(), origin, imagelist);
     }
 
-    public void createWorld()
+  //  public void createWorld()
 
     public static void main(String[] args)
     {

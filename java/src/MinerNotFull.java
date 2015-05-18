@@ -44,21 +44,22 @@ public class MinerNotFull extends Miner implements Action_manager , Animation_ma
         }
     }
 
-    public Action create_actor_motion(WorldModel world, type i_store)
+    public Action create_actor_motion(WorldModel world, List<PImage> imgs)
     {
         Action[] action = {null};
         action[0] = (current_ticks)->
         {
+
             this.remove_pending_actions(action[0]);
             Point entity_pt = this.get_position();
-            Ore ore = world.find_nearest(entity_pt, Ore);
+            Ore ore = (Ore)world.find_nearest(entity_pt, Ore.class);
             boolean found = this._to_other(world, ore); //q
             Miner new_miner = this;
             if(found)//whats found in python code?
             {
                 new_miner = new_miner.try_transform_miner(world,(Transform)(new_miner).try_transform(world));
             }
-            new_miner.schedule_action(world, new_miner.create_miner_action(world, i_store), current_ticks + new_miner.get_rate());
+            new_miner.schedule_action(world, new_miner.create_miner_action(world, imgs), current_ticks + new_miner.get_rate());
             return null;
         };
         return action[0];

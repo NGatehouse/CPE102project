@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class Scan extends PApplet
 {
     public static final String DEFAULT_IMAGE_NAME = "background_default";
-    private static final int DEFAULT_IMAGE_COLOR = 808080 wrong; //q this is wrong
+    //private static final int DEFAULT_IMAGE_COLOR = 808080; //q this is wrong
 
     private static final int MIN_ARGS = 1;
 
@@ -39,9 +39,15 @@ public class Scan extends PApplet
     private static List<PImage> blob_imgs = new ArrayList<PImage>();
     private static List<PImage> quake_imgs = new ArrayList<PImage>();
     private static List<PImage> bgnd_imgs = new ArrayList<PImage>();
+    private static PApplet paplet = new PApplet();
 
-
-
+    private static void add_to_occupancy(WorldModel world,On_Grid ent)
+    {
+        if (ent != null)
+        {
+            world.add_entity(ent);
+        }
+    }
     private static boolean verifyArguments(String [] args)
     {
         return args.length >= MIN_ARGS;
@@ -53,7 +59,7 @@ public class Scan extends PApplet
 
             String[] amige = in.nextLine().split("\\s"); // amige is image lolz
             String the_key = amige[0];
-            PImage file_location = loadImage(amige[1]);
+            PImage file_location = paplet.loadImage(amige[1]);
 
             if (amige[2] != null)
             {
@@ -131,9 +137,9 @@ public class Scan extends PApplet
             int x_cord = Integer.parseInt(entity[2]);
             int y_cord = Integer.parseInt(entity[3]);
             Point ent_p = new Point(x_cord,y_cord);
-            int resource_lim;
-            int the_rate;
-            int reach;
+            int resource_lim = -1;
+            int the_rate = -1;
+            int reach = -1;
             //i=3;
             if (entity[4] != null)
             {
@@ -156,7 +162,8 @@ public class Scan extends PApplet
             {
                 case MINER_KEY:
                 {
-                    Miner miner = new MinerNotFull(ent_name,ent_p,resource_lim,the_rate,reach,miner_imgs);
+                    Miner miner = new MinerNotFull(ent_name,resource_lim,ent_p,the_rate,miner_imgs,reach);
+                    add_to_occupancy(world,miner);
                     Utility.schedule_miner(world,miner,Utility.ticks,miner_imgs);
                     break;
                 }
@@ -174,6 +181,7 @@ public class Scan extends PApplet
                 case ORE_KEY:
                 {
                     Ore ore = new Ore(ent_name,ent_p,ore_imgs);
+                    add_to_occupancy(world,ore);
                     Utility.schedule_ore(world,ore,Utility.ticks,ore_imgs);
                     break;
                 }
@@ -185,6 +193,7 @@ public class Scan extends PApplet
                 case VEIN_KEY:
                 {
                     Vein vein = new Vein(ent_name,the_rate,ent_p,vein_imgs,resource_lim);
+                    add_to_occupancy(world,vein);
                     Utility.schedule_vein(world, vein,Utility.ticks,vein_imgs);
                     break;
                 }

@@ -10,7 +10,7 @@ public class WorldModel
     // fields
     private int num_rows;
     private int num_cols;
-    private List<Action> list = new ArrayList<Action>();
+    private List<ListItem> list = new ArrayList<ListItem>();
     private OrderedList action_queue;
     //private int background;
     //private int occupancy;

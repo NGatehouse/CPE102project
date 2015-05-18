@@ -14,8 +14,8 @@ import javax.management.BadAttributeValueExpException;
 public class Main extends PApplet
 {
     private static final boolean RUN_AFTER_LOAD = true;
-    private static final String IMAGE_LIST_FILE = "../data/imagelist";
-    private static final String WORLD_FILE = "../data/gaia.sav";
+    private static final String IMAGE_LIST_FILE = "./data/imagelist";
+    private static final String WORLD_FILE = "./data/gaia.sav";
 
     private static final int SCREEN_WIDTH = 640;
     private static final int SCREEN_HEIGHT = 480;
@@ -34,8 +34,8 @@ public class Main extends PApplet
     private WorldModel worldModel = new WorldModel(30,40);
     private final static int HEIGHT = 20;
     private final static int WIDTH = 15;
-    private PImage grass = loadImage("C:\\Users\\Luke\\cpe102\\experiment\\CPE102project\\images\\grass.bmp");
-    private PImage rock = loadImage("C:\\Users\\Luke\\cpe102\\experiment\\CPE102project\\images\\rock.bmp"); // Need to make images relative so Nick and Luke can use them
+ //   private PImage grass = loadImage("C:\\Users\\Luke\\cpe102\\experiment\\CPE102project\\images\\grass.bmp");
+ //   private PImage rock = loadImage("C:\\Users\\Luke\\cpe102\\experiment\\CPE102project\\images\\rock.bmp");
     public Point origin = new Point(0,0);
 
 /*

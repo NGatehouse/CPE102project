@@ -10,8 +10,8 @@ import java.util.Scanner;
 public class Scan extends PApplet
 {
     public static final String DEFAULT_IMAGE_NAME = "background_default";
-    //private static final int DEFAULT_IMAGE_COLOR = 808080; //q this is wrong
-
+    private static final int DEFAULT_IMAGE_COLOR = 808080; //q this is wrong
+    private static final int COLOR_MASK = 0xffffff;
     private static final int MIN_ARGS = 1;
 
     private static final String MINER_KEY = "miner";
@@ -79,9 +79,9 @@ public class Scan extends PApplet
         return bgnd_imgs;
     }
 
-    private static final int COLOR_MASK = 0xffffff;
 
-    // Called with color for which alpha should be set and alpha value.
+
+    // Called with color for which alpha should be set and alpha value1.
     //PImage img = setAlpha(loadImage("wyvern1.bmp"), color(255, 255, 255), 0));
     private static PImage setAlpha(PImage img, int maskColor, int alpha)
     {
@@ -122,17 +122,24 @@ public class Scan extends PApplet
             String[] amige = in.nextLine().split("\\s"); // amige is image lolz
             String the_key = amige[0];
             //System.out.println(amige[0]);
+            int r=DEFAULT_IMAGE_COLOR;
+            int g=DEFAULT_IMAGE_COLOR;
+            int b=DEFAULT_IMAGE_COLOR;
+            int a=DEFAULT_IMAGE_COLOR;
 
             PImage file_location = paplet.loadImage(amige[1]);
 
-
             if (amige.length > 2)
             {
-                int r= Integer.parseInt(amige[2]);
-                int g= Integer.parseInt(amige[3]);
-                int b= Integer.parseInt(amige[4]);
-                int a= Integer.parseInt(amige[5]);
+                r = Integer.parseInt(amige[2]);
+                g = Integer.parseInt(amige[3]);
+                b = Integer.parseInt(amige[4]);
+                a = Integer.parseInt(amige[5]);
+
+               // file_location = setAlpha(paplet.loadImage(amige[1]),color(r,g,b),a);
             }
+
+
 
 
             switch (the_key)

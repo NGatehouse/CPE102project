@@ -15,8 +15,8 @@ public class WorldModel
     //private int background;
     //private int occupancy;
     private List<On_Grid> entities = new ArrayList<On_Grid>();
-    private Grid background;
-    private Grid occupancy;
+    public Grid background;
+    public Grid occupancy;
     //private OrderedList<> = OrderedList(Action action);
 
 
@@ -42,7 +42,7 @@ public class WorldModel
             for (int dx=-distance; dx <= distance; dx++)
             {
                 Point new_pt = new Point(pt.get_x() + dx, pt.get_y() + dy);
-                if (this.within_bounds(new_pt) && !this.is_occupied(new_pt))
+                if (this.within_bounds(new_pt) && !(this.is_occupied(new_pt)))
                 {
                     return new_pt;
                 }
@@ -53,29 +53,29 @@ public class WorldModel
 
     public Point blob_next_position(Point entity_pt, Point dest_pt)  //coupling; solve later
     {
-        System.out.println(entity_pt.get_x());
-        System.out.println(entity_pt.get_y());
-        System.out.println("____________");
-        System.out.println(dest_pt.get_x());
-        System.out.println(dest_pt.get_y());
+        //System.out.println(entity_pt.get_x());
+        //System.out.println(entity_pt.get_y());
+        //System.out.println("____________");
+        //System.out.println(dest_pt.get_x());
+        //System.out.println(dest_pt.get_y());
 
         int horiz = Utility.sign(dest_pt.get_x() - entity_pt.get_x());
-        System.out.println("horiz" + horiz);
+        //System.out.println("horiz" + horiz);
         Point new_pt = new Point(entity_pt.get_x() + horiz, entity_pt.get_y());
         if (horiz == 0 || (this.is_occupied(new_pt) && !(this.get_tile_occupant(new_pt) instanceof Ore)))
         {
-            System.out.println("Into first if");
-            new_pt = new Point(entity_pt.get_x(), entity_pt.get_y());
+          //  System.out.println("Into first if");
             int vert = Utility.sign(dest_pt.get_y() - entity_pt.get_y());
+            new_pt = new Point(entity_pt.get_x(), entity_pt.get_y() + vert);
             if (vert == 0 || (this.is_occupied(new_pt) && !(this.get_tile_occupant(new_pt) instanceof Ore)))
             {
-                System.out.println("Into second if");
+            //    System.out.println("Into second if");
                 new_pt = new Point(entity_pt.get_x(), entity_pt.get_y());
             }
         }
-        System.out.println("____________");
-        System.out.println("newpt x = " + new_pt.get_x());
-        System.out.println("newpt y = " + new_pt.get_y());
+        //System.out.println("____________");
+        ///System.out.println("newpt x = " + new_pt.get_x());
+        //System.out.println("newpt y = " + new_pt.get_y());
 
         return new_pt;
     }
@@ -84,10 +84,11 @@ public class WorldModel
     {
         int horiz = Utility.sign(dest_pt.get_x() - entity_pt.get_x());
         Point new_pt = new Point(entity_pt.get_x() + horiz, entity_pt.get_y());
+
         if (horiz == 0 || (this.is_occupied(new_pt)))
         {
             int vert = Utility.sign(dest_pt.get_y() - entity_pt.get_y());
-            new_pt = new Point(entity_pt.get_x(), entity_pt.get_y());
+            new_pt = new Point(entity_pt.get_x(), entity_pt.get_y() + vert);
             if (vert == 0 || (this.is_occupied(new_pt)))
             {
                 new_pt = new Point(entity_pt.get_x(), entity_pt.get_y());
@@ -103,11 +104,11 @@ public class WorldModel
 
     public Boolean is_occupied(Point pt)
     {
-        System.out.println("______s________");
-        System.out.println("within bounds " + this.within_bounds(pt));
-        System.out.println("occ " + this.occupancy.get_cell(pt));
-        System.out.println((this.within_bounds(pt) && this.occupancy.get_cell(pt) != null));
-        System.out.println("______e________");
+        //System.out.println("______s________");
+        //System.out.println("within bounds " + this.within_bounds(pt));
+        //System.out.println("occ " + this.occupancy.get_cell(pt));
+        //System.out.println((this.within_bounds(pt) && this.occupancy.get_cell(pt) != null));
+        //System.out.println("______e________");
         return (this.within_bounds(pt) && this.occupancy.get_cell(pt) != null);
     }
 
@@ -157,7 +158,7 @@ public class WorldModel
         { return null; }
     }
 
-    public List get_entities()
+    public List<On_Grid> get_entities()
     {
         return this.entities;
     }
@@ -165,6 +166,7 @@ public class WorldModel
     public void add_entity(On_Grid entity)
     {
         Point pt = entity.get_position();
+        //System.out.println(pt.get_x() + " " + pt.get_y());
         if (this.within_bounds(pt))
         {
             On_Grid old_entity =  this.occupancy.get_cell(pt); //q
@@ -174,6 +176,7 @@ public class WorldModel
             }
             this.occupancy.set_cell(pt, entity);
             this.entities.add(entity);
+
         }
     }
 
@@ -196,7 +199,8 @@ public class WorldModel
 
     public void schedule_action(Action action, long time)
     {
-        this.action_queue.insert(action, 0);
+        this.action_queue.insert(action, time);
+        //System.out.println("timtimtimtimtimtimt" + time);
         //action is a functional interface, i.e. lambda, ordered by time in millsexs
     } //hash map instead of dictionary
 
@@ -212,7 +216,7 @@ public class WorldModel
         while (next != null && next.get_ord() < ticks)
         {
             this.action_queue.pop();
-            //tiles.add(next.get_item(ticks));
+            next.get_item().action(ticks);
             next = this.action_queue.head();
         }
         //return tiles;
@@ -226,7 +230,8 @@ public class WorldModel
         int i = 0;
         for (On_Grid e : this.entities)
         {
-            if (e.getClass() == ent)
+            //System.out.println(ent.toString() + "is it an " + e.getClass());
+            if (ent.isInstance(e))
             {
                 entList.add(e);
                 distsList.add(Utility.distance_sq(pt, e.get_position()));
@@ -234,7 +239,6 @@ public class WorldModel
             }
         }
         return Utility.nearest_entity(entList, distsList);
-
     }
 
     public PImage get_background_image(Point pt)

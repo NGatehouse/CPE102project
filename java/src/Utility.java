@@ -21,7 +21,7 @@ public class Utility
     private static final int QUAKE_DURATION = 1100;
     private static final int QUAKE_ANIMATION_RATE = 100;
 
-    private static final int VEIN_SPAWN_DELAY = 500;
+    private static final int VEIN_SPAWN_DELAY = 500; //may noy used
     private static final int VEIN_RATE_MIN = 8000;
     private static final int VEIN_RATE_MAX = 17000;
 
@@ -77,6 +77,7 @@ public class Utility
         }
         else
         {
+           // System.out.println("utility.nearest_entity, entityList is empty");
             return null;
         }
     }

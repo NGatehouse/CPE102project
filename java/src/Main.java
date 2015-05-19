@@ -33,12 +33,14 @@ public class Main extends PApplet
     private final int BGND_COLOR = color(550, 230, 245);
     private static final int ANIMATION_TIME = 100;
     private Grid[][] world = new Grid[15][20];
+    private Grid[][] backworld = new Grid[30][40];
     private WorldModel worldModel = new WorldModel(30,40);
     private final static int HEIGHT = 20;
     private final static int WIDTH = 15;
- //   private PImage grass = loadImage("C:\\Users\\Luke\\cpe102\\experiment\\CPE102project\\images\\grass.bmp");
+    private PImage grass = loadImage("images/grass.bmp");
  //   private PImage rock = loadImage("C:\\Users\\Luke\\cpe102\\experiment\\CPE102project\\images\\rock.bmp");
     public Point origin = new Point(0,0);
+
 
 /*
     public enum Grid
@@ -65,8 +67,57 @@ public class Main extends PApplet
     }
 */
 
+    public void draw_background(WorldModel world)
+    {
+        int yPix = SCREEN_HEIGHT/32;
+        int xPix = SCREEN_WIDTH/32;
+        Point newPoint = new Point(origin.get_x(),origin.get_y());
+        for (int i = 0; i < yPix; i++)
+        {
+            for (int j=0;j<xPix;j++)
+            {
+                image(world.background.get_cell(newPoint).get_image(),  newPoint.get_x()*32-origin.get_x()*32,  newPoint.get_y()*32-origin.get_y()*32);
+                newPoint.addTo_x(1);
+            }
+
+            newPoint.addTo_y(1);
+
+            newPoint.setX(origin.get_x());
+        }
+    }
+
+
+    public void draw_occupancy(WorldModel world)
+    {
+        int yPix = SCREEN_HEIGHT/32;
+        int xPix = SCREEN_WIDTH/32;
+        Point newPoint = new Point(origin.get_x(),origin.get_y());
+        for (int i=0;i<yPix;i++)
+        {
+            for (int j=0;j<xPix;j++)
+            {
+                for (On_Grid e:world.get_entities())
+                {
+                    if(e.get_position().get_x() == newPoint.get_x()  && e.get_position().get_y() ==newPoint.get_y() )
+                    {
+                        image(worldModel.occupancy.get_cell(e.get_position()).get_image(), e.get_position().get_x() * 32 - origin.get_x() * 32, e.get_position().get_y() * 32 - origin.get_y() * 32);
+                    }
+                    if (e.get_name() == "ore")
+                    {
+                        System.out.println("*******" + e.get_image());
+                    }
+                }
+                newPoint.addTo_x(1);
+            }
+            newPoint.addTo_y(1);
+
+            newPoint.setX(origin.get_x()); //ch
+        }
+    }
+
     public void setup()
     {
+
        // File world_file = null;
         //File image_list_file = null;
 
@@ -110,20 +161,31 @@ public class Main extends PApplet
         {
             if (keyCode == LEFT)
             {
-                origin.addTo_x(-1);
+                if (origin.get_x() > 0)
+                {
+                    origin.addTo_x(-1);
+                }
             }
             if (keyCode == RIGHT)
             {
-                origin.addTo_x(1);
+                if (origin.get_x() < 20) {
+                    origin.addTo_x(1);
+                }
             }
             if (keyCode == UP)
             {
-                origin.addTo_y(1);
+                if (origin.get_y() > 0) {
+
+                    origin.addTo_y(-1);
+                }
             }
             if (keyCode == DOWN)
             {
-                origin.addTo_y(-1);
+                if (origin.get_y() < 15) {
+                    origin.addTo_y(1);
+                }
             }
+
         }
     }
 
@@ -160,6 +222,12 @@ public class Main extends PApplet
      //           TILE_WIDTH, TILE_HEIGHT);
         int num_cols = 40;
         int num_rows = 30;
+       // image(, 0, 0);
+        draw_background(worldModel);
+        draw_occupancy(worldModel);
+        System.out.println(Scan.get_blob_images().size() +  "this is the blob images --------------------------------------");
+
+        //image(grass, 32,32);
         //num_cols = SCREEN_WIDTH // TILE_WIDTH * WORLD_WIDTH_SCALE
         //num_rows = SCREEN_HEIGHT // TILE_HEIGHT * WORLD_HEIGHT_SCALE
 
@@ -174,10 +242,12 @@ public class Main extends PApplet
 
        //         controller.activity_loop(view, world)
 
-        if (Utility.ticks >= next_time)
+        long ticks = System.currentTimeMillis();
+        if (ticks >= next_time)
         {
-            next_image();  //updater on ticks in project... instead of handle timer events
-            next_time = Utility.ticks + ANIMATION_TIME;
+            //next_image();  //updater on ticks in project... instead of handle timer events
+            worldModel.update_on_time(ticks);
+            next_time = ticks + ANIMATION_TIME;
         }
     }
 /*

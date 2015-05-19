@@ -11,7 +11,7 @@ public class OrderedList
         this.list = list;
 
     }
-    public void insert(Action item, int ord)
+    public void insert(Action item, long ord)
     {
         int size = this.list.size();
         int idx = 0;
@@ -19,7 +19,7 @@ public class OrderedList
         {
             idx++;
         }
-        this.list.add(idx+1,new ListItem(item,ord)); // -q what is goin on here exactly?
+        this.list.add(idx,new ListItem(item,ord)); // -q what is goin on here exactly?v  //changed from idx+1 to idx
 
         
 
@@ -27,10 +27,15 @@ public class OrderedList
     public void remove(Action item)
     {
         int size = this.list.size();
+        System.out.println("Size of list: " + size);
         int idx = 0;
-        for(; idx < size && this.list.get(idx).get_item() != item;idx++) // was .item before
-        if (idx < size)
-        {
+        //for(; idx < size && this.list.get(idx).get_item() != item;idx++) // was .item before
+        while (idx < size && this.list.get(idx).get_item() != item) {
+            idx++;
+        }
+
+        if (idx < size) {
+            System.out.println("idx: " + idx);
             this.list.remove(idx);
         }
     }

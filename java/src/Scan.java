@@ -1,6 +1,3 @@
-/**
- * Created by Nicholas on 5/10/2015.
- */
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -29,7 +26,7 @@ public class Scan extends PApplet
     private static final String ROCKS_KEY = "rocks";
 
 
-    private static List<PImage> miner_imgs = new ArrayList<PImage>();
+    public static List<PImage> miner_imgs = new ArrayList<PImage>();
     private static List<PImage> blacksmith_imgs = new ArrayList<PImage>();
     private static List<PImage> rocks_imgs = new ArrayList<PImage>();
     private static List<PImage> grass_imgs = new ArrayList<PImage>();
@@ -41,6 +38,68 @@ public class Scan extends PApplet
     private static List<PImage> bgnd_imgs = new ArrayList<PImage>();
     private static PApplet paplet = new PApplet();
 
+    public static List<PImage> get_miner_images()
+    {
+        return miner_imgs;
+    }
+    public static List<PImage> get_blacksmith_images()
+    {
+        return blacksmith_imgs;
+    }
+    public static List<PImage> get_rocks_images()
+    {
+        return rocks_imgs;
+    }
+    public static List<PImage> get_grass_images()
+    {
+        return grass_imgs;
+    }
+    public static List<PImage> get_ore_images()
+    {
+        return ore_imgs;
+    }
+    public static List<PImage> get_vein_images()
+    {
+        return vein_imgs;
+    }
+    public static List<PImage> get_obastacle_images()
+    {
+        return obstacle_imgs;
+    }
+    public static List<PImage> get_blob_images()
+    {
+        return blob_imgs;
+    }
+    public static List<PImage> get_quake_images()
+    {
+        return quake_imgs;
+    }
+    public static List<PImage> get_bgnd_images()
+    {
+        return bgnd_imgs;
+    }
+
+    private static final int COLOR_MASK = 0xffffff;
+
+    // Called with color for which alpha should be set and alpha value.
+    //PImage img = setAlpha(loadImage("wyvern1.bmp"), color(255, 255, 255), 0));
+    private static PImage setAlpha(PImage img, int maskColor, int alpha)
+    {
+        int alphaValue = alpha << 24;
+        int nonAlpha = maskColor & COLOR_MASK;
+        img.format = PApplet.ARGB;
+        img.loadPixels();
+        for (int i = 0; i < img.pixels.length; i++)
+        {
+            if ((img.pixels[i] & COLOR_MASK) == nonAlpha)
+            {
+                img.pixels[i] = alphaValue | nonAlpha;
+            }
+        }
+        img.updatePixels();
+        return img;
+    }
+
     private static void add_to_occupancy(WorldModel world,On_Grid ent)
     {
         if (ent != null)
@@ -48,10 +107,13 @@ public class Scan extends PApplet
             world.add_entity(ent);
         }
     }
+
     private static boolean verifyArguments(String [] args)
     {
         return args.length >= MIN_ARGS;
     }
+
+
 
     public static void get_imgs(Scanner in) {
         while (in.hasNextLine())
@@ -59,19 +121,18 @@ public class Scan extends PApplet
 
             String[] amige = in.nextLine().split("\\s"); // amige is image lolz
             String the_key = amige[0];
-            System.out.println(amige[0]);
+            //System.out.println(amige[0]);
 
             PImage file_location = paplet.loadImage(amige[1]);
 
-            if (amige[2] != null)
+
+            if (amige.length > 2)
             {
                 int r= Integer.parseInt(amige[2]);
                 int g= Integer.parseInt(amige[3]);
                 int b= Integer.parseInt(amige[4]);
                 int a= Integer.parseInt(amige[5]);
             }
-
-
 
 
             switch (the_key)
@@ -93,7 +154,7 @@ public class Scan extends PApplet
                 }
                 case DEFAULT_IMAGE_NAME:
                 {
-                    bgnd_imgs.add(file_location);
+                  blob_imgs.add(file_location);
                 }
                 case ORE_KEY:
                 {
@@ -120,16 +181,18 @@ public class Scan extends PApplet
                     blob_imgs.add(file_location);
                     break;
                 }
-
-
-
-
+                case OBSTACLE_KEY:
+                {
+                    obstacle_imgs.add(file_location);
+                    break;
+                }
             }
         }
     }
+
+
     public static void create_ents(Scanner in,WorldModel world) // pass in a worldmodel?
     {
-
         while (in.hasNextLine())
         {
             //int i =0;
@@ -143,22 +206,25 @@ public class Scan extends PApplet
             int the_rate = -1;
             int reach = -1;
             //i=3;
-            if (entity[4] != null)
+            //System.out.println("----" + entity.length);
+            if (entity.length >= 5)
             {
                 resource_lim = Integer.parseInt(entity[4]);
+                //System.out.println("--------" );
                 //i =4;
-                if (entity[5] != null)
+                if (entity.length >= 6)
                 {
                      the_rate = Integer.parseInt(entity[5]);
+                    System.out.println("--------" +the_rate);
                     //i = 5;
-                    if (entity[6] != null)
+                    if (entity.length >= 7)
                     {
                          reach = Integer.parseInt(entity[6]);
+                        //System.out.println("--" + reach);
                         //i=6;
                     }
                 }
             }
-
 
             switch(class_type) //q gotta be more we have to do here..
             {
@@ -171,40 +237,51 @@ public class Scan extends PApplet
                 }
                 case BGND_KEY:
                 {
-                    Background background = new Background(ent_name,ent_p, bgnd_imgs);
-                    world.set_background(ent_p,background); // why cant we make world work
+                    switch(ent_name)
+                    {
+                        case "grass":
+                        {
+                            Background background = new Background(ent_name,ent_p, grass_imgs);
+                            world.set_background(ent_p,background); // why cant we make world work
+                            break;
+                        }
+                        case "rocks": {
+                            Background background = new Background(ent_name,ent_p, rocks_imgs);
+                            world.set_background(ent_p,background); // why cant we make world work
+                            break;
+                        }
+                    }
+
                     break;
                 }
                 case OBSTACLE_KEY:
                 {
-                    Obstacle obastacle = new Obstacle(ent_name,ent_p,obstacle_imgs);
+                    Obstacle obstacle = new Obstacle(ent_name,ent_p,obstacle_imgs);
+                    add_to_occupancy(world,obstacle);
                     break;
                 }
                 case ORE_KEY:
                 {
-                    Ore ore = new Ore(ent_name,ent_p,ore_imgs);
+                    Ore ore = Utility.create_ore(world,ent_name, ent_p, the_rate, blob_imgs);
                     add_to_occupancy(world,ore);
-                    Utility.schedule_ore(world,ore,Utility.ticks,ore_imgs);
+
                     break;
                 }
                 case SMITH_KEY:
                 {
                     Blacksmith blacksmith = new Blacksmith(ent_name,ent_p,blacksmith_imgs,resource_lim,the_rate);
+                    add_to_occupancy(world,blacksmith);
                     break;
                 }
                 case VEIN_KEY:
                 {
-                    Vein vein = new Vein(ent_name,the_rate,ent_p,vein_imgs,resource_lim);
+                    Vein vein = Utility.create_vein(world, ent_name, ent_p, Utility.ticks, vein_imgs);
                     add_to_occupancy(world,vein);
-                    Utility.schedule_vein(world, vein,Utility.ticks,vein_imgs);
+                    Utility.schedule_vein(world, vein, Utility.ticks,ore_imgs);
                     break;
                 }
-
             }
-
         }
-
-
     }
 
    /* public static void main(String [] args)

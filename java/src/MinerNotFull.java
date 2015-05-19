@@ -2,7 +2,8 @@ import processing.core.PImage;
 
 import java.util.List;
 
-public class MinerNotFull extends Miner implements Action_manager , Animation_manager
+public class
+        MinerNotFull extends Miner implements Action_manager , Animation_manager, Transform
 {
     private int resource_count;
     public MinerNotFull(String name,int resource_limit,Point position,int rate,List<PImage> imgs,int animation_rate)
@@ -26,7 +27,7 @@ public class MinerNotFull extends Miner implements Action_manager , Animation_ma
     public boolean _to_other(WorldModel world, Ore ore) // whats the return type..tuple?
     {
         Point entity_pt = this.get_position();
-        if (ore != null)
+        if (ore == null)
         {
             return false;
         }
@@ -39,7 +40,8 @@ public class MinerNotFull extends Miner implements Action_manager , Animation_ma
         }
         else
         {
-            Point new_pt = world.next_position(entity_pt,ore_pt);
+            Point new_pt = world.next_position(entity_pt, ore_pt);
+            world.move_entity(this, new_pt);
             return false;
         }
     }
@@ -53,11 +55,13 @@ public class MinerNotFull extends Miner implements Action_manager , Animation_ma
             this.remove_pending_actions(action[0]);
             Point entity_pt = this.get_position();
             Ore ore = (Ore)world.find_nearest(entity_pt, Ore.class);
+            System.out.println("ore:" + ore);
             boolean found = this._to_other(world, ore); //q
+            System.out.println("found:" + found);
             Miner new_miner = this;
             if(found)//whats found in python code?
             {
-                new_miner = new_miner.try_transform_miner(world,(Transform)(new_miner).try_transform(world));
+                new_miner = new_miner.try_transform_miner(world, (Transform)(new_miner).try_transform(world));
             }
             new_miner.schedule_action(world, new_miner.create_miner_action(world, imgs), current_ticks + new_miner.get_rate());
             return null;

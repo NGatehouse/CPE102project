@@ -1,0 +1,127 @@
+____________________________________________________________________
+                         --- Assignment 4 ---
+--  All entities.
+• All actions (triggered by time; see System.getCurrentTimeMillis).
+• Displaying the world with sprites (with the image list loaded from a file).
+• Moving the viewport.
+• Loading the world from a file.
+• Entity movement.
+
+--  Removed Functionality
+Your translated project will not include the builder portion of the original project. Your translation is not
+required to include the colored square under the mouse pointer.
+
+
+1. GUI (WorldView.py)
+    - No Mouse hover functionality
+    - mouse_buttons.py is just enums
+    - key.py is dictionary
+    - NO builder.py or builder_controller.py
+
+Over Weekend
+  Nick
+    Image_store.py
+    Ordered_lists.py
+    Save_Load.py (start)
+  Luke
+    WorldView.py
+    Controller.py (start) (don't do activity_loop)
+
+---DONE----
+occ_grid.py
+point.py
+
+this.position = super(position)
+
+____________________________________________________________________
+Hi Nick,
+
+I found the best way to add files is to do the following:
+
+1. Right click on "src" > New > Java Class
+2. Name the class
+3. Copy and paste Java file into the empty project class file
+
+Once we both have our files in the project, then we should be able to
+ use Git to seamlessly sync files.
+
+Also, when I "added" the files to our repository, I had to use the following command.
+I am not sure if we will continue to have to use it. There probably is a recursive
+way to do this.
+
+    git add java/* java/.idea/* java/.idea/.name/*
+
+To add all files and subdirectories, recursively:
+
+    git add .
+
+To add all files except workspace.xml and then commit
+
+    git add . && git rm -f java/.idea/workspace.xml && git commit
+    git add . ; git rm -f java/.idea/workspace.xml ; git commit
+
+To do all of above plus ignore "out" files:
+
+    git add . && git rm -f -r java/.idea/workspace.xml &&  git rm -f -r java/out/*  && git commit
+    git add . ; git rm -f -r java/.idea/workspace.xml ; git rm -f -r java/out/*  ; git commit
+
+Thanks!
+Luke
+
+questions:
+1. how to make a constant in java... mining, vein.  do they get passed on through inheritance or no?
+2. ask about minernotfull/minerfull... specifically return([entity_pt], False)   just return True or False
+4. actions.py sign and adjacent should we implement now? it affects next_position and blob_next_position in worldmodel
+5. background and occupancy 2d array.
+
+you can also in this part of the code make a list of entity.. compute distances as
+
+next questions 5/11:
+1. how should i represent item in OrderedList.java, also line 22 confusion... define an interface called action that has the action method as a contract
+2. in image store there is alot of pygame. references. where do i look for that , look at processing  look at lab,  for everything talks about pygame function called blit
+3. are we going to be going over file I/O in class or should i teach my self that in java? scanner link in assignment 4
+4. in image_store.py says images = {} empty dictionay? ... what is {}? represented in java... look in one of these labs
+5. attrs is that an ArrayList of type String? String []
+6. ListItem, should i be redefining equals method?
+7. what is hasattr in Action_manager.py? // in java instance of check,
+8. says i need to declare something abstract to use an interface? "Quake"
+
+next Q's 5/12:
+1. if On_Grid implements action_manager... will those methods defined in On_Grid be inherited by everything else? or will the code know the difference between the interface contracted methods and the class defined methods.
+............................................ 5/12 again
+2. in Quake ask about instance of// everything is going to have pending actions that we call this method on
+3.create_entity_death_action.. lamda? // yes, look at code he posted for help
+4. will making get_position in action manager be bad code? // necessary evil
+5. in quake why is action_manager not implementing? // fixed, misname
+
+next Q's 5/13:
+1. confused about pending actions and current image and how they are inherited since they are constants.
+2. in ordered list am i doing remove correctly?
+3.what is going on in create animation action?
+4. actions.py create and schedule
+not to self still need to add all the image data, File I/O, and lamda's, and actions.py create_ and schedule_,
+ look at tabs you have open and LEEEAAARRRNN :D
+
+ next Q's 5/13 - 5/14; LUUUUUUUUUUUUUUUUUUKE ask these 3 questions
+
+ 2. in miner full ask about to_other specificlly the return statements
+ NOTE TO SELF!!! still need to go through entities (like miners) and do specific functions like create_actor_motion
+ - also change try transforms and other entity creations to match new data of pending actions or imgs etc.
+ - and also make sure everything implements action/animation manager
+ 3.in create_actor motion what is (tiles,found)
+ -LUKE: needs to do fins_nearest in worldmodel // answer: it was turned into nearest_entity in utility
+ - also you need to move all constants from entities.py into corresponding entities
+
+last Q's:
+done 1. in email you said i should make create_actor_motion an abstract method instead of returning null... not sure how to do this still wants me to return something // resolved in miner class at bottom
+!!!!2. creating new quake in OreBlob? // unresolved is it just entity_pt?
+!!!!3.*Blacksmith smith = (Blacksmith)world.find_nearest(entity_pt, Blacksmith.class);* in minerfull, is this right?
+what is :: exactly?
+4. so in scanner we are creating the entities and scheduling them what do we do after?
+done 5. in Scan problem with scope possibly?
+9. what do we do for the colors like setAlpha and r,g,b
+11.not using vein respawn delay?
+12.we made an instance of PApllet in scanner is that right?
+13. do we even need entity string?
+
+ NOTE: compiler errors in tutoring and logic errors in office hours

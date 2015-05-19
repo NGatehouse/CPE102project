@@ -39,14 +39,16 @@ public class OreBlob extends Actor implements Animation_manager
     {
         this.schedule_action(world,this.create_animation_action(world,repeat_count),this.get_animation_rate());
     }
+
     public void schedule_animation(WorldModel world)
     {
         this.schedule_action(world,this.create_animation_action(world,0),this.get_animation_rate());
     }
+
     public boolean _to_other(WorldModel world,Vein vein)
     {
         Point entity_pt = this.get_position();
-        if (vein != null)
+        if (vein == null)
         {
             return false; //don't return tuple just boolean
         }
@@ -68,6 +70,7 @@ public class OreBlob extends Actor implements Animation_manager
             return false; //q was being returned in python code
         }
     }
+
     public Action create_actor_motion(WorldModel world, List<PImage> imgs)
     {
         Action[] action = {null};
@@ -75,7 +78,9 @@ public class OreBlob extends Actor implements Animation_manager
         {
             this.remove_pending_actions(action[0]);
             Point entity_pt = this.get_position();
+           // System.out.println("__________________"+entity_pt.get_x());
             Vein vein = (Vein)world.find_nearest(entity_pt, Vein.class);
+            System.out.println("__________________"+vein.entity_string());
             boolean found = this._to_other(world, vein);
             long next_time = current_ticks + (long)this.get_rate();
             if(found)

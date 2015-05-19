@@ -1,6 +1,7 @@
 import processing.core.PApplet;
 import processing.core.PImage;
 
+import java.awt.*;
 import java.io.*;
 
 import java.util.ArrayList;
@@ -122,10 +123,10 @@ public class Scan extends PApplet
             String[] amige = in.nextLine().split("\\s"); // amige is image lolz
             String the_key = amige[0];
             //System.out.println(amige[0]);
-            int r=DEFAULT_IMAGE_COLOR;
-            int g=DEFAULT_IMAGE_COLOR;
-            int b=DEFAULT_IMAGE_COLOR;
-            int a=DEFAULT_IMAGE_COLOR;
+            int r = DEFAULT_IMAGE_COLOR;
+            int g = DEFAULT_IMAGE_COLOR;
+            int b = DEFAULT_IMAGE_COLOR;
+            int a = DEFAULT_IMAGE_COLOR;
 
             PImage file_location = paplet.loadImage(amige[1]);
 
@@ -135,8 +136,9 @@ public class Scan extends PApplet
                 g = Integer.parseInt(amige[3]);
                 b = Integer.parseInt(amige[4]);
                 a = Integer.parseInt(amige[5]);
-
-               // file_location = setAlpha(paplet.loadImage(amige[1]),color(r,g,b),a);
+                Color rgb = new Color(r,g,b); //Keen, I tried passing as second param but needs int
+                file_location = setAlpha(paplet.loadImage(amige[1]), 255, a);
+                //Keen: says color can't be referenced from a static context
             }
 
 

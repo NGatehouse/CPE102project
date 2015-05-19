@@ -104,7 +104,7 @@ public class Main extends PApplet
                     }
                     if (e.get_name() == "ore")
                     {
-                        System.out.println("*******" + e.get_image());
+                       // System.out.println("*******" + e.get_image());
                     }
                 }
                 newPoint.addTo_x(1);

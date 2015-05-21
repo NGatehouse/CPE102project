@@ -10,6 +10,7 @@ public class OreBlob extends Actor implements Animation_manager
     {
         super(name,position,rate,imgs);
         this.animation_rate = animation_rate;
+
     }
 
     public int get_animation_rate()
@@ -79,18 +80,23 @@ public class OreBlob extends Actor implements Animation_manager
             this.remove_pending_actions(action[0]);
             Point entity_pt = this.get_position();
            // System.out.println("__________________"+entity_pt.get_x());
-            Vein vein = (Vein)world.find_nearest(entity_pt, Vein.class);
-            System.out.println("__________________"+vein.entity_string());
-            boolean found = this._to_other(world, vein);
-            long next_time = current_ticks + (long)this.get_rate();
-            if(found)
-            {
-                Quake quake = Utility.create_quake(world,entity_pt,current_ticks,imgs);
-                world.add_entity(quake);
-                next_time = current_ticks + (long)this.get_rate()*2;
+            Vein vein = (Vein)world.find_nearest(entity_pt, Vein.class); // not recognizing veis existance
+            Point vein_pt = null;
+
+            if (vein != null) {
+                vein_pt = vein.get_position();
             }
-            this.schedule_action(world,this.create_actor_motion(world,imgs),next_time);
-            return null;
+                boolean found = this._to_other(world, vein);
+                long next_time = current_ticks + (long) this.get_rate();
+                if (found) {
+                    Quake quake = Utility.create_quake(world, vein_pt, current_ticks, Scan.get_quake_images());
+                    world.add_entity(quake);
+                    next_time = current_ticks + (long) this.get_rate() * 2;
+                }
+                this.schedule_action(world, this.create_actor_motion(world, imgs), next_time);
+
+                return null;
+
         };
         return action[0];
     }

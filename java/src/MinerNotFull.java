@@ -61,7 +61,7 @@ public class
             Miner new_miner = this;
             if(found)//whats found in python code?
             {
-                new_miner = new_miner.try_transform_miner(world, (Transform)(new_miner).try_transform(world));
+                new_miner = new_miner.try_transform_miner(world, new_miner::try_transform);
             }
             new_miner.schedule_action(world, new_miner.create_miner_action(world, imgs), current_ticks + new_miner.get_rate());
             return null;

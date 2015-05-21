@@ -136,8 +136,8 @@ public class Scan extends PApplet
                 g = Integer.parseInt(amige[3]);
                 b = Integer.parseInt(amige[4]);
                 a = Integer.parseInt(amige[5]);
-                Color rgb = new Color(r,g,b); //Keen, I tried passing as second param but needs int
-                file_location = setAlpha(paplet.loadImage(amige[1]), 255, a);
+                int rgb = paplet.color(r,g,b); //Keen, I tried passing as second param but needs int
+                file_location = setAlpha(paplet.loadImage(amige[1]), rgb, a);
                 //Keen: says color can't be referenced from a static context
             }
 
@@ -163,7 +163,7 @@ public class Scan extends PApplet
                 }
                 case DEFAULT_IMAGE_NAME:
                 {
-                  blob_imgs.add(file_location);
+                  bgnd_imgs.add(file_location);
                 }
                 case ORE_KEY:
                 {
@@ -271,8 +271,9 @@ public class Scan extends PApplet
                 }
                 case ORE_KEY:
                 {
-                    Ore ore = Utility.create_ore(world,ent_name, ent_p, the_rate, blob_imgs);
-                    add_to_occupancy(world,ore);
+                    Ore ore = new Ore(ent_name, ent_p, the_rate, ore_imgs);
+                    Utility.schedule_ore(world,ore,the_rate,blob_imgs);
+                    add_to_occupancy(world, ore);
 
                     break;
                 }

@@ -56,13 +56,15 @@ public class Utility
 
     public static double distance_sq(Point p1, Point p2)   //static method
     {
-        return Math.pow((p1.get_x() - p2.get_y()),2) + Math.pow((p1.get_y() - p2.get_y()),2);
+        return Math.pow((p1.get_x() - p2.get_x()),2) + Math.pow((p1.get_y() - p2.get_y()),2);
     }
 
     public static On_Grid nearest_entity(List<On_Grid> entList, List<Double> distsList)  //static method
     {
+
         if (entList.size() > 0)
         {
+            int j = 0;
             double dists = distsList.get(0);
             int i=0;
             for (double other : distsList)
@@ -70,10 +72,11 @@ public class Utility
                 if (other < dists)
                 {
                     dists = other;
+                    j = i;
                 }
                 i++;
             }
-            return entList.get(i-1);
+            return entList.get(j);
         }
         else
         {
@@ -103,7 +106,7 @@ public class Utility
     {
         Ore ore = new Ore(name, point,
                 randInt(ORE_CORRUPT_MIN, ORE_CORRUPT_MAX),imgs);
-        schedule_ore(world,ore, ticks, imgs);
+        schedule_ore(world,ore, ticks, Scan.get_blob_images());
         return ore;
     }
     public static void schedule_ore(WorldModel world, Ore ore, long ticks, List<PImage> imgs)

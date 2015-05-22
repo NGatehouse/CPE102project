@@ -224,7 +224,7 @@ public class Scan extends PApplet
                 if (entity.length >= 6)
                 {
                      the_rate = Integer.parseInt(entity[5]);
-                    System.out.println("--------" +the_rate);
+                    //System.out.println("--------" +the_rate);
                     //i = 5;
                     if (entity.length >= 7)
                     {

@@ -143,15 +143,15 @@ public class Main extends PApplet
         Scan.create_ents(w_scanner, worldModel);
         size(SCREEN_WIDTH, SCREEN_HEIGHT);
         background(BGND_COLOR);
-        System.out.println(world.length);
+       // System.out.println(world.length);
         imgs = new ArrayList<PImage>();
 
 
         current_image = 0;
         next_time = System.currentTimeMillis() + ANIMATION_TIME;
       //  tiles();
-        System.out.println(world.length);
-        System.out.println(world[0].length);
+       // System.out.println(world.length);
+        //System.out.println(world[0].length);
 
     }
 
@@ -225,7 +225,7 @@ public class Main extends PApplet
        // image(, 0, 0);
         draw_background(worldModel);
         draw_occupancy(worldModel);
-        System.out.println(Scan.get_blob_images().size() +  "this is the blob images --------------------------------------");
+        //System.out.println(Scan.get_blob_images().size() +  "this is the blob images --------------------------------------");
 
         //image(grass, 32,32);
         //num_cols = SCREEN_WIDTH // TILE_WIDTH * WORLD_WIDTH_SCALE

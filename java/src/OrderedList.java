@@ -27,7 +27,7 @@ public class OrderedList
     public void remove(Action item)
     {
         int size = this.list.size();
-        System.out.println("Size of list: " + size);
+        //System.out.println("Size of list: " + size);
         int idx = 0;
         //for(; idx < size && this.list.get(idx).get_item() != item;idx++) // was .item before
         while (idx < size && this.list.get(idx).get_item() != item) {
@@ -35,7 +35,7 @@ public class OrderedList
         }
 
         if (idx < size) {
-            System.out.println("idx: " + idx);
+            //System.out.println("idx: " + idx);
             this.list.remove(idx);
         }
     }

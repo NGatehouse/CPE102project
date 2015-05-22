@@ -55,9 +55,9 @@ public class
             this.remove_pending_actions(action[0]);
             Point entity_pt = this.get_position();
             Ore ore = (Ore)world.find_nearest(entity_pt, Ore.class);
-            System.out.println("ore:" + ore);
+            //System.out.println("ore:" + ore);
             boolean found = this._to_other(world, ore); //q
-            System.out.println("found:" + found);
+            //System.out.println("found:" + found);
             Miner new_miner = this;
             if(found)//whats found in python code?
             {

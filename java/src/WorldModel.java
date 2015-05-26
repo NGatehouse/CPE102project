@@ -32,6 +32,14 @@ public class WorldModel
         this.action_queue = new OrderedList(list);
 
     }
+    public int get_num_rows()
+    {
+        return this.num_rows;
+    }
+    public int get_num_cols()
+    {
+        return this.num_cols;
+    }
 
     // methods
 

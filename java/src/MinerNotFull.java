@@ -34,14 +34,14 @@ public class
 
     public boolean miner_NF_dfs(Point pt, WorldModel world, List<Point> path)
     {
-        System.out.println(world.within_bounds(pt) + ": that it is in bounds");
+        //System.out.println(world.within_bounds(pt) + ": that it is in bounds");
         Grid Visited = new Grid(world.get_num_cols(),world.get_num_rows());
 
         if (!(world.within_bounds(pt)))
         {
             return false;
         }
-        System.out.println(pt.get_x() + "x" + pt.get_y() + "y" + ": we will find you!");
+       // System.out.println(pt.get_x() + "x" + pt.get_y() + "y" + ": we will find you!");
         if (world.occupancy.get_cell(pt) == world.find_nearest(pt, Ore.class) ) //q
         {
             path.add(0,pt); // why is this here
@@ -51,12 +51,12 @@ public class
         {
             return false;
         }
-        //if (world.occupancy.get_cell(pt) == Visited.get_cell(pt))
-        //{
-         //   return false;
-        //
+        if (world.occupancy.get_cell(pt) == Visited.get_cell(pt))
+        {
+            return false;
+        }
 
-        //Visited.set_cell(pt, world.occupancy.get_cell(pt));
+        Visited.set_cell(pt, world.occupancy.get_cell(pt));
         boolean found = miner_NF_dfs(new Point(pt.get_x(),pt.get_y()+1),world,path) ||
                 miner_NF_dfs(new Point(pt.get_x()+1,pt.get_y()),world,path) ||
                 miner_NF_dfs(new Point(pt.get_x()-1,pt.get_y()),world,path) ||

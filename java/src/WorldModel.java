@@ -107,7 +107,7 @@ public class WorldModel
 
     public Boolean within_bounds(Point pt)
     {
-        return (pt.get_x() >= 0 && pt.get_x() < this.num_cols && pt.get_y() >= 0 && pt.get_y() < this.num_cols);
+        return (pt.get_x() >= 0 && pt.get_x() < this.num_cols && pt.get_y() >= 0 && pt.get_y() < this.num_rows);
     }
 
     public Boolean is_occupied(Point pt)

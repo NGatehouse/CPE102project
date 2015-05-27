@@ -231,23 +231,48 @@ public class WorldModel
     }
 
     public On_Grid find_nearest(Point pt, Class<?> ent) //q
+   {
+
+    List<On_Grid> entList = new LinkedList<On_Grid>();
+    List<Double> distsList = new LinkedList<Double>();
+
+
+    for (On_Grid e : this.entities)
     {
+
+        //System.out.println(ent.toString() + "is it an " + e.getClass());
+        if (ent.isInstance(e))
+        {
+            entList.add(e);
+            distsList.add(Utility.distance_sq(pt, e.get_position()));
+        }
+    }
+    return Utility.nearest_entity(entList, distsList);
+    }
+    public On_Grid find_nearest_not_self(Point pt, Class<?> ent) //q
+    {
+
         List<On_Grid> entList = new LinkedList<On_Grid>();
         List<Double> distsList = new LinkedList<Double>();
 
-        int i = 0;
+
         for (On_Grid e : this.entities)
         {
+
             //System.out.println(ent.toString() + "is it an " + e.getClass());
             if (ent.isInstance(e))
             {
-                entList.add(e);
-                distsList.add(Utility.distance_sq(pt, e.get_position()));
-                i++;
+                if(!(e.get_position().equals(pt)))
+                {
+                    entList.add(e);
+                    distsList.add(Utility.distance_sq(pt, e.get_position()));
+                }
+
             }
         }
         return Utility.nearest_entity(entList, distsList);
     }
+
 
     public PImage get_background_image(Point pt)
     {

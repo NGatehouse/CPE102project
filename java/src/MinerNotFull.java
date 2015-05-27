@@ -10,15 +10,14 @@ public class
     private int resource_count;
     private List<Point> path = new ArrayList<Point>();
 
+
     public MinerNotFull(String name,int resource_limit,Point position,int rate,List<PImage> imgs,int animation_rate)
     {
         super(name,resource_limit,position,rate,imgs,animation_rate);
         this.resource_count=0;
     }
-    public List<Point> get_path()
-    {
-        return this.path;
-    }
+
+
     public Miner try_transform(WorldModel world)
     {
         if(this.get_resource_count() < this.get_resource_limit())
@@ -32,54 +31,198 @@ public class
 
     }
 
-    public boolean miner_NF_dfs(Point pt, WorldModel world, List<Point> path)
+    public boolean miner_NF_dfs(Point pt, WorldModel world, List<Point> path,boolean[][] visited)
     {
-        //System.out.println(world.within_bounds(pt) + ": that it is in bounds");
-        Grid Visited = new Grid(world.get_num_cols(),world.get_num_rows());
-
         if (!(world.within_bounds(pt)))
         {
             return false;
         }
-       // System.out.println(pt.get_x() + "x" + pt.get_y() + "y" + ": we will find you!");
-        if (world.occupancy.get_cell(pt) == world.find_nearest(pt, Ore.class) ) //q
+
+        if (world.occupancy.get_cell(pt) != null && world.find_nearest(pt, Ore.class)!= null && world.occupancy.get_cell(pt).get_position().equals(world.find_nearest(pt, Ore.class).get_position())) // problem is here
         {
-            path.add(0,pt); // why is this here
             return true;
         }
-        if (world.occupancy.get_cell(pt) == world.find_nearest(pt,Obstacle.class))
+        if(world.find_nearest(pt,OreBlob.class) != null)
+        {
+            if(world.occupancy.get_cell(pt)!=null && world.occupancy.get_cell(pt).get_position().equals(world.find_nearest(pt, OreBlob.class).get_position()))
+            {
+                return false;
+            }
+        }
+        if(world.occupancy.get_cell(pt) != null && world.occupancy.get_cell(pt).get_position().equals(world.find_nearest_not_self(pt,Miner.class).get_position()))
+        {
+           return false;
+        }
+        if (world.occupancy.get_cell(pt) != null && world.find_nearest(pt,Vein.class) != null
+                &&( world.occupancy.get_cell(pt).get_position().equals(world.find_nearest(pt,Obstacle.class).get_position())
+                || world.occupancy.get_cell(pt).get_position().equals(world.find_nearest(pt,Vein.class).get_position())
+                || world.occupancy.get_cell(pt).get_position().equals(world.find_nearest(pt,Blacksmith.class).get_position()))) // we need to check for everything not just obstacles
         {
             return false;
         }
-        if (world.occupancy.get_cell(pt) == Visited.get_cell(pt))
+        if (visited[pt.get_y()][pt.get_x()]) // goes in here alot............. q
         {
+            //System.out.println("visited..");
             return false;
+        }
+        visited[pt.get_y()][pt.get_x()]= true;
+        boolean found = false;
+
+        if(pt.get_x() >= world.get_num_cols()/2+1 && pt.get_y() >= world.get_num_rows()/2+1 ) //bottom right
+        {
+            if(pt.get_x() >= 36 ) // far bottom x right
+            {
+                found = miner_NF_dfs( new Point(pt.get_x()-1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(),pt.get_y()+1),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(),pt.get_y()-1),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()+1,pt.get_y()),world,path,visited);
+            }
+            else if(pt.get_y() <= 5) // far bottom y right
+            {
+                found = miner_NF_dfs( new Point(pt.get_x(),pt.get_y()-1),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()+1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()-1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(),pt.get_y()+1),world,path,visited);
+            }
+            else if (pt.get_x() >= 36 && pt.get_y() <=5) // top right corner
+            {
+                found = miner_NF_dfs( new Point(pt.get_x(),pt.get_y()-1),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()-1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()+1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(),pt.get_y()+1),world,path,visited);
+            }
+            else // regular top left
+            {
+                found = miner_NF_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited) ||
+                        miner_NF_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
+                        miner_NF_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited);
+            }
         }
 
-        Visited.set_cell(pt, world.occupancy.get_cell(pt));
-        boolean found = miner_NF_dfs(new Point(pt.get_x(),pt.get_y()+1),world,path) ||
-                miner_NF_dfs(new Point(pt.get_x()+1,pt.get_y()),world,path) ||
-                miner_NF_dfs(new Point(pt.get_x()-1,pt.get_y()),world,path) ||
-                miner_NF_dfs(new Point(pt.get_x(),pt.get_y()-1),world,path);
+        else if(pt.get_x() >= world.get_num_cols()/2+1 && pt.get_y() <= world.get_num_rows()/2-1 )// top right
+        {
+            if(pt.get_x() >= 36 ) // far top x right
+            {
+                found = miner_NF_dfs( new Point(pt.get_x()-1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(),pt.get_y()-1),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(),pt.get_y()+1),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()+1,pt.get_y()),world,path,visited);
+            }
+            else if(pt.get_y() >= 26) // far top y right
+            {
+                found = miner_NF_dfs( new Point(pt.get_x(),pt.get_y()+1),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()+1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()-1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(),pt.get_y()-1),world,path,visited);
+            }
+            else if (pt.get_x() >= 36 && pt.get_y() >=26) // top right corner
+            {
+                found = miner_NF_dfs( new Point(pt.get_x()-1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(),pt.get_y()-1),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(),pt.get_y()+1),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()+1,pt.get_y()),world,path,visited);
+            }
+            else // regular top right
+            {
+                found = miner_NF_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited) ||
+                        miner_NF_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
+                        miner_NF_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited);
+            }
+        }
+
+        else if(pt.get_x() <= world.get_num_cols()/2-1 && pt.get_y() <= world.get_num_rows()/2-1 )//top left
+        {
+            if(pt.get_x() <= 5 ) // far top x left
+            {
+                found = miner_NF_dfs( new Point(pt.get_x()+1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(),pt.get_y()+1),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(),pt.get_y()-1),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()-1,pt.get_y()),world,path,visited);
+            }
+            else if(pt.get_y() >= 26) // far top y left
+            {
+                found = miner_NF_dfs( new Point(pt.get_x(),pt.get_y()+1),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()-1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()+1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(),pt.get_y()+1),world,path,visited);
+            }
+            else if (pt.get_x() <= 5 && pt.get_y() >=26) // top left corner
+            {
+                found = miner_NF_dfs( new Point(pt.get_x(),pt.get_y()+1),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()-1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(),pt.get_y()+1),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()+1,pt.get_y()),world,path,visited);
+            }
+            else // regular top left
+            {
+                found = miner_NF_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited) ||
+                        miner_NF_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited) ||
+                        miner_NF_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited);
+            }
+        }
+
+        else if(pt.get_x() <= world.get_num_cols()/2-1 && pt.get_y() >= world.get_num_rows()/2+1 ) // bottom left
+        {
+            if(pt.get_x() <= 5 ) // far bottom x left
+            {
+                found = miner_NF_dfs( new Point(pt.get_x(),pt.get_y()+1),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()+1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(),pt.get_y()-1),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()-1,pt.get_y()),world,path,visited);
+            }
+            else if(pt.get_y() <= 5) // far bottom y left
+            {
+                found = miner_NF_dfs( new Point(pt.get_x(),pt.get_y()-1),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()+1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()-1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(),pt.get_y()+1),world,path,visited);
+            }
+            else if (pt.get_x() <= 5 && pt.get_y() <=5) // top left corner
+            {
+                found = miner_NF_dfs( new Point(pt.get_x(),pt.get_y()-1),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()+1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()-1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(),pt.get_y()+1),world,path,visited);
+            }
+            else // regular top left
+            {
+                found = miner_NF_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited) ||
+                        miner_NF_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited);
+            }
+        }
+
         if(found)
         {
-            path.add(0,pt);
+            path.add(0, pt);
         }
         return found;
     }
-    public Point Traverse_path()
+
+    public Point Traverse_path(Point entity_pt,WorldModel world, boolean[][] visited)
     {
-        if(path.size() != 0)
+        if(path.size() > 1)
         {
-            Point next_pt = path.get(0);
             path.remove(0);
-            return next_pt;
+            if(world.occupancy.get_cell(path.get(0)) != null )
+            {
+                this.path = new ArrayList<Point>();
+                miner_NF_dfs(entity_pt, world, this.path, visited);
+            }
+            if (path.size() != 0)
+            {
+                return path.get(0);
+            }
         }
         return null;
     }
+
     public boolean _to_other(WorldModel world, Ore ore) // whats the return type..tuple?
     {
-
         Point entity_pt = this.get_position();
         if (ore == null)
         {
@@ -94,13 +237,13 @@ public class
         }
         else
         {
-            if (path.size() == 0) // doesn't help if he gets blocked... yet (:
+            boolean[][] visited = new boolean[world.get_num_rows()][world.get_num_cols()];
+            if(path.size() ==0)
             {
-                miner_NF_dfs(entity_pt,world,get_path());
+                miner_NF_dfs(entity_pt,world,this.path,visited);
             }
-            Point new_pt = Traverse_path();
-            if(new_pt != null)
-            {
+            Point new_pt = Traverse_path(entity_pt,world,visited);
+            if(new_pt != null) {
                 world.move_entity(this, new_pt);
             }
             return false;
@@ -116,11 +259,9 @@ public class
             this.remove_pending_actions(action[0]);
             Point entity_pt = this.get_position();
             Ore ore = (Ore)world.find_nearest(entity_pt, Ore.class);
-            //System.out.println("ore:" + ore);
             boolean found = this._to_other(world, ore); //q
-            //System.out.println("found:" + found);
             Miner new_miner = this;
-            if(found)//whats found in python code?
+            if(found)
             {
                 new_miner = new_miner.try_transform_miner(world, new_miner::try_transform);
             }

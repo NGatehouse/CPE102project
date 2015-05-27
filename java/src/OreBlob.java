@@ -6,6 +6,7 @@ import java.util.List;
 public class OreBlob extends Actor implements Animation_manager
 {
     private int animation_rate; //q
+    private List<Point> path = new ArrayList<Point>();
     public OreBlob(String name,Point position, int rate, List<PImage> imgs,int animation_rate)
     {
         super(name,position,rate,imgs);
@@ -46,6 +47,193 @@ public class OreBlob extends Actor implements Animation_manager
         this.schedule_action(world,this.create_animation_action(world,0),this.get_animation_rate());
     }
 
+    public boolean oreblob_dfs(Point pt, WorldModel world, List<Point> path,boolean[][] visited)
+    {
+        if (!(world.within_bounds(pt)))
+        {
+            return false;
+        }
+
+        if (world.occupancy.get_cell(pt) != null && world.find_nearest(pt, Vein.class)!= null && world.occupancy.get_cell(pt).get_position().equals(world.find_nearest(pt, Vein.class).get_position())) // problem is here
+        {
+            return true;
+        }
+        if(world.find_nearest(pt,Ore.class) != null)
+        {
+            if(world.occupancy.get_cell(pt)!=null && world.occupancy.get_cell(pt).get_position().equals(world.find_nearest(pt, Ore.class).get_position()))
+            {
+                return false;
+            }
+        }
+        if(world.occupancy.get_cell(pt) != null && world.find_nearest_not_self(pt,OreBlob.class) != null && world.occupancy.get_cell(pt).get_position().equals(world.find_nearest_not_self(pt,OreBlob.class).get_position()))
+        {
+            return false;
+        }
+        if (world.occupancy.get_cell(pt) != null && world.find_nearest(pt,Miner.class) != null
+                &&( world.occupancy.get_cell(pt).get_position().equals(world.find_nearest(pt,Obstacle.class).get_position())
+                || world.occupancy.get_cell(pt).get_position().equals(world.find_nearest(pt,Miner.class).get_position())
+                || world.occupancy.get_cell(pt).get_position().equals(world.find_nearest(pt,Blacksmith.class).get_position()))) // we need to check for everything not just obstacles
+        {
+            return false;
+        }
+        if (visited[pt.get_y()][pt.get_x()])
+        {
+            return false;
+        }
+        visited[pt.get_y()][pt.get_x()]= true;
+        boolean found = false;
+        if(pt.get_x() >= world.get_num_cols()/2+1 && pt.get_y() >= world.get_num_rows()/2+1 ) //bottom right
+        {
+            if(pt.get_x() >= 36 ) // far bottom x right
+            {
+                found = oreblob_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited);
+            }
+            else if(pt.get_y() <= 5) // far bottom y right
+            {
+                found = oreblob_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited);
+            }
+            else if (pt.get_x() >= 36 && pt.get_y() <=5) // top right corner
+            {
+                found = oreblob_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited);
+            }
+            else // regular top left
+            {
+                found = oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited);
+            }
+        }
+
+        if(pt.get_x() >= world.get_num_cols()/2+1 && pt.get_y() <= world.get_num_rows()/2-1 )// top right
+        {
+            if(pt.get_x() >= 36 ) // far top x right
+            {
+                found = oreblob_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited);
+            }
+            else if(pt.get_y() >= 26) // far top y right
+            {
+                found = oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited);
+            }
+            else if (pt.get_x() >= 36 && pt.get_y() >=26) // top right corner
+            {
+                found = oreblob_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited);
+            }
+            else // regular top right
+            {
+                found = oreblob_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited);
+            }
+        }
+
+        if(pt.get_x() <= world.get_num_cols()/2-1 && pt.get_y() <= world.get_num_rows()/2-1 )//top left
+        {
+            if(pt.get_x() <= 5 ) // far top x left
+            {
+                found = oreblob_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited);
+            }
+            else if(pt.get_y() >= 26) // far top y left
+            {
+                found = oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited);
+            }
+            else if (pt.get_x() <= 5 && pt.get_y() >=26) // top left corner
+            {
+                found = oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited);
+            }
+            else // regular top left
+            {
+                found = oreblob_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited);
+            }
+        }
+
+        if(pt.get_x() <= world.get_num_cols()/2-1 && pt.get_y() >= world.get_num_rows()/2+1 ) // bottom left
+        {
+            if(pt.get_x() <= 5 ) // far bottom x left
+            {
+                found = oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited);
+            }
+            else if(pt.get_y() <= 5) // far bottom y left
+            {
+                found = oreblob_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited);
+            }
+            else if (pt.get_x() <= 5 && pt.get_y() <=5) // top left corner
+            {
+                found = oreblob_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited);
+            }
+            else // regular top left
+            {
+                found = oreblob_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
+                        oreblob_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited);
+            }
+        }
+        if(found)
+        {
+            path.add(0, pt);
+        }
+        return found;
+    }
+
+    public Point Traverse_path(Point entity_pt,WorldModel world, boolean[][] visited)
+    {
+        if(path.size() > 1)
+        {
+            path.remove(0);
+            if(world.occupancy.get_cell(path.get(0)) != null )
+            {
+                this.path = new ArrayList<Point>();
+                oreblob_dfs(entity_pt, world, path, visited);
+            }
+            if (path.size() != 0)
+            {
+                return path.get(0);
+            }
+        }
+        return null;
+    }
+
     public boolean _to_other(WorldModel world,Vein vein)
     {
         Point entity_pt = this.get_position();
@@ -61,13 +249,21 @@ public class OreBlob extends Actor implements Animation_manager
         }
         else
         {
-            Point new_pt = world.blob_next_position(entity_pt,vein_pt);
-            On_Grid old_entity = world.get_tile_occupant(new_pt);
-            if (old_entity instanceof Ore)
-            {
-                world.remove_entity_schedule((Action_manager)old_entity);
+            boolean[][] visited = new boolean[world.get_num_rows()][world.get_num_cols()];
+            if(path.size() == 0) {
+                oreblob_dfs(entity_pt,world,this.path,visited);
             }
-            world.move_entity(this,new_pt);
+            Point new_pt = Traverse_path(entity_pt, world, visited);
+
+            if(new_pt != null)
+            {
+                On_Grid old_entity = world.get_tile_occupant(new_pt);
+                if (old_entity instanceof Ore)
+                {
+                    world.remove_entity_schedule((Action_manager)old_entity);
+                }
+                world.move_entity(this, new_pt);
+            }
             return false; //q was being returned in python code
         }
     }

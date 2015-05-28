@@ -185,6 +185,10 @@ public class Main extends PApplet
                     origin.addTo_y(1);
                 }
             }
+            if (keyCode == TAB)
+            {
+                System.out.println(mouseX/32 +"  jj " + mouseY/32);
+            }
         }
     }
 
@@ -270,19 +274,18 @@ public class Main extends PApplet
                 visitedPath = ((OreBlob)(worldModel.occupancy.get_cell(mouseLoc))).get_visitedPath();
             }
 
-            System.out.println(worldModel.occupancy.get_cell(mouseLoc));
-            System.out.println(mouseLoc.get_x() + "     " + mouseLoc.get_y());
-
-            for(int i = 0; i < path.size(); i++)
-            {
-                fill(255, 0, 0);
-                rect((path.get(i).get_x() - origin.get_x()) * 32, (path.get(i).get_y() - origin.get_y()) * 32, 32, 32);
-            }
-
+            //System.out.println(worldModel.occupancy.get_cell(mouseLoc));
+            //System.out.println(mouseLoc.get_x() + "     " + mouseLoc.get_y());
             for(int i = 0; i < visitedPath.size(); i++)
             {
                 fill(0, 0, 0);
-                rect((visitedPath.get(i).get_x() - origin.get_x()) * 32, (visitedPath.get(i).get_y() - origin.get_y()) * 32, 32, 32);
+                rect((visitedPath.get(i).get_x() - origin.get_x()) * 32+3, (visitedPath.get(i).get_y() - origin.get_y()) * 32+3, 28, 28);
+
+            }
+            for(int i = 0; i < path.size(); i++)
+            {
+                fill(255, 0, 0);
+                rect((path.get(i).get_x() - origin.get_x()) * 32+5, (path.get(i).get_y() - origin.get_y()) * 32 +5, 20, 20);
             }
         }
 

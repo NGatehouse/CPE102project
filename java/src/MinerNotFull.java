@@ -154,16 +154,16 @@ public class
             else if(pt.get_y() >= 26) // far top y left
             {
                 found = miner_NF_dfs( new Point(pt.get_x(),pt.get_y()+1),world,path,visited) ||
-                        miner_NF_dfs(new Point(pt.get_x()-1,pt.get_y()),world,path,visited) ||
                         miner_NF_dfs(new Point(pt.get_x()+1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()-1,pt.get_y()),world,path,visited) ||
                         miner_NF_dfs(new Point(pt.get_x(),pt.get_y()+1),world,path,visited);
             }
             else if (pt.get_x() <= 5 && pt.get_y() >=26) // top left corner
             {
                 found = miner_NF_dfs( new Point(pt.get_x(),pt.get_y()+1),world,path,visited) ||
-                        miner_NF_dfs(new Point(pt.get_x()-1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x()+1,pt.get_y()),world,path,visited) ||
                         miner_NF_dfs(new Point(pt.get_x(),pt.get_y()+1),world,path,visited) ||
-                        miner_NF_dfs(new Point(pt.get_x()+1,pt.get_y()),world,path,visited);
+                        miner_NF_dfs(new Point(pt.get_x()-1,pt.get_y()),world,path,visited);
             }
             else // regular top left
             {
@@ -178,8 +178,8 @@ public class
         {
             if(pt.get_x() <= 5 ) // far bottom x left
             {
-                found = miner_NF_dfs( new Point(pt.get_x(),pt.get_y()+1),world,path,visited) ||
-                        miner_NF_dfs(new Point(pt.get_x()+1,pt.get_y()),world,path,visited) ||
+                found = miner_NF_dfs( new Point(pt.get_x()+1,pt.get_y()),world,path,visited) ||
+                        miner_NF_dfs(new Point(pt.get_x(),pt.get_y()+1),world,path,visited) ||
                         miner_NF_dfs(new Point(pt.get_x(),pt.get_y()-1),world,path,visited) ||
                         miner_NF_dfs(new Point(pt.get_x()-1,pt.get_y()),world,path,visited);
             }
@@ -216,6 +216,7 @@ public class
 
         if(found)
         {
+            this.visited_path.add(0,pt);
             path.add(0, pt);
         }
         return found;

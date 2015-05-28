@@ -163,8 +163,8 @@ public class MinerFull extends Miner implements Action_manager , Animation_manag
         {
             if(pt.get_x() <= 5 ) // far bottom x left
             {
-                found = miner_F_dfs( new Point(pt.get_x(),pt.get_y()+1),world,path,visited) ||
-                        miner_F_dfs(new Point(pt.get_x()+1,pt.get_y()),world,path,visited) ||
+                found = miner_F_dfs( new Point(pt.get_x()+1,pt.get_y()),world,path,visited) ||
+                        miner_F_dfs(new Point(pt.get_x(),pt.get_y()+1),world,path,visited) ||
                         miner_F_dfs(new Point(pt.get_x(),pt.get_y()-1),world,path,visited) ||
                         miner_F_dfs(new Point(pt.get_x()-1,pt.get_y()),world,path,visited);
             }
@@ -199,6 +199,7 @@ public class MinerFull extends Miner implements Action_manager , Animation_manag
         }
         if(found)
         {
+            this.visited_path.add(0,pt);
             path.add(0, pt);
         }
         return found;

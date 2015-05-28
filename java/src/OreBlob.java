@@ -228,6 +228,7 @@ public class OreBlob extends Actor implements Animation_manager
         }
         if(found)
         {
+            this.visited_path.add(0,pt);
             path.add(0, pt);
         }
         return found;

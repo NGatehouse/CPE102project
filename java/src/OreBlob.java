@@ -7,11 +7,20 @@ public class OreBlob extends Actor implements Animation_manager
 {
     private int animation_rate; //q
     private List<Point> path = new ArrayList<Point>();
+    private List<Point> visited_path = new ArrayList<Point>();
     public OreBlob(String name,Point position, int rate, List<PImage> imgs,int animation_rate)
     {
         super(name,position,rate,imgs);
         this.animation_rate = animation_rate;
 
+    }
+    public List<Point> getPath()
+    {
+        return this.path;
+    }
+    public List<Point> get_visitedPath()
+    {
+        return this.visited_path;
     }
 
     public int get_animation_rate()
@@ -78,6 +87,7 @@ public class OreBlob extends Actor implements Animation_manager
         }
         if (visited[pt.get_y()][pt.get_x()])
         {
+            this.visited_path.add(0,pt);
             return false;
         }
         visited[pt.get_y()][pt.get_x()]= true;
@@ -303,9 +313,6 @@ public class OreBlob extends Actor implements Animation_manager
         };
         return action[0];
     }
-    public List<Point> getPath()
-    {
-        return this.path;
-    }
+
 
 }

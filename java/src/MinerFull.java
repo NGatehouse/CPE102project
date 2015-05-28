@@ -6,6 +6,7 @@ import java.util.List;
 public class MinerFull extends Miner implements Action_manager , Animation_manager, Transform
 {
     private List<Point> path = new ArrayList<Point>();
+    private List<Point> visited_path = new ArrayList<Point>();
     public MinerFull(String name,int resource_limit,Point position,int rate,List<PImage> imgs,int animation_rate)
     {
         super(name,resource_limit,position,rate,imgs,animation_rate);
@@ -15,6 +16,11 @@ public class MinerFull extends Miner implements Action_manager , Animation_manag
     {
         return this.path;
     }
+    public List<Point> get_visitedPath()
+    {
+        return this.visited_path;
+    }
+    
 
     public Miner try_transform(WorldModel world)
     {
@@ -52,7 +58,7 @@ public class MinerFull extends Miner implements Action_manager , Animation_manag
         }
         if (visited[pt.get_y()][pt.get_x()]) // goes in here alot............. q
         {
-            //System.out.println("visited..");
+            this.visited_path.add(0,pt);
             return false;
         }
         visited[pt.get_y()][pt.get_x()]= true;

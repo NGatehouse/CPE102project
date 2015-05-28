@@ -9,6 +9,7 @@ public class
 {
     private int resource_count;
     private List<Point> path = new ArrayList<Point>();
+    private List<Point> visited_path = new ArrayList<Point>();
 
 
     public MinerNotFull(String name,int resource_limit,Point position,int rate,List<PImage> imgs,int animation_rate)
@@ -20,6 +21,10 @@ public class
     public List<Point> getPath()
     {
         return this.path;
+    }
+    public List<Point> get_visitedPath()
+    {
+        return this.visited_path;
     }
 
     public Miner try_transform(WorldModel world)
@@ -67,7 +72,7 @@ public class
         }
         if (visited[pt.get_y()][pt.get_x()]) // goes in here alot............. q
         {
-            //System.out.println("visited..");
+            this.visited_path.add(0,pt);
             return false;
         }
         visited[pt.get_y()][pt.get_x()]= true;

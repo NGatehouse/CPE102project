@@ -114,7 +114,7 @@ public class OreBlob extends Actor implements Animation_manager
             }
         }
 
-        if(pt.get_x() >= world.get_num_cols()/2+1 && pt.get_y() <= world.get_num_rows()/2-1 )// top right
+        else if(pt.get_x() >= world.get_num_cols()/2+1 && pt.get_y() <= world.get_num_rows()/2-1 )// top right
         {
             if(pt.get_x() >= 36 ) // far top x right
             {
@@ -146,7 +146,7 @@ public class OreBlob extends Actor implements Animation_manager
             }
         }
 
-        if(pt.get_x() <= world.get_num_cols()/2-1 && pt.get_y() <= world.get_num_rows()/2-1 )//top left
+        else if(pt.get_x() <= world.get_num_cols()/2-1 && pt.get_y() <= world.get_num_rows()/2-1 )//top left
         {
             if(pt.get_x() <= 5 ) // far top x left
             {
@@ -178,7 +178,7 @@ public class OreBlob extends Actor implements Animation_manager
             }
         }
 
-        if(pt.get_x() <= world.get_num_cols()/2-1 && pt.get_y() >= world.get_num_rows()/2+1 ) // bottom left
+        else if(pt.get_x() <= world.get_num_cols()/2-1 && pt.get_y() >= world.get_num_rows()/2+1 ) // bottom left
         {
             if(pt.get_x() <= 5 ) // far bottom x left
             {
@@ -208,6 +208,13 @@ public class OreBlob extends Actor implements Animation_manager
                         oreblob_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
                         oreblob_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited);
             }
+        }
+        else // if they get stuck in the middle
+        {
+            found = oreblob_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                    oreblob_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited) ||
+                    oreblob_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
+                    oreblob_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited);
         }
         if(found)
         {
@@ -295,6 +302,10 @@ public class OreBlob extends Actor implements Animation_manager
 
         };
         return action[0];
+    }
+    public List<Point> getPath()
+    {
+        return this.path;
     }
 
 }

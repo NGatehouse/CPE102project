@@ -11,6 +11,11 @@ public class MinerFull extends Miner implements Action_manager , Animation_manag
         super(name,resource_limit,position,rate,imgs,animation_rate);
     }
 
+    public List<Point> getPath()
+    {
+        return this.path;
+    }
+
     public Miner try_transform(WorldModel world)
     {
         return new MinerNotFull(this.get_name(), this.get_resource_limit(), this.get_position(), this.get_rate(),this.get_images(),this.get_animation_rate());
@@ -84,7 +89,7 @@ public class MinerFull extends Miner implements Action_manager , Animation_manag
             }
         }
 
-        if(pt.get_x() >= world.get_num_cols()/2+1 && pt.get_y() <= world.get_num_rows()/2-1 )// top right
+        else if(pt.get_x() >= world.get_num_cols()/2+1 && pt.get_y() <= world.get_num_rows()/2-1 )// top right
         {
             if(pt.get_x() >= 36 ) // far top x right
             {
@@ -116,7 +121,7 @@ public class MinerFull extends Miner implements Action_manager , Animation_manag
             }
         }
 
-        if(pt.get_x() <= world.get_num_cols()/2-1 && pt.get_y() <= world.get_num_rows()/2-1 )//top left
+        else if(pt.get_x() <= world.get_num_cols()/2-1 && pt.get_y() <= world.get_num_rows()/2-1 )//top left
         {
             if(pt.get_x() <= 5 ) // far top x left
             {
@@ -148,7 +153,7 @@ public class MinerFull extends Miner implements Action_manager , Animation_manag
             }
         }
 
-        if(pt.get_x() <= world.get_num_cols()/2-1 && pt.get_y() >= world.get_num_rows()/2+1 ) // bottom left
+        else if(pt.get_x() <= world.get_num_cols()/2-1 && pt.get_y() >= world.get_num_rows()/2+1 ) // bottom left
         {
             if(pt.get_x() <= 5 ) // far bottom x left
             {
@@ -178,6 +183,13 @@ public class MinerFull extends Miner implements Action_manager , Animation_manag
                         miner_F_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
                         miner_F_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited);
             }
+        }
+        else // if they get stuck in the middle
+        {
+            found = miner_F_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                    miner_F_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited) ||
+                    miner_F_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
+                    miner_F_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited);
         }
         if(found)
         {

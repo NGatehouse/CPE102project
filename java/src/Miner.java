@@ -64,13 +64,15 @@ public abstract class Miner extends Mining implements Action_manager , Animation
             {
                 this.schedule_action(world,this.create_animation_action(world,Math.max(repeat_count -1,0)),current_ticks + this.get_animation_rate());
             }
-            List<Point> new_list = new ArrayList<Point>();
+            List<Point> new_list = new ArrayList<>();
             new_list.add(this.get_position());
             return new_list; // making a new list with this position?
 
         };
         return action[0];
     }
+
+    public abstract List<Point> getPath();
 
     public void schedule_animation(WorldModel world, int repeat_count)
     {

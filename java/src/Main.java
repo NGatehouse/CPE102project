@@ -40,6 +40,7 @@ public class Main extends PApplet
     private PImage grass = loadImage("images/grass.bmp");
  //   private PImage rock = loadImage("C:\\Users\\Luke\\cpe102\\experiment\\CPE102project\\images\\rock.bmp");
     public Point origin = new Point(0,0);
+    private Point mouseLoc;
 
 
 /*
@@ -138,7 +139,6 @@ public class Main extends PApplet
             System.err.println(e.getMessage() + " " + getClass().getClassLoader().getResource(WORLD_FILE));
         }
 
-
         Scan.get_imgs(i_list_scanner);
         Scan.create_ents(w_scanner, worldModel);
         size(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -185,7 +185,6 @@ public class Main extends PApplet
                     origin.addTo_y(1);
                 }
             }
-
         }
     }
 
@@ -249,7 +248,53 @@ public class Main extends PApplet
             worldModel.update_on_time(ticks);
             next_time = ticks + ANIMATION_TIME;
         }
+        draw_Path();
     }
+
+    public void draw_Path()
+    {
+        mouseLoc = new Point(mouseX/32 + origin.get_x(), mouseY/32 + origin.get_y());
+        if ((worldModel.occupancy.get_cell(mouseLoc) instanceof Miner) ||( worldModel.occupancy.get_cell(mouseLoc) instanceof OreBlob))
+        {
+           /* List<Point> Miner_path = ((Miner)(worldModel.occupancy.get_cell(mouseLoc))).getPath();
+            for(Point p:Miner_path)
+            {
+                boolean[][] vis_path = new boolean[worldModel.get_num_rows()][worldModel.get_num_cols()];
+                vis_path[p.get_y()][p.get_x()] = true;
+                if(vis_path[p.get_y()][p.get_x()])
+                {
+                   fill(100,100,100)
+                   rect(p.get_x(),p.get_y(),32,32)
+                }
+
+            } */
+            //List<Point> path = new ArrayList<>();
+            List<Point> path = new ArrayList<Point>();
+            if ( worldModel.occupancy.get_cell(mouseLoc) instanceof Miner) {
+                path = ((Miner)(worldModel.occupancy.get_cell(mouseLoc))).getPath();
+            }
+            if ( worldModel.occupancy.get_cell(mouseLoc) instanceof OreBlob) {
+                path = ((OreBlob)(worldModel.occupancy.get_cell(mouseLoc))).getPath();
+            }
+
+                System.out.println(worldModel.occupancy.get_cell(mouseLoc));
+
+                for(int i = 0; i < path.size(); i++)
+                {
+                    fill(255, 0, 0);
+                    rect((path.get(i).get_x()-origin.get_x())*32, (path.get(i).get_y()-origin.get_y())*32, 32, 32);
+                }
+                System.out.println(mouseLoc.get_x() + "     " + mouseLoc.get_y());
+        }
+
+
+         //   if ( worldModel.occupancy.get_cell(mouseLoc) instanceof OreBlob) { }
+
+
+        }
+
+
+
 /*
     public Background create_default_background(PImage img)
     {

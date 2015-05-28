@@ -17,6 +17,10 @@ public class
         this.resource_count=0;
     }
 
+    public List<Point> getPath()
+    {
+        return this.path;
+    }
 
     public Miner try_transform(WorldModel world)
     {
@@ -40,6 +44,7 @@ public class
 
         if (world.occupancy.get_cell(pt) != null && world.find_nearest(pt, Ore.class)!= null && world.occupancy.get_cell(pt).get_position().equals(world.find_nearest(pt, Ore.class).get_position())) // problem is here
         {
+            path.add(0, pt);
             return true;
         }
         if(world.find_nearest(pt,OreBlob.class) != null)
@@ -194,6 +199,14 @@ public class
                         miner_NF_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
                         miner_NF_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited);
             }
+
+        }
+        else // if they get stuck in the middle
+        {
+            found = miner_NF_dfs(new Point(pt.get_x() - 1, pt.get_y()), world, path, visited) ||
+                    miner_NF_dfs(new Point(pt.get_x(), pt.get_y() + 1), world, path, visited) ||
+                    miner_NF_dfs(new Point(pt.get_x() + 1, pt.get_y()), world, path, visited) ||
+                    miner_NF_dfs(new Point(pt.get_x(), pt.get_y() - 1), world, path, visited);
         }
 
         if(found)

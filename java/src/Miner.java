@@ -73,6 +73,7 @@ public abstract class Miner extends Mining implements Action_manager , Animation
     }
 
     public abstract List<Point> getPath();
+    public abstract List<Point> get_visitedPath();
 
     public void schedule_animation(WorldModel world, int repeat_count)
     {

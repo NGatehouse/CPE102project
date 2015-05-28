@@ -92,6 +92,30 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/java/src/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="263" column="87" selection-start-line="263" selection-start-column="87" selection-end-line="263" selection-end-column="87" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Miner.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/java/src/Miner.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="66" column="53" selection-start-line="66" selection-start-column="12" selection-end-line="66" selection-end-column="53" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1889#1890#0" expanded="true" />
+                <element signature="e#1931#1932#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="GradleLocalSettings">
@@ -119,6 +143,7 @@
         <option value="$PROJECT_DIR$/java/src/MinerNotFull.java" />
         <option value="$PROJECT_DIR$/java/src/MinerFull.java" />
         <option value="$PROJECT_DIR$/java/src/OreBlob.java" />
+        <option value="$PROJECT_DIR$/java/src/Miner.java" />
       </list>
     </option>
   </component>
@@ -415,7 +440,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -641,6 +666,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="39" column="74" selection-start-line="39" selection-start-column="73" selection-end-line="39" selection-end-column="74" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -648,6 +674,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="28" column="17" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -714,6 +741,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="37" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -735,6 +763,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="28" column="17" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -742,6 +771,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="39" column="74" selection-start-line="39" selection-start-column="73" selection-end-line="39" selection-end-column="74" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -794,16 +824,6 @@
           <caret line="24" column="5" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
           <folding>
             <element signature="e#226#234#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/java/src/Miner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="13.379311">
-          <caret line="46" column="25" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -915,14 +935,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/java/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/java/src/MinerNotFull.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.448276">
@@ -961,6 +973,26 @@
             <element signature="e#567#568#0" expanded="true" />
             <element signature="e#697#698#0" expanded="true" />
             <element signature="e#739#740#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/java/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="263" column="87" selection-start-line="263" selection-start-column="87" selection-end-line="263" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/java/src/Miner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="66" column="53" selection-start-line="66" selection-start-column="12" selection-end-line="66" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1889#1890#0" expanded="true" />
+            <element signature="e#1931#1932#0" expanded="true" />
           </folding>
         </state>
       </provider>

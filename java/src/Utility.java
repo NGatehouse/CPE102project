@@ -106,12 +106,13 @@ public class Utility
     {
         Ore ore = new Ore(name, point,
                 randInt(ORE_CORRUPT_MIN, ORE_CORRUPT_MAX),imgs);
-        schedule_ore(world,ore, ticks, Scan.get_blob_images());
+        schedule_ore(world, ore, ticks, Scan.get_blob_images());
         return ore;
     }
+
     public static void schedule_ore(WorldModel world, Ore ore, long ticks, List<PImage> imgs)
     {
-        ore.schedule_action(world,ore.create_ore_transform_action(world, imgs),
+        ore.schedule_action(world, ore.create_ore_transform_action(world, imgs),
                 ticks + ore.get_rate());
     }
     public static Quake create_quake(WorldModel world, Point pt, long ticks, List<PImage> imgs)
@@ -138,6 +139,33 @@ public class Utility
     {
         vein.schedule_action(world, vein.create_actor_motion(world, amiges),
                 ticks + vein.get_rate());
+    }
+
+
+    public static Orc create_orc(WorldModel world, String name, Point pt, int rate, int ticks, List<PImage> imgs)
+    {
+        Orc orc = new Orc(name,pt,rate,imgs,randInt(BLOB_ANIMATION_MIN, BLOB_ANIMATION_MAX)*BLOB_ANIMATION_RATE_SCALE);
+        schedule_orc(world, orc, ticks, Scan.get_orc_images());
+        return orc;
+    }
+    public static void schedule_orc(WorldModel world, Orc orc, long ticks, List<PImage> imgs)
+    {
+        orc.schedule_action( world, orc.create_orc_action(world, imgs),
+                ticks + orc.get_rate());
+        orc.schedule_animation(world); // don't want the orcs to behave the same as ore... change schedule action for orcs
+    }
+
+    public static OrcPit create_OrcPit(WorldModel world,String name , Point pt, long ticks, List<PImage> imgs)
+    {
+        OrcPit orcpit = new OrcPit("orcpit" + name,
+                randInt(VEIN_RATE_MIN, VEIN_RATE_MAX),
+                pt, imgs);
+        return orcpit;
+    }
+    public static void schedule_OrcPit(WorldModel world, OrcPit orcpit, long ticks, List<PImage> imgs)
+    {
+        orcpit.schedule_action(world, orcpit.create_actor_motion(world, imgs),
+                ticks + orcpit.get_rate());
     }
 
 

@@ -37,7 +37,10 @@ public class
         {
             return new MinerFull(this.get_name(),this.get_resource_limit(),this.get_position(),this.get_rate(),this.get_images(),this.get_animation_rate());
         }
-
+    }
+    public Miner try_transform_anger(WorldModel world)
+    {
+        return new MinerFullofHate(this.get_name(), this.get_resource_limit(), this.get_position(), this.get_rate(),this.get_images(),this.get_animation_rate());
     }
 
     public boolean miner_NF_dfs(Point pt, WorldModel world, List<Point> path,boolean[][] visited)

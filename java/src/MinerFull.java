@@ -3,7 +3,7 @@ import processing.core.PImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MinerFull extends Miner implements Action_manager , Animation_manager, Transform
+public class MinerFull extends Miner implements Action_manager , Animation_manager, Transform, Transform_Anger
 {
     private List<Point> path = new ArrayList<Point>();
     private List<Point> visited_path = new ArrayList<Point>();
@@ -25,6 +25,10 @@ public class MinerFull extends Miner implements Action_manager , Animation_manag
     public Miner try_transform(WorldModel world)
     {
         return new MinerNotFull(this.get_name(), this.get_resource_limit(), this.get_position(), this.get_rate(),this.get_images(),this.get_animation_rate());
+    }
+    public Miner try_transform_anger(WorldModel world)
+    {
+        return new MinerFullofHate(this.get_name(), this.get_resource_limit(), this.get_position(), this.get_rate(),this.get_images(),this.get_animation_rate());
     }
 
     public boolean miner_F_dfs(Point pt, WorldModel world, List<Point> path,boolean[][] visited)

@@ -44,6 +44,18 @@ public abstract class Miner extends Mining implements Action_manager , Animation
         }
         return new_miner;
     }
+    public Miner try_transform_miner_mad(WorldModel world, Transform_Anger transform)
+    {
+        Miner new_miner = transform.try_transform_anger(world);
+        if(this != new_miner)
+        {
+            world.clear_pending_actions(this);
+            world.remove_entity_at(this.get_position());
+            world.add_entity(new_miner);
+            new_miner.schedule_animation(world);
+        }
+        return new_miner;
+    }
     public Action create_miner_action(WorldModel world, List<PImage> imgs)
     {
         return this.create_actor_motion(world,imgs);
@@ -72,8 +84,6 @@ public abstract class Miner extends Mining implements Action_manager , Animation
         return action[0];
     }
 
-    public abstract List<Point> getPath();
-    public abstract List<Point> get_visitedPath();
 
     public void schedule_animation(WorldModel world, int repeat_count)
     {
@@ -85,6 +95,7 @@ public abstract class Miner extends Mining implements Action_manager , Animation
     }
 
     public abstract Miner try_transform(WorldModel world);
+    public abstract Miner try_transform_anger(WorldModel world);
 
     public abstract Action create_actor_motion(WorldModel world, List<PImage> imgs);
 

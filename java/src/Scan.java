@@ -29,6 +29,7 @@ public class Scan extends PApplet
     private static final String ORC_KEY = "orc";
     private static final String ORCPIT_KEY = "orcpit";
     private static final String FIRE_KEY = "fire";
+    private static final String WOOD_KEY = "wood";
 
     public static List<PImage> miner_imgs = new ArrayList<PImage>();
     private static List<PImage> blacksmith_imgs = new ArrayList<PImage>();
@@ -43,6 +44,7 @@ public class Scan extends PApplet
     private static List<PImage> orc_imgs = new ArrayList<PImage>();
     private static List<PImage> orcpit_imgs = new ArrayList<PImage>();
     private static List<PImage> fire_imgs = new ArrayList<PImage>();
+    private static List<PImage> wood_imgs = new ArrayList<PImage>();
 
     private static PApplet paplet = new PApplet();
     private static Gif loopingGif;
@@ -98,6 +100,10 @@ public class Scan extends PApplet
     public static List<PImage> get_fire_images()
     {
         return fire_imgs;
+    }
+    public static List<PImage> get_wood_images()
+    {
+        return wood_imgs;
     }
 
 
@@ -174,6 +180,11 @@ public class Scan extends PApplet
                 case ROCKS_KEY:
                 {
                     rocks_imgs.add(file_location);
+                    break;
+                }
+                case WOOD_KEY:
+                {
+                    wood_imgs.add(file_location);
                     break;
                 }
                 case DEFAULT_IMAGE_NAME:
@@ -290,6 +301,12 @@ public class Scan extends PApplet
                         }
                     }
 
+                    break;
+                }
+                case WOOD_KEY:
+                {
+                    Wood wood = new Obstacle(ent_name,ent_p,wood_imgs);
+                    add_to_occupancy(world,wood);
                     break;
                 }
                 case OBSTACLE_KEY:

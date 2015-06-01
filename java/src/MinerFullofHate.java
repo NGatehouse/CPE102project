@@ -62,15 +62,7 @@ public class MinerFullofHate extends Miner implements Animation_manager, Action_
         };
         return action[0];
     }
-    private List<Point> path = new ArrayList<Point>();
-    private List<Point> visited_path = new ArrayList<Point>();
 
-    public List<Point> getPath()
-    {
-        return this.path;
-    }
-    public List<Point> get_visitedPath()
-    {
-        return this.visited_path;
-    }
+
+
 }

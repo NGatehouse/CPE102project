@@ -99,6 +99,4 @@ public abstract class Miner extends Mining implements Action_manager , Animation
 
     public abstract Action create_actor_motion(WorldModel world, List<PImage> imgs);
 
-    public abstract List<Point> getPath();
-    public abstract List<Point> get_visitedPath();
 }

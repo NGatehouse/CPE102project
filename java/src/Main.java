@@ -118,7 +118,7 @@ public class Main extends PApplet {
 
     public void mousePressed()
     {
-        System.out.println(worldModel.background.get_cell(new Point(mouseX/32, mouseY/32)).get_position().get_x());
+        System.out.println();
     }
 
     public void keyPressed()

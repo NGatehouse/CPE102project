@@ -45,6 +45,7 @@ public class Scan extends PApplet
     private static List<PImage> orcpit_imgs = new ArrayList<PImage>();
     private static List<PImage> fire_imgs = new ArrayList<PImage>();
     private static List<PImage> wood_imgs = new ArrayList<PImage>();
+    private static List<PImage> hateful_imgs = new ArrayList<PImage>();
 
     private static PApplet paplet = new PApplet();
     private static Gif loopingGif;
@@ -105,6 +106,10 @@ public class Scan extends PApplet
     {
         return wood_imgs;
     }
+    public static List<PImage> get_hateful_images()
+    {
+        return hateful_imgs;
+    }
 
 
     private static PImage setAlpha(PImage img, int maskColor, int alpha)
@@ -150,6 +155,7 @@ public class Scan extends PApplet
             int b = DEFAULT_IMAGE_COLOR;
             int a = DEFAULT_IMAGE_COLOR;
 
+            System.out.println(amige[1]);
             PImage file_location = paplet.loadImage(amige[1]);
 
             if (amige.length > 2)
@@ -299,13 +305,18 @@ public class Scan extends PApplet
                             world.set_background(ent_p,background);
                             break;
                         }
+                        case "wood": {
+                            Background background = new Background(ent_name,ent_p, wood_imgs);
+                            world.set_background(ent_p,background);
+                            break;
+                        }
                     }
 
                     break;
                 }
                 case WOOD_KEY:
                 {
-                    Wood wood = new Obstacle(ent_name,ent_p,wood_imgs);
+                    Wood wood = new Wood(ent_name,ent_p,wood_imgs);
                     add_to_occupancy(world,wood);
                     break;
                 }

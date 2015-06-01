@@ -1,3 +1,4 @@
+import gifAnimation.Gif;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -11,7 +12,7 @@ import java.util.Scanner;
 public class Scan extends PApplet
 {
     public static final String DEFAULT_IMAGE_NAME = "background_default";
-    private static final int DEFAULT_IMAGE_COLOR = 808080; //q this is wrong
+    private static final int DEFAULT_IMAGE_COLOR = 808080;
     private static final int COLOR_MASK = 0xffffff;
     private static final int MIN_ARGS = 1;
 
@@ -25,7 +26,10 @@ public class Scan extends PApplet
     private static final String QUAKE_KEY = "quake";
     private static final String GRASS_KEY = "grass";
     private static final String ROCKS_KEY = "rocks";
-
+    private static final String ORC_KEY = "orc";
+    private static final String ORCPIT_KEY = "orcpit";
+    private static final String FIRE_KEY = "fire";
+    private static final String WOOD_KEY = "wood";
 
     public static List<PImage> miner_imgs = new ArrayList<PImage>();
     private static List<PImage> blacksmith_imgs = new ArrayList<PImage>();
@@ -37,7 +41,13 @@ public class Scan extends PApplet
     private static List<PImage> blob_imgs = new ArrayList<PImage>();
     private static List<PImage> quake_imgs = new ArrayList<PImage>();
     private static List<PImage> bgnd_imgs = new ArrayList<PImage>();
+    private static List<PImage> orc_imgs = new ArrayList<PImage>();
+    private static List<PImage> orcpit_imgs = new ArrayList<PImage>();
+    private static List<PImage> fire_imgs = new ArrayList<PImage>();
+    private static List<PImage> wood_imgs = new ArrayList<PImage>();
+
     private static PApplet paplet = new PApplet();
+    private static Gif loopingGif;
 
     public static List<PImage> get_miner_images()
     {
@@ -63,7 +73,7 @@ public class Scan extends PApplet
     {
         return vein_imgs;
     }
-    public static List<PImage> get_obastacle_images()
+    public static List<PImage> get_obstacle_images()
     {
         return obstacle_imgs;
     }
@@ -79,11 +89,24 @@ public class Scan extends PApplet
     {
         return bgnd_imgs;
     }
+    public static List<PImage> get_orc_images()
+    {
+        return orc_imgs;
+    }
+    public static List<PImage> get_orcpit_images()
+    {
+        return orcpit_imgs;
+    }
+    public static List<PImage> get_fire_images()
+    {
+        return fire_imgs;
+    }
+    public static List<PImage> get_wood_images()
+    {
+        return wood_imgs;
+    }
 
 
-
-    // Called with color for which alpha should be set and alpha value1.
-    //PImage img = setAlpha(loadImage("wyvern1.bmp"), color(255, 255, 255), 0));
     private static PImage setAlpha(PImage img, int maskColor, int alpha)
     {
         int alphaValue = alpha << 24;
@@ -122,7 +145,6 @@ public class Scan extends PApplet
 
             String[] amige = in.nextLine().split("\\s"); // amige is image lolz
             String the_key = amige[0];
-            //System.out.println(amige[0]);
             int r = DEFAULT_IMAGE_COLOR;
             int g = DEFAULT_IMAGE_COLOR;
             int b = DEFAULT_IMAGE_COLOR;
@@ -136,9 +158,8 @@ public class Scan extends PApplet
                 g = Integer.parseInt(amige[3]);
                 b = Integer.parseInt(amige[4]);
                 a = Integer.parseInt(amige[5]);
-                int rgb = paplet.color(r,g,b); //Keen, I tried passing as second param but needs int
+                int rgb = paplet.color(r,g,b);
                 file_location = setAlpha(paplet.loadImage(amige[1]), rgb, a);
-                //Keen: says color can't be referenced from a static context
             }
 
 
@@ -159,6 +180,11 @@ public class Scan extends PApplet
                 case ROCKS_KEY:
                 {
                     rocks_imgs.add(file_location);
+                    break;
+                }
+                case WOOD_KEY:
+                {
+                    wood_imgs.add(file_location);
                     break;
                 }
                 case DEFAULT_IMAGE_NAME:
@@ -195,18 +221,35 @@ public class Scan extends PApplet
                     obstacle_imgs.add(file_location);
                     break;
                 }
+                case ORC_KEY:
+                {
+                    orc_imgs.add(file_location);
+                    break;
+                }
+                case ORCPIT_KEY:
+                {
+                    orcpit_imgs.add(file_location);
+                    break;
+                }
+                case FIRE_KEY:
+                {
+                    fire_imgs.add(file_location);
+                    //loopingGif = new Gif(paplet,"fire.gif");
+                    //loopingGif.loop();
+                    break;
+                }
             }
         }
     }
 
 
-    public static void create_ents(Scanner in,WorldModel world) // pass in a worldmodel?
+    public static void create_ents(Scanner in,WorldModel world)
     {
         while (in.hasNextLine())
         {
-            //int i =0;
             String [] entity = in.nextLine().split("\\s"); // split on white space "the fox ran" = ["the","fox","ran"]
             String class_type = entity[0];
+            //System.out.println(entity[1]);
             String ent_name = entity[1];
             int x_cord = Integer.parseInt(entity[2]);
             int y_cord = Integer.parseInt(entity[3]);
@@ -214,28 +257,20 @@ public class Scan extends PApplet
             int resource_lim = -1;
             int the_rate = -1;
             int reach = -1;
-            //i=3;
-            //System.out.println("----" + entity.length);
             if (entity.length >= 5)
             {
                 resource_lim = Integer.parseInt(entity[4]);
-                //System.out.println("--------" );
-                //i =4;
                 if (entity.length >= 6)
                 {
                      the_rate = Integer.parseInt(entity[5]);
-                    //System.out.println("--------" +the_rate);
-                    //i = 5;
                     if (entity.length >= 7)
                     {
                          reach = Integer.parseInt(entity[6]);
-                        //System.out.println("--" + reach);
-                        //i=6;
                     }
                 }
             }
 
-            switch(class_type) //q gotta be more we have to do here..
+            switch(class_type)
             {
                 case MINER_KEY:
                 {
@@ -251,16 +286,27 @@ public class Scan extends PApplet
                         case "grass":
                         {
                             Background background = new Background(ent_name,ent_p, grass_imgs);
-                            world.set_background(ent_p,background); // why cant we make world work
+                            world.set_background(ent_p,background);
                             break;
                         }
                         case "rocks": {
                             Background background = new Background(ent_name,ent_p, rocks_imgs);
-                            world.set_background(ent_p,background); // why cant we make world work
+                            world.set_background(ent_p,background);
+                            break;
+                        }
+                        case "fire": {
+                            Background background = new Background(ent_name,ent_p, fire_imgs);
+                            world.set_background(ent_p,background);
                             break;
                         }
                     }
 
+                    break;
+                }
+                case WOOD_KEY:
+                {
+                    Wood wood = new Obstacle(ent_name,ent_p,wood_imgs);
+                    add_to_occupancy(world,wood);
                     break;
                 }
                 case OBSTACLE_KEY:
@@ -290,103 +336,17 @@ public class Scan extends PApplet
                     Utility.schedule_vein(world, vein, Utility.ticks,ore_imgs);
                     break;
                 }
-            }
-        }
-    }
-
-   /* public static void main(String [] args)
-    {
-        try
-        {
-            if (verifyArguments(args)) // see's if correct args
-            {
-                Scanner in = new Scanner(new FileInputStream(args[FILE_IDX])); // pass it the fiile we want from terminal
-                create_ents(in); // calls previous
-            }
-            else
-            {
-                System.err.println("missing filename");
-            }
-        }
-        catch (FileNotFoundException e)
-        {
-            System.err.println(e.getMessage());
-        }
-    }*/
-
-
-
-
-
-    /* private static boolean verifyArgs(String [] args)
-    {
-        return args.length >= MIN_ARGS;
-    } */
-
-    /*
-    public static String getDefaultImageName()
-    {
-        return DEFAULT_IMAGE_NAME;
-    }
-    public void create_default_image(int tile_width,int tile_height)
-    {
-        type surf = // pygame stuff;
-                surf.fill(DEFAULT_IMAGE_COLOR);
-    }
-
-    public void load_images(file filename, int tile_width, int tile_height)
-    {
-        images = {}; // hashmap what is a hashmap?
-        with as?
-        // File I/O
-    }
-
-    public void process_image_line(img images, String line)
-    {
-        List<String> attrs = line.split();
-        if (attrs.size() >= 2)
-        {
-            key = attrs[0];
-            img = //pygame
-
-            if (img)
-            {
-                imgs = get_images_internal(images,key);
-                imgs.add(img);
-                images[key] = imgs;
-
-                if (attrs.size() == 6)
+                case ORCPIT_KEY:
                 {
-                    int r = (int)(attrs[2]);
-                    int g = (int)(attrs[2]);
-                    int b = (int)(attrs[2]);
-                    int a = (int)(attrs[2]);
-                    img.set_colorkey(pygame.Color(r,g,b,a))
+                    OrcPit orcPit = new OrcPit(ent_name, 21, ent_p, orcpit_imgs, 1); //Does OrcPit need rate or resource distance?
+                    add_to_occupancy(world, orcPit);
+                }
+                case ORC_KEY:
+                {
+                    //Orc orc = new Orc(ent_name, ent_p);  Don't want to add to world yet.
+                    //add_to_occupancy(world, orc);
                 }
             }
         }
     }
-    public List get_images_internal(img images, type key)
-    {
-        if( key in images)
-        {
-            return images[key];
-        }
-        else
-        {
-            return [];
-        }
-    }
-
-    public get_images(img images, int key) {
-        if (key in images)
-        {
-            return images[keys];
-        }
-        else
-        {
-            return images[DEFAULT_IMAGE_NAME];
-        }
-    }
-*/
 }

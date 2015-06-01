@@ -9,7 +9,8 @@ blacksmith blacksmith_39_29 39 29 10 3696 1
 blacksmith blacksmith_39_14 39 14 14 3090 1
 blacksmith blacksmith_39_0 39 0 14 2859 1
 blacksmith blacksmith_20_0 20 0 14 3581 1
-blacksmith blacksmith_19_14 19 14 12 3141 1
+background grass 19 14
+wood wood_19_14 19 14
 blacksmith blacksmith_0_11 0 11 14 3907 1
 vein vein_33_11 33 11 10278 1
 vein vein_33_13 33 13 10865 1
@@ -592,9 +593,13 @@ background grass 15 13
 background grass 16 13
 background grass 17 13
 background grass 18 13
+orcpit orcpit_18_13 18 13 13146 1
 background grass 19 13
+orcpit orcpit_19_13 19 13 13146 1
 background rocks 20 13
+orcpit orcpit_20_13 20 13 13146 1
 background grass 21 13
+orcpit orcpit_21_13 21 13 13146 1
 background grass 22 13
 background grass 23 13
 background grass 24 13
@@ -632,9 +637,11 @@ background grass 15 14
 background grass 16 14
 background grass 17 14
 background grass 18 14
+orcpit orcpit_18_14 18 14 13146 1
 background rocks 19 14
 background grass 20 14
 background grass 21 14
+orcpit orcpit_21_14 21 14 13146 1
 background grass 22 14
 background grass 23 14
 background grass 24 14
@@ -672,9 +679,11 @@ background grass 15 15
 background grass 16 15
 background grass 17 15
 background grass 18 15
+orcpit orcpit_18_15 18 15 13146 1
 background grass 19 15
 background rocks 20 15
 background grass 21 15
+orcpit orcpit_21_15 21 15 13146 1
 background grass 22 15
 background grass 23 15
 background grass 24 15
@@ -712,9 +721,13 @@ background grass 15 16
 background grass 16 16
 background grass 17 16
 background grass 18 16
-background rocks 19 16
+orcpit orcpit_18_16 18 16 13146 1
+background grass 19 16
+orcpit orcpit_19_16 19 16 13146 1
 background grass 20 16
+orcpit orcpit_20_16 20 16 13146 1
 background grass 21 16
+orcpit orcpit_21_16 21 16 13146 1
 background grass 22 16
 background grass 23 16
 background grass 24 16

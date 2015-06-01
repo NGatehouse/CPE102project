@@ -5,7 +5,7 @@ import java.util.List;
 
 public class OreBlob extends Actor implements Animation_manager
 {
-    private int animation_rate; //q
+    private int animation_rate;
     private List<Point> path = new ArrayList<Point>();
     private List<Point> visited_path = new ArrayList<Point>();
     public OreBlob(String name,Point position, int rate, List<PImage> imgs,int animation_rate)

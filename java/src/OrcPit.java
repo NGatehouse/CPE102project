@@ -9,16 +9,18 @@ public class OrcPit extends Actor implements Action_manager
 {
     private static final int ORC_RATE_SCALE = 4;
     private static final int RESOURCE_DISTANCE = 1;
-    private int resource_distance; //q
+    private int resource_distance; //q Why?
     public OrcPit(String name, int rate, Point position,List<PImage> imgs,int resource_distance)
     {
         super(name,position,rate,imgs);
         this.resource_distance = resource_distance;
     }
+
     public OrcPit(String name, int rate, Point position,List<PImage> imgs)
     {
         this(name,rate,position,imgs,RESOURCE_DISTANCE);
     }
+
     public int get_resource_distance()
     {
         return this.resource_distance; //q was RESOURCE_DISTANCE

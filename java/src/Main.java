@@ -39,27 +39,21 @@ public class Main extends PApplet {
     private final static int HEIGHT = 20;
     private final static int WIDTH = 15;
     private PImage grass = loadImage("images/grass.bmp");
-    //   private PImage rock = loadImage("C:\\Users\\Luke\\cpe102\\experiment\\CPE102project\\images\\rock.bmp");
     public Point origin = new Point(0, 0);
     private Point mouseLoc;
-
 
     public void draw_background(WorldModel world) {
         int yPix = SCREEN_HEIGHT / 32;
         int xPix = SCREEN_WIDTH / 32;
         Point newPoint = new Point(origin.get_x(), origin.get_y());
         for (int i = 0; i < yPix; i++) {
-            for (int j = 0; j < xPix; j++) {
-
-               // System.out.println(newPoint.get_x() + "   " + newPoint.get_y());
+            for (int j = 0; j < xPix; j++)
+            {
                 world.background.get_cell(newPoint).get_image();
-
                 image(world.background.get_cell(newPoint).get_image(), newPoint.get_x() * 32 - origin.get_x() * 32, newPoint.get_y() * 32 - origin.get_y() * 32);
                 newPoint.addTo_x(1);
             }
-
             newPoint.addTo_y(1);
-
             newPoint.setX(origin.get_x());
         }
     }
@@ -81,8 +75,7 @@ public class Main extends PApplet {
                 newPoint.addTo_x(1);
             }
             newPoint.addTo_y(1);
-
-            newPoint.setX(origin.get_x()); //ch
+            newPoint.setX(origin.get_x());
         }
     }
 
@@ -90,7 +83,6 @@ public class Main extends PApplet {
 
         Scanner i_list_scanner = null;
         Scanner w_scanner = null;
-
         try {
             File world_file = new File(getClass().getClassLoader().getResource(WORLD_FILE).getFile());
             File image_list_file = new File(getClass().getClassLoader().getResource(IMAGE_LIST_FILE).getFile());
@@ -99,21 +91,13 @@ public class Main extends PApplet {
         } catch (Exception e) {
             System.err.println(e.getMessage() + " " + getClass().getClassLoader().getResource(WORLD_FILE));
         }
-
         Scan.get_imgs(i_list_scanner);
         Scan.create_ents(w_scanner, worldModel);
         size(SCREEN_WIDTH, SCREEN_HEIGHT);
         background(BGND_COLOR);
-        // System.out.println(world.length);
         imgs = new ArrayList<PImage>();
-
-
         current_image = 0;
         next_time = System.currentTimeMillis() + ANIMATION_TIME;
-        //  tiles();
-        // System.out.println(world.length);
-        //System.out.println(world[0].length);
-
     }
 
     public void mousePressed()
@@ -154,7 +138,6 @@ public class Main extends PApplet {
         }
     }
 
-
     private void next_image()
     {
         current_image = (current_image + 1) % imgs.size();
@@ -172,41 +155,9 @@ public class Main extends PApplet {
             worldModel.update_on_time(ticks);
             next_time = ticks + ANIMATION_TIME;
         }
-        draw_Path();
     }
 
-    public void draw_Path()
-    {
-        mouseLoc = new Point(mouseX/32 + origin.get_x(), mouseY/32 + origin.get_y());
-        if ((worldModel.occupancy.get_cell(mouseLoc) instanceof Miner) ||( worldModel.occupancy.get_cell(mouseLoc) instanceof OreBlob))
-        {
-            List<Point> path = new ArrayList<>();
-            List<Point> visitedPath = new ArrayList<>();
-            if ( worldModel.occupancy.get_cell(mouseLoc) instanceof Miner)
-            {
-                path = ((Miner)(worldModel.occupancy.get_cell(mouseLoc))).getPath();
-                visitedPath = ((Miner)(worldModel.occupancy.get_cell(mouseLoc))).get_visitedPath();
-            }
 
-            if ( worldModel.occupancy.get_cell(mouseLoc) instanceof OreBlob)
-            {
-                path = ((OreBlob)(worldModel.occupancy.get_cell(mouseLoc))).getPath();
-                visitedPath = ((OreBlob)(worldModel.occupancy.get_cell(mouseLoc))).get_visitedPath();
-            }
-
-            for(int i = 0; i < visitedPath.size(); i++)
-            {
-                fill(0, 0, 0);
-                rect((visitedPath.get(i).get_x() - origin.get_x()) * 32+3, (visitedPath.get(i).get_y() - origin.get_y()) * 32+3, 28, 28);
-
-            }
-            for(int i = 0; i < path.size(); i++)
-            {
-                fill(255, 0, 0);
-                rect((path.get(i).get_x() - origin.get_x()) * 32+5, (path.get(i).get_y() - origin.get_y()) * 32 +5, 20, 20);
-            }
-        }
-        }
 
     public static void main(String[] args)
     {

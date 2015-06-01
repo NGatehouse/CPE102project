@@ -13,7 +13,7 @@ public class
         super(name,resource_limit,position,rate,imgs,animation_rate);
         this.resource_count=0;
     }
-    
+
     public Miner try_transform(WorldModel world)
     {
         if(this.get_resource_count() < this.get_resource_limit())
@@ -57,7 +57,6 @@ public class
         Action[] action = {null};
         action[0] = (current_ticks)->
         {
-
             this.remove_pending_actions(action[0]);
             Point entity_pt = this.get_position();
             Ore ore = (Ore)world.find_nearest(entity_pt, Ore.class);
